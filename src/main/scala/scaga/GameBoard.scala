@@ -6,10 +6,10 @@ import scaga.Player._
 
 class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
   require(rows > 0 && cols > 0 && connections > 0)
+  protected val board   = new Array[Array[Player]](rows, cols)
+  protected val columns = new Array[Int](cols)
+  protected val history = new Stack[Int]()
   protected var player  = White
-  protected var board   = new Array[Array[Player]](rows, cols)
-  protected var columns = new Array[Int](cols)
-  protected var history = new Stack[Int]()
   board.foreach { col => Array.make(rows, Empty) }
 
   def this() = this(ROWS, COLS, CXNS)
