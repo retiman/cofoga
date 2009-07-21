@@ -13,6 +13,22 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
   def turn = player
   def apply(row: Int, col: Int) = board(row)(col)
   def moves = columns.filter(_ < rows)
+
+  def move(col: Int) = {
+    val row = columns(col)
+    board(row)(col) = player
+    columns(col) += 1
+    player = player.switch
+    history push col
+  }
+
+  def undo() = {
+    val col = history.top
+    val row = columns(col)
+    board(row)(col) = Empty
+    player = player.switch
+    history pop
+  }
 }
 
 object GameBoard {
