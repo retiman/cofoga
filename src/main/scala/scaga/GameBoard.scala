@@ -6,15 +6,15 @@ import scaga.Player._
 
 class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winnable {
   require(rows > 0 && cols > 0 && connections > 0)
-  protected val board   = new Array[Array[Player]](rows, cols)
+  protected val matrix  = new Array[Array[Player]](rows, cols)
   protected val columns = new Array[Int](cols)
   protected val history = new Stack[Int]()
   protected var player  = White
-  for (i <- 0 until rows; j <- 0 until cols) board(i)(j) = Empty
+  for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Empty
 
   def this() = this(ROWS, COLS, CXNS)
   def turn = player
-  def apply(row: Int, col: Int) = board(row)(col)
+  def apply(row: Int, col: Int) = matrix(row)(col)
   def moveList = columns.filter(_ < rows)
   def moveHistory = history.toList
 
@@ -22,7 +22,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
 
   def move(col: Int): Pair[Int, Int] = {
     val row = columns(col)
-    board(row)(col) = player
+    matrix(row)(col) = player
     columns(col) += 1
     player = player.switch
     history push col
@@ -31,7 +31,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
 
   def undo() = {
     val (row, col) = lastMove
-    board(row)(col) = Empty
+    matrix(row)(col) = Empty
     player = player.switch
     history pop
   }
@@ -47,7 +47,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
     for (i <- (rows - 1) to 0 by -1) {
       for (j <- 0 until cols) {
         if (j == 0) s.append(i + " ")
-        s.append(" " + board(i)(j).format)
+        s.append(" " + matrix(i)(j).format)
         if (j < cols - 1) s.append(" ")
       }
       s.append("\n")
