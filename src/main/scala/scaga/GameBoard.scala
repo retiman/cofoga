@@ -36,7 +36,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
 
   def lastMove = {
     val col = history.top
-    val row = columns(col)
+    val row = columns(col) - 1
     (row, col)
   }
 
