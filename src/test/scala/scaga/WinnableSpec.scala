@@ -81,4 +81,20 @@ object WinnableSpec extends Specification {
       board.vertical(row, col) mustEqual None
     }
   }
+  "diagonally up forward winners" should {
+    "be detected at the edge of the board" in {
+      val reference =
+      """5  -  -  -  -  -  -  -
+        |4  -  -  -  -  -  -  -
+        |3  -  -  -  -  -  -  O
+        |2  -  -  -  -  -  O  O
+        |1  -  -  -  X  O  O  X
+        |0  -  -  -  O  X  X  X
+        |   0  1  2  3  4  5  6""".stripMargin
+      val board = new GameBoard()
+      val (row, col) = board.move(3, 4, 4, 5, 5, 6, 5, 6, 6, 3, 6)
+      reference mustEqual board.toString.trim
+      board.upforward(row, col) mustEqual Some(White)
+    }
+  }
 }

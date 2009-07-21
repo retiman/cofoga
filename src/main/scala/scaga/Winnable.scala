@@ -34,8 +34,8 @@ trait Winnable {
 
   def upforward(row: Int, col: Int) = check(
     matrix(row)(col),
-    (0 max row - connections + 1) until (rows min row + connections - 1),
-    (0 max col - connections + 1) until (cols min col + connections)
+    (0 max (row - connections + 1)) until (rows min (row + connections - 1)),
+    (0 max (col - connections + 1)) until (cols min (col + connections))
   )
 
   def downforward(row: Int, col: Int) = check(
