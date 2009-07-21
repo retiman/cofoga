@@ -1,6 +1,7 @@
 package scaga
 
 import scala.collection.mutable.Stack
+import scaga.GameBoard._
 import scaga.Player._
 
 class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
@@ -9,10 +10,13 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
   protected var board   = new Array[Array[Player]](rows, cols)
   protected var columns = new Array[Int](cols)
   protected var history = new Stack[Int]()
+  board.foreach { col => Array.make(rows, Empty) }
 
   def turn = player
   def apply(row: Int, col: Int) = board(row)(col)
   def moves = columns.filter(_ < rows)
+
+  def this() = this(ROWS, COLS, CXNS)
 
   def move(col: Int) = {
     val row = columns(col)
@@ -41,7 +45,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
     }
     s.append("   ")
     for (j <- 0 until cols)
-      s.append(j + 1 + " ")
+      s.append(j + 1 + "  ")
     s.append("\n")
     s.toString
   }
