@@ -28,11 +28,16 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
   }
 
   def undo() = {
-    val col = history.top
-    val row = columns(col)
+    val (row, col) = lastMove
     board(row)(col) = Empty
     player = player.switch
     history pop
+  }
+
+  def lastMove = {
+    val col = history.top
+    val row = columns(col)
+    (row, col)
   }
 
   override def toString = {
