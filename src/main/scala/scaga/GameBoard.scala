@@ -17,14 +17,16 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
   def apply(row: Int, col: Int) = board(row)(col)
   def moveList = columns.filter(_ < rows)
   def moveHistory = history.toList
-  def move(list: Int*): Unit = list.foreach(move _)
 
-  def move(col: Int): Unit = {
+  def move(args: Int*): Pair[Int, Int] = args.map(move _).last
+
+  def move(col: Int): Pair[Int, Int] = {
     val row = columns(col)
     board(row)(col) = player
     columns(col) += 1
     player = player.switch
     history push col
+    (row, col)
   }
 
   def undo() = {
