@@ -12,13 +12,13 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
   protected var history = new Stack[Int]()
   board.foreach { col => Array.make(rows, Empty) }
 
+  def this() = this(ROWS, COLS, CXNS)
   def turn = player
   def apply(row: Int, col: Int) = board(row)(col)
   def moves = columns.filter(_ < rows)
+  def move(list: Int*): Unit = list.foreach(move _)
 
-  def this() = this(ROWS, COLS, CXNS)
-
-  def move(col: Int) = {
+  def move(col: Int): Unit = {
     val row = columns(col)
     board(row)(col) = player
     columns(col) += 1
