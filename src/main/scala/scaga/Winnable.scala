@@ -3,16 +3,15 @@ package scaga
 import scaga.Player._
 
 trait Winnable {
+  protected val board: Array[Array[Player]]
   val rows: Int
   val cols: Int
-  val connections: Int
-  protected val board: Array[Array[Player]]
-  
+  val connections: Int  
   def lastMove: Pair[Int, Int]
 
   def winner: Option[Player] = {
     val (row, col) = lastMove
-    List(horizontal _, vertical _, upforward _, downforward _).foreach { f =>
+    List(horizontal _, vertical _).foreach { f =>
       f(row, col) match {
         case Some(player) => return Some(player)
         case _            => ()
@@ -24,12 +23,12 @@ trait Winnable {
   def horizontal(row: Int, col: Int): Option[Player] = check(
     board(row)(col),
     row to row,
-    (0 max col - connections + 1) until (cols min col + connections)
+    (0 max (col - connections + 1)) until (cols min (col + connections))
   )
 
   def vertical(row: Int, col: Int) = check(
     board(row)(col),
-    (0 max row - connections + 1) until (rows min row + connections),
+    (0 max (row - connections + 1)) until (rows min (row + connections)),
     col to col
   )
 
