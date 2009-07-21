@@ -39,13 +39,16 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
     for (i <- (rows - 1) to 0 by -1) {
       for (j <- 0 until cols) {
         if (j == 0) s.append(i + 1 + " ")
-        s.append(" " + board(i)(j).format + " ")
+        s.append(" " + board(i)(j).format)
+        if (j < cols - 1) s.append(" ")
       }
       s.append("\n")
     }
     s.append("   ")
-    for (j <- 0 until cols)
-      s.append(j + 1 + "  ")
+    for (j <- 0 until cols) {
+      s.append(j + 1)
+      if (j < cols - 1) s.append("  ")
+    }
     s.append("\n")
     s.toString
   }
