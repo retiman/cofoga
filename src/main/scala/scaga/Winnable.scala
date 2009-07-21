@@ -21,16 +21,7 @@ trait Winnable {
     None
   }
 
-  def check(player: Player, is: Iterable[Int], js: Iterable[Int]) = {
-    var count = 0
-    for (i <- is;
-         j <- js
-         if (board(i)(j)) == player && count < connections)
-      count += 1
-    if (count == connections) Some(player) else None
-  }
-
-  def horizontal(row: Int, col: Int) = check(
+  def horizontal(row: Int, col: Int): Option[Player] = check(
     board(row)(col),
     row to row,
     (0 max col - connections + 1) until (cols min col + connections)
@@ -53,4 +44,13 @@ trait Winnable {
     (rows min row + connections - 1) until (0 max row - connections + 1) by -1,
     (0 max col - connections + 1) until (cols min col + connections)
   )
+
+  def check(player: Player, is: Iterable[Int], js: Iterable[Int]) = {
+    var count = 0
+    for (i <- is;
+         j <- js
+         if (board(i)(j)) == player && count < connections)
+      count += 1
+    if (count == connections) Some(player) else None
+  }
 }
