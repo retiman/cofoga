@@ -17,7 +17,6 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
   def apply(row: Int, col: Int) = board(row)(col)
   def moveList = columns.filter(_ < rows)
   def moveHistory = history.toList
-
   def move(list: Int*): Unit = list.foreach(move _)
 
   def move(col: Int): Unit = {
