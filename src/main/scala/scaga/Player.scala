@@ -5,6 +5,11 @@ object Player extends Enumeration {
   val White, Black, Gray = Value
 
   implicit def valueWrapper(player: Player) = new {
+    def occupied = player match {
+      case Gray => false
+      case _    => true
+    }
+
     def value = player match {
       case White => 1
       case Black => -1
