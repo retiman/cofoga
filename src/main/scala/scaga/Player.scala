@@ -2,7 +2,7 @@ package scaga
 
 object Player extends Enumeration {
   type Player = Value
-  val White, Black, Empty = Value
+  val Empty, White, Black = Value
 
   implicit def valueWrapper(player: Player) = new {
     def occupied = player match {
