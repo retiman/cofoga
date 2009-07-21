@@ -9,24 +9,24 @@ object GameBoardSpec extends Specification {
   val board = new GameBoard()
   "printing a board " should {
     "output an empty board correctly" in {
-      """6  -  -  -  -  -  -  -
-        |5  -  -  -  -  -  -  -
+      """5  -  -  -  -  -  -  -
         |4  -  -  -  -  -  -  -
         |3  -  -  -  -  -  -  -
         |2  -  -  -  -  -  -  -
         |1  -  -  -  -  -  -  -
-        |   1  2  3  4  5  6  7""".stripMargin mustEqual board.toString.trim
+        |0  -  -  -  -  -  -  -
+        |   0  1  2  3  4  5  6""".stripMargin mustEqual board.toString.trim
     }
     "output an board with two pieces correctly" in {
       board.move(3)
       board.move(3)
-      """6  -  -  -  -  -  -  -
-        |5  -  -  -  -  -  -  -
+      """5  -  -  -  -  -  -  -
         |4  -  -  -  -  -  -  -
         |3  -  -  -  -  -  -  -
-        |2  -  -  -  X  -  -  -
-        |1  -  -  -  O  -  -  -
-        |   1  2  3  4  5  6  7""".stripMargin mustEqual board.toString.trim
+        |2  -  -  -  -  -  -  -
+        |1  -  -  -  X  -  -  -
+        |0  -  -  -  O  -  -  -
+        |   0  1  2  3  4  5  6""".stripMargin mustEqual board.toString.trim
     }
   }
 }

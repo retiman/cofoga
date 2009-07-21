@@ -38,7 +38,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
     val s = new StringBuilder
     for (i <- (rows - 1) to 0 by -1) {
       for (j <- 0 until cols) {
-        if (j == 0) s.append(i + 1 + " ")
+        if (j == 0) s.append(i + " ")
         s.append(" " + board(i)(j).format)
         if (j < cols - 1) s.append(" ")
       }
@@ -46,7 +46,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
     }
     s.append("   ")
     for (j <- 0 until cols) {
-      s.append(j + 1)
+      s.append(j)
       if (j < cols - 1) s.append("  ")
     }
     s.append("\n")
