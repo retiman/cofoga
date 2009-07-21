@@ -29,6 +29,22 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
     player = player.switch
     history pop
   }
+
+  override def toString = {
+    val s = new StringBuilder
+    for (i <- (rows - 1) to 0 by -1) {
+      for (j <- 0 until cols) {
+        if (j == 0) s.append(i + 1 + " ")
+        s.append(" " + board(i)(j).format + " ")
+      }
+      s.append("\n")
+    }
+    s.append("   ")
+    for (j <- 0 until cols)
+      s.append(j + 1 + " ")
+    s.append("\n")
+    s.toString
+  }
 }
 
 object GameBoard {
