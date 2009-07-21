@@ -10,7 +10,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
   protected val columns = new Array[Int](cols)
   protected val history = new Stack[Int]()
   protected var player  = White
-  board.foreach { col => Array.make(rows, Empty) }
+  board.map { array => Array.make(rows, Empty) }
 
   def this() = this(ROWS, COLS, CXNS)
   def turn = player

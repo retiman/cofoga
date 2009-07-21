@@ -7,6 +7,19 @@ trait Winnable {
   val cols: Int
   val connections: Int
   protected val board: Array[Array[Player]]
+  
+  def lastMove: Pair[Int, Int]
+
+  def winner: Option[Player] = {
+    val (row, col) = lastMove
+    List(horizontal _, vertical _, upforward _, downforward _).foreach { f =>
+      f(row, col) match {
+        case Some(player) => return Some(player)
+        case _            => ()
+      }
+    }
+    None
+  }
 
   def check(player: Player, is: Iterable[Int], js: Iterable[Int]) = {
     var count = 0
