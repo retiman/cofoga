@@ -6,12 +6,13 @@ import scaga.Player._
 class GameBoard(val rows: Int, val cols: Int, val connections: Int) {
   require(rows > 0 && cols > 0 && connections > 0)
   protected var turn    = White
-  protected var board   = new Array[Array[Player]](cols, rows)
+  protected var board   = new Array[Array[Player]](rows, cols)
+  protected var columns = new Array[Int](cols)
   protected var history = new Stack[Int]()
 
   def player = turn
-  def apply(row: Int, col: Int) = board(col)(row)
-  def moves = board.filter(_.filter(_.occupied).size < cols)
+  def apply(row: Int, col: Int) = board(row)(col)
+  def moves = columns.filter(_ < rows)
 }
 
 object GameBoard {
