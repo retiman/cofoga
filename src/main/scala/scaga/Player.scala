@@ -1,0 +1,27 @@
+package scaga
+
+object Player extends Enumeration {
+  type Player = Value
+  val White, Black, Gray = Value
+
+  implicit def valueWrapper(player: Player) = new {
+    def value = player match {
+      case White => 1
+      case Black => -1
+      case _     => 0
+    }
+
+    def switch = player match {
+      case White => Black
+      case Black => White
+      case _     => require(false, "Can only switch White to Black or vice versa")
+                    player
+    }
+  
+    def format = player match {
+      case White => "O"
+      case Black => "X"
+      case _     => "-"
+    }
+  }
+}
