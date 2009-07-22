@@ -95,7 +95,7 @@ object WinnableSpec extends Specification {
       val board = new GameBoard()
       val (row, col) = board.move(3, 4, 4, 5, 5, 6, 5, 6, 6, 3, 6)
       reference mustEqual board.toString.trim
-      board.updiagonal(row, col) mustEqual true
+      board.diagonallyUp(row, col) mustEqual true
     }
     "not detect a winner" in {
       val reference =
@@ -109,7 +109,7 @@ object WinnableSpec extends Specification {
       val board = new GameBoard()
       val (row, col) = board.move(3, 4, 4, 5, 5, 6, 5, 6, 6, 3)
       reference mustEqual board.toString.trim
-      board.updiagonal(row, col) mustEqual false
+      board.diagonallyUp(row, col) mustEqual false
     }
   }
 }

@@ -8,19 +8,18 @@ trait Winnable[A] {
   protected val cols: Int
   protected val connections: Int
   protected val matrix: Array[Array[A]]
-  protected def containsRow(row: Int) = 0 until rows contains row
-  protected def containsCol(col: Int) = 0 until cols contains col
-  protected def contains(row: Int, col: Int) = containsRow(row) && containsCol(col)
+  def containsRow(row: Int) = 0 until rows contains row
+  def containsCol(col: Int) = 0 until cols contains col
+  def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
 
-  def horizontal(row: Int, col: Int)   = check(lr, row, col) || check(rl, row, col)
-  def vertical(row: Int, col: Int)     = check(du, row, col) || check(ud, row, col)
-  def updiagonal(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
-  def downdiagonal(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
+  def horizontal(row: Int, col: Int)     = check(lr, row, col) || check(rl, row, col)
+  def vertical(row: Int, col: Int)       = check(du, row, col) || check(ud, row, col)
+  def diagonallyUp(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
+  def diagonallyDown(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
 
   def winner(row: Int, col: Int): Option[A] = {
-    val player = matrix(row)(col)
-    List(horizontal _, vertical _, updiagonal _, downdiagonal _).foreach { f =>
-      if (f(row, col)) return Some(player)
+    List(horizontal _, vertical _, diagonallyUp _, diagonallyDown _).foreach { f =>
+      if (f(row, col)) return Some(matrix(row)(col))
     }
     None
   }
@@ -51,21 +50,21 @@ trait Winnable[A] {
 
   protected def ur(row: Int, col: Int) = for (k <- 1 until connections;
                                               i <- Some(row + k);
-                                              j <- Some(col + k) if contains(i, j))
+                                              j <- Some(col + k) if contains(i)(j))
                                            yield matrix(i)(j)
 
   protected def ul(row: Int, col: Int) = for (k <- 1 until connections;
                                               i <- Some(row + k);
-                                              j <- Some(col - k) if contains(i, j))
+                                              j <- Some(col - k) if contains(i)(j))
                                            yield matrix(i)(j)
 
   protected def dr(row: Int, col: Int) = for (k <- 1 until connections;
                                               i <- Some(row - k);
-                                              j <- Some(col + k) if contains(i, j))
+                                              j <- Some(col + k) if contains(i)(j))
                                            yield matrix(i)(j)
 
   protected def dl(row: Int, col: Int) = for (k <- 1 until connections;
                                               i <- Some(row - k);
-                                              j <- Some(col - k) if contains(i, j))
+                                              j <- Some(col - k) if contains(i)(j))
                                            yield matrix(i)(j)
 }
