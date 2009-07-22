@@ -4,7 +4,7 @@ import scala.collection.mutable.Stack
 import scaga.GameBoard._
 import scaga.Player._
 
-class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winnable {
+class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winnable[Player] {
   require(rows > 0 && cols > 0 && connections > 0)
   protected val matrix  = new Array[Array[Player]](rows, cols)
   protected val filled  = new Array[Int](cols)
