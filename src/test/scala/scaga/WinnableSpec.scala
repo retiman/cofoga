@@ -8,13 +8,6 @@ import scaga.GameBoard._
 class WinnableSpecTest extends JUnit4(WinnableSpec)
 
 object WinnableSpec extends Specification {
-  class TestBoard extends Winnable[Int] {
-    protected val rows = ROWS
-    protected val cols = COLS
-    protected val connections = CXNS
-    protected val matrix = new Array[Array[Int]](rows, cols)
-  }
-  
   "horizontal winners" should {
     "be detected at the edge of the board" in {
       val reference =
