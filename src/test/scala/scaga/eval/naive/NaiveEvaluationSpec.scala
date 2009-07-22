@@ -7,4 +7,5 @@ import scaga.Player._
 class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)
 
 object NaiveEvaluationSpec extends Specification {
+  
 }

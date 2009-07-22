@@ -3,11 +3,11 @@ package scaga
 import scaga.Player._
 import scaga.Predef._
 
-trait Winnable[A] {
+trait Winnable {
   protected val rows: Int
   protected val cols: Int
   protected val connections: Int
-  protected val matrix: Array[Array[A]]
+  protected val matrix: Array[Array[Player]]
   def containsRow(row: Int) = 0 until rows contains row
   def containsCol(col: Int) = 0 until cols contains col
   def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
@@ -17,14 +17,14 @@ trait Winnable[A] {
   def diagonallyUp(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
   def diagonallyDown(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
 
-  def winner(row: Int, col: Int): Option[A] = {
+  def winner(row: Int, col: Int): Option[Player] = {
     List(horizontal _, vertical _, diagonallyUp _, diagonallyDown _).foreach { f =>
       if (f(row, col)) return Some(matrix(row)(col))
     }
     None
   }
 
-  protected def check(f: (Int, Int) => Iterable[A], row: Int, col: Int) = {
+  protected def check(f: (Int, Int) => Iterable[Player], row: Int, col: Int) = {
     f(row, col).filter(_ == matrix(row)(col)).toList.size == connections - 1
   }
 

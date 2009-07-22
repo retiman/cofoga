@@ -9,10 +9,10 @@ trait NaiveEvaluation extends EvaluationStrategy {
   val pattern = """X+|O+""".r
   val limit   = board.rows max board.cols
 
-  def horizontalThreats(i: Int)      = for (j <- 0 until board.cols) yield board(i)(j)
-  def verticalThreats(j: Int)        = for (i <- 0 until board.rows) yield board(i)(j)
-  def diagonallyUpThreats(i: Int)    = for (k <- 0 until limit if board.contains(i + k)(k)) yield board(i + k)(k)
-  def diagonallyDownThreats(j: Int)  = for (k <- 0 until limit if board.contains(k)(j - k)) yield board(k)(j - k)
+  def horizontalThreats(i: Int)     = for (j <- 0 until board.cols) yield board(i)(j)
+  def verticalThreats(j: Int)       = for (i <- 0 until board.rows) yield board(i)(j)
+  def diagonallyUpThreats(i: Int)   = for (k <- 0 until limit if board.contains(i + k)(k)) yield board(i + k)(k)
+  def diagonallyDownThreats(j: Int) = for (k <- 0 until limit if board.contains(k)(j - k)) yield board(k)(j - k)
 
   def score = {
     val whites = new Array[Int](board.connections - 1)
