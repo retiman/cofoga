@@ -4,13 +4,13 @@ import scaga.Player._
 import scaga.Predef._
 
 trait Winnable {
-  protected val matrix: Array[Array[Player]]
   protected val rows: Int
   protected val cols: Int
   protected val connections: Int
   protected def containsRow(row: Int): Boolean
   protected def containsCol(col: Int): Boolean
   protected def contains(row: Int, col: Int): Boolean
+  protected val matrix: Array[Array[Player]]
   protected def lastMove: Pair[Int, Int]
 
   def horizontal(row: Int, col: Int)   = check(lr, row, col) || check(rl, row, col)
