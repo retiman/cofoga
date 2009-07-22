@@ -29,4 +29,10 @@ object Player extends Enumeration {
       case _     => "-"
     }
   }
+
+  override def valueOf(s: String) = s match {
+    case "O" => Some(White)
+    case "X" => Some(Black)
+    case _   => None
+  }
 }
