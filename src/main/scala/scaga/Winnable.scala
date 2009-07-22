@@ -5,10 +5,18 @@ import scaga.Predef._
 
 trait Winnable {
   protected val matrix: Array[Array[Player]]
-  val rows: Int
-  val cols: Int
-  val connections: Int  
-  def lastMove: Pair[Int, Int]
+  protected val rows: Int
+  protected val cols: Int
+  protected val connections: Int
+  protected def containsRow(row: Int): Boolean
+  protected def containsCol(col: Int): Boolean
+  protected def contains(row: Int, col: Int): Boolean
+  protected def lastMove: Pair[Int, Int]
+
+  def horizontal(row: Int, col: Int)   = check(lr, row, col) || check(rl, row, col)
+  def vertical(row: Int, col: Int)     = check(du, row, col) || check(ud, row, col)
+  def updiagonal(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
+  def downdiagonal(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
 
   def winner: Option[Player] = {
     val (row, col) = lastMove
@@ -19,59 +27,47 @@ trait Winnable {
     None
   }
 
-  def horizontal(row: Int, col: Int)   = lr(row, col).filter(_ == matrix(row)(col)).size == target ||
-                                         rl(row, col).filter(_ == matrix(row)(col)).size == target
+  protected def check(f: (Int, Int) => Iterable[Player], row: Int, col: Int) = {
+    f(row, col).filter(_ == matrix(row)(col)).toList.size == connections - 1
+  }
 
-  def vertical(row: Int, col: Int)     = du(row, col).filter(_ == matrix(row)(col)).size == target ||
-                                         ud(row, col).filter(_ == matrix(row)(col)).size == target
+  protected def lr(row: Int, col: Int) = for (k <- 1 until connections;
+                                              i <- Some(row);
+                                              j <- Some(col + k) if containsCol(j))
+                                           yield matrix(i)(j)
 
-  def updiagonal(row: Int, col: Int)   = ur(row, col).filter(_ == matrix(row)(col)).size == target ||
-                                         dl(row, col).filter(_ == matrix(row)(col)).size == target
+  protected def rl(row: Int, col: Int) = for (k <- 1 until connections;
+                                              i <- Some(row);
+                                              j <- Some(col - k) if containsCol(j))
+                                           yield matrix(i)(j)
 
-  def downdiagonal(row: Int, col: Int) = ul(row, col).filter(_ == matrix(row)(col)).size == target ||
-                                         dr(row, col).filter(_ == matrix(row)(col)).size == target
+  protected def du(row: Int, col: Int) = for (k <- 1 until connections;
+                                              i <- Some(row + k);
+                                              j <- Some(col)     if containsRow(i))
+                                           yield matrix(i)(j)
 
-  private def target = connections - 1
+  protected def ud(row: Int, col: Int) = for (k <- 1 until connections;
+                                              i <- Some(row - k);
+                                              j <- Some(col)     if containsRow(i))
+                                           yield matrix(i)(j)
 
-  private def constrained(i: Int, j: Int) = (0 until rows contains i) && (0 until cols contains j)
+  protected def ur(row: Int, col: Int) = for (k <- 1 until connections;
+                                              i <- Some(row + k);
+                                              j <- Some(col + k) if contains(i, j))
+                                           yield matrix(i)(j)
 
-  private def lr(row: Int, col: Int) = for (k <- 1 until connections;
-                                            i <- Some(row);
-                                            j <- Some(col + k) if constrained(i, j))
-                                       yield matrix(i)(j)
+  protected def ul(row: Int, col: Int) = for (k <- 1 until connections;
+                                              i <- Some(row + k);
+                                              j <- Some(col - k) if contains(i, j))
+                                           yield matrix(i)(j)
 
-  private def rl(row: Int, col: Int) = for (k <- 1 until connections;
-                                            i <- Some(row);
-                                            j <- Some(col - k) if constrained(i, j))
-                                       yield matrix(i)(j)
+  protected def dr(row: Int, col: Int) = for (k <- 1 until connections;
+                                              i <- Some(row - k);
+                                              j <- Some(col + k) if contains(i, j))
+                                           yield matrix(i)(j)
 
-  private def du(row: Int, col: Int) = for (k <- 1 until connections;
-                                            i <- Some(row + k);
-                                            j <- Some(col) if constrained(i, j))
-                                       yield matrix(i)(j)
-
-  private def ud(row: Int, col: Int) = for (k <- 1 until connections;
-                                            i <- Some(row - k);
-                                            j <- Some(col) if constrained(i, j))
-                                       yield matrix(i)(j)
-
-  private def ur(row: Int, col: Int) = for (k <- 1 until connections;
-                                            i <- Some(row + k);
-                                            j <- Some(col + k) if constrained(i, j))
-                                       yield matrix(i)(j)
-
-  private def ul(row: Int, col: Int) = for (k <- 1 until connections;
-                                            i <- Some(row + k);
-                                            j <- Some(col - k) if constrained(i, j))
-                                       yield matrix(i)(j)
-
-  private def dr(row: Int, col: Int) = for (k <- 1 until connections;
-                                            i <- Some(row - k);
-                                            j <- Some(col + k) if constrained(i, j))
-                                       yield matrix(i)(j)
-
-  private def dl(row: Int, col: Int) = for (k <- 1 until connections;
-                                            i <- Some(row - k);
-                                            j <- Some(col - k) if constrained(i, j))
-                                       yield matrix(i)(j)
+  protected def dl(row: Int, col: Int) = for (k <- 1 until connections;
+                                              i <- Some(row - k);
+                                              j <- Some(col - k) if contains(i, j))
+                                           yield matrix(i)(j)
 }

@@ -3,6 +3,7 @@ package scaga
 import org.specs.runner.JUnit4
 import org.specs.Specification
 import scaga.Player._
+import scaga.GameBoard._
 
 class WinnableSpecTest extends JUnit4(WinnableSpec)
 
