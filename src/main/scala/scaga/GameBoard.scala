@@ -17,6 +17,9 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
   def apply(row: Int)(col: Int) = matrix(row)(col)
   def moveList = filled.filter(_ < cols - 1)
   def moveHistory = history.toList
+  def inRowRange(row: Int) = 0 until rows contains row
+  def inColRange(col: Int) = 0 until cols contains col
+  def inRange(row: Int, col: Int) = inRowRange(row) && inColRange(col)
 
   def move(args: Int*): Pair[Int, Int] = args.map(move _).last
 
