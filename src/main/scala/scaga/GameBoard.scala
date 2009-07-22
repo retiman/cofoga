@@ -15,9 +15,6 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
   def this() = this(ROWS, COLS, CXNS)
   def turn = player
   def apply(row: Int)(col: Int) = matrix(row)(col)
-  def containsRow(row: Int) = 0 until rows contains row
-  def containsCol(col: Int) = 0 until cols contains col
-  def contains(row: Int, col: Int) = containsRow(row) && containsCol(col)
   def moveList = filled.filter(_ < cols - 1)
   def moveHistory = history.toList
   def move(args: Int*): Pair[Int, Int] = args.map(move _).last
@@ -43,6 +40,11 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
     val col = history.top
     val row = filled(col) - 1
     (row, col)
+  }
+
+  def winner: Option[Player] = {
+    val (row, col) = lastMove
+    winner(row, col)
   }
 
   override def toString = {

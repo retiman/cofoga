@@ -7,19 +7,17 @@ trait Winnable {
   protected val rows: Int
   protected val cols: Int
   protected val connections: Int
-  protected def containsRow(row: Int): Boolean
-  protected def containsCol(col: Int): Boolean
-  protected def contains(row: Int, col: Int): Boolean
   protected val matrix: Array[Array[Player]]
-  protected def lastMove: Pair[Int, Int]
+  protected def containsRow(row: Int) = 0 until rows contains row
+  protected def containsCol(col: Int) = 0 until cols contains col
+  protected def contains(row: Int, col: Int) = containsRow(row) && containsCol(col)
 
   def horizontal(row: Int, col: Int)   = check(lr, row, col) || check(rl, row, col)
   def vertical(row: Int, col: Int)     = check(du, row, col) || check(ud, row, col)
   def updiagonal(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
   def downdiagonal(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
 
-  def winner: Option[Player] = {
-    val (row, col) = lastMove
+  def winner(row: Int, col: Int): Option[Player] = {
     val player = matrix(row)(col)
     List(horizontal _, vertical _, updiagonal _, downdiagonal _).foreach { f =>
       if (f(row, col)) return Some(player)
