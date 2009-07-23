@@ -19,12 +19,12 @@ trait Vectored[A] {
   }
 
   def diagonalup(row: Int, col: Int)(end: Int) = {
-    for (k <- 0 until end if contains(i + k)(j + k))
-      yield matrix(i + k)(j + k)
+    for (k <- 0 until end if contains(row + k)(col + k))
+      yield matrix(row + k)(col + k)
   }
 
   def diagonaldown(row: Int, col: Int)(end: Int) = {
-    for (k <- 0 until end if contains(i - k)(j + k))
-      yield matrix(i - k)(j + k)
+    for (k <- 0 until end if contains(row - k)(col + k))
+      yield matrix(row - k)(col + k)
   }
 }
