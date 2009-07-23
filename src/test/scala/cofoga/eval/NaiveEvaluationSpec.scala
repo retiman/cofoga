@@ -1,4 +1,4 @@
-package cofoga.eval.naive
+package cofoga.eval
 
 import org.specs.runner.JUnit4
 import org.specs.Specification

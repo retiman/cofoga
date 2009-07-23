@@ -1,4 +1,4 @@
-package cofoga.eval.naive
+package cofoga.eval
 
 import cofoga.eval.EvaluationStrategy
 import cofoga.Player._
