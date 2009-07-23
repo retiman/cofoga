@@ -4,7 +4,7 @@ import scala.util.logging.Logged
 import cofoga.Player._
 import cofoga.Predef._
 
-trait Winnable {
+trait Winnable extends Logged {
   protected val rows: Int
   protected val cols: Int
   protected val connections: Int
@@ -29,43 +29,76 @@ trait Winnable {
     f(row, col).filter(_ == matrix(row)(col)).toList.size == connections - 1
   }
 
-  protected def lr(row: Int, col: Int) = for (k <- 1 until connections;
-                                              i <- Some(row);
-                                              j <- Some(col + k) if containsCol(j))
-                                           yield matrix(i)(j)
+  protected def lr(row: Int, col: Int) = {
+    val result = for (k <- 1 until connections;
+                      i <- Some(row);
+                      j <- Some(col + k) if containsCol(j))
+                   yield (i, j)
+    log("Left right scan from " + (row, col) + ": " + result.toString)
+    result.map { t => matrix(t.fst)(t.snd) }
+  }
 
-  protected def rl(row: Int, col: Int) = for (k <- 1 until connections;
-                                              i <- Some(row);
-                                              j <- Some(col - k) if containsCol(j))
-                                           yield matrix(i)(j)
+  protected def rl(row: Int, col: Int) = {
+    val result = for (k <- 1 until connections;
+                      i <- Some(row);
+                      j <- Some(col - k) if containsCol(j))
+                   yield (i, j)
+    log("Right left scan from " + (row, col) + ": " + result.toString)
+    result.map { t => matrix(t.fst)(t.snd) }
+  }
 
-  protected def du(row: Int, col: Int) = for (k <- 1 until connections;
-                                              i <- Some(row + k);
-                                              j <- Some(col)     if containsRow(i))
-                                           yield matrix(i)(j)
 
-  protected def ud(row: Int, col: Int) = for (k <- 1 until connections;
-                                              i <- Some(row - k);
-                                              j <- Some(col)     if containsRow(i))
-                                           yield matrix(i)(j)
+  protected def du(row: Int, col: Int) = {
+    val result = for (k <- 1 until connections;
+                      i <- Some(row + k);
+                      j <- Some(col) if containsRow(i))
+                   yield (i, j)
+    log("Down up scan from " + (row, col) + ": " + result.toString)
+    result.map { t => matrix(t.fst)(t.snd) }
+  }
 
-  protected def ur(row: Int, col: Int) = for (k <- 1 until connections;
-                                              i <- Some(row + k);
-                                              j <- Some(col + k) if contains(i)(j))
-                                           yield matrix(i)(j)
+  protected def ud(row: Int, col: Int) = {
+    val result = for (k <- 1 until connections;
+                      i <- Some(row - k);
+                      j <- Some(col) if containsRow(i))
+                   yield matrix(i)(j)
+    log("Up down scan from " + (row, col) + ": " + result.toString)
+    result
+  }
 
-  protected def ul(row: Int, col: Int) = for (k <- 1 until connections;
-                                              i <- Some(row + k);
-                                              j <- Some(col - k) if contains(i)(j))
-                                           yield matrix(i)(j)
+  protected def ur(row: Int, col: Int) = {
+    val result = for (k <- 1 until connections;
+                      i <- Some(row + k);
+                      j <- Some(col + k) if contains(i)(j))
+                   yield (i, j)
+    log("Up right scan from " + (row, col) + ": " + result.toString)
+    result.map { t => matrix(t.fst)(t.snd) }
+  }
 
-  protected def dr(row: Int, col: Int) = for (k <- 1 until connections;
-                                              i <- Some(row - k);
-                                              j <- Some(col + k) if contains(i)(j))
-                                           yield matrix(i)(j)
+  protected def ul(row: Int, col: Int) = {
+    val result = for (k <- 1 until connections;
+                      i <- Some(row + k);
+                      j <- Some(col - k) if contains(i)(j))
+                   yield (i, j)
+    log("Up left scan from " + (row, col) + ": " + result.toString)
+    result.map { t => matrix(t.fst)(t.snd) }
+  }
 
-  protected def dl(row: Int, col: Int) = for (k <- 1 until connections;
-                                              i <- Some(row - k);
-                                              j <- Some(col - k) if contains(i)(j))
-                                           yield matrix(i)(j)
+  protected def dr(row: Int, col: Int) = {
+    val result = for (k <- 1 until connections;
+                      i <- Some(row - k);
+                      j <- Some(col + k) if contains(i)(j))
+                   yield (i, j)
+    log("Down right scan from " + (row, col) + ": " + result.toString)
+    result.map { t => matrix(t.fst)(t.snd) }
+  }
+
+  protected def dl(row: Int, col: Int) = {
+    val result = for (k <- 1 until connections;
+                      i <- Some(row - k);
+                      j <- Some(col - k) if contains(i)(j))
+                   yield (i, j)
+    log("Down left scan from " + (row, col) + ": " + result.toString)
+    result.map { t => matrix(t.fst)(t.snd) }
+  }
 }
