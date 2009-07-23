@@ -1,39 +1,57 @@
 package cofoga.search
 
 import cofoga.Player._
+import cofoga.Predef._
 
 trait MiniMaxSearch extends SearchStrategy {
   def terminal(board: GameBoard, depth: Int) = board.winner != Neither || depth == plies
 
-  def max(board: GameBoard, depth: Int, alpha: Double, beta: Double): Double = {
-    if (terminal(board, depth))
-      return utility(board)
-    var value = NEGATIVE_INFINITY
-    var alpha_ = alpha
-    board.legalMoves.foreach { m =>
-      board.move(m)
-      value = value max min(board, depth + 1, alpha_, beta)
-      board.undo()
-      if (value >= beta)
-        return value
-      alpha_ = alpha_ max value
-    }
-    value
+  def search(board: GameBoard) = board.turn match {
+    case White => max(board, 0, NEGATIVE_INFINITY, POSITIVE_INFINITY).fst
+    case Black => min(board, 0, NEGATIVE_INFINITY, POSITIVE_INFINITY).fst
+    case _     => assert(false, "Board turn is not a player!")
+                  0
   }
 
-  def min(board: GameBoard, depth: Int, alpha: Double, beta: Double): Double = {
+  def max(board: GameBoard, depth: Int, alpha: Double, beta: Double): Pair[Int, Double] = {
     if (terminal(board, depth))
-      return utility(board)
-    var value = POSITIVE_INFINITY
-    var beta_ = beta
+      return (0, utility(board))
+    var value  = NEGATIVE_INFINITY
+    var alpha_ = alpha
+    var best   = 0
     board.legalMoves.foreach { m =>
       board.move(m)
-      value = value min max(board, depth + 1, alpha, beta_)
+      val (b, v) = min(board, depth + 1, alpha_, beta)
+      if (v > value) {
+        value = v
+        best = m
+      }
+      board.undo()
+      if (value >= beta)
+        return (best, value)
+      alpha_ = alpha_ max value
+    }
+    (best, value)
+  }
+
+  def min(board: GameBoard, depth: Int, alpha: Double, beta: Double): Pair[Int, Double] = {
+    if (terminal(board, depth))
+      return (0, utility(board))
+    var value = POSITIVE_INFINITY
+    var beta_ = beta
+    var best  = 0
+    board.legalMoves.foreach { m =>
+      board.move(m)
+      val (b, v) = max(board, depth + 1, alpha, beta_)
+      if (v > value) {
+        value = v
+        best = m
+      }
       board.undo()
       if (value <= alpha)
-        return value
+        return (best, value)
       beta_ = beta_ min value
     }
-    value
+    (best, value)
   }
 }
