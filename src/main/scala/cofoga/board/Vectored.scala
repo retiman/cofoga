@@ -1,5 +1,7 @@
 package cofoga.board
 
+import cofoga.Player._
+
 trait Vectored {
   def matrix: Array[Array[Player]]
   def rows: Int
