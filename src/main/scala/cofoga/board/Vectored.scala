@@ -1,4 +1,4 @@
-package cofoga
+package cofoga.board
 
 trait Vectored[A] {
   def matrix: Array[Array[A]]
