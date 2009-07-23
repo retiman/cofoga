@@ -12,7 +12,7 @@ trait NaiveEvaluation extends EvaluationStrategy {
   def horizontalThreats(i: Int)     = for (j <- 0 until board.cols) yield board(i)(j)
   def verticalThreats(j: Int)       = for (i <- 0 until board.rows) yield board(i)(j)
   def diagonallyUpThreats(i: Int)   = for (k <- 0 until limit if board.contains(i + k)(k)) yield board(i + k)(k)
-  def diagonallyDownThreats(j: Int) = for (k <- 0 until limit if board.contains(k)(j - k)) yield board(k)(j - k)
+  def diagonallyDownThreats(i: Int) = for (k <- 0 until limit if board.contains(i - k)(k)) yield board(i - k)(k)
 
   def score = {
     val whites = new Array[Int](board.connections - 1)
@@ -26,10 +26,10 @@ trait NaiveEvaluation extends EvaluationStrategy {
       }
     }
 
-    for (i <- 0 until board.rows)          weigh(horizontalThreats(i).mkString)
-    for (j <- 0 until board.cols)          weigh(verticalThreats(j).mkString)
-    for (i <- (board.cols - 1) to 0 by -1) weigh(diagonallyUpThreats(i).mkString)
-    for (j <- 0 until board.cols)          weigh(diagonallyDownThreats(j).mkString)
+    for (i <- 0 until board.rows)           weigh(horizontalThreats(i).mkString)
+    for (j <- 0 until board.cols)           weigh(verticalThreats(j).mkString)
+    for (i <- -board.rows until board.rows) weigh(diagonallyUpThreats(i).mkString)
+    for (j <- 0 until 2*board.rows)         weigh(diagonallyDownThreats(j).mkString)
 
     whites.indices.map(i => Math.pow(3, i) * whites(i)).reduceLeft(_+_) -
     blacks.indices.map(i => Math.pow(3, i) * blacks(i)).reduceLeft(_+_)

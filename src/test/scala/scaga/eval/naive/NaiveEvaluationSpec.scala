@@ -31,4 +31,24 @@ object NaiveEvaluationSpec extends Specification {
       "O-O-O-" mustEqual eval.verticalThreats(0).map(_.format).mkString
     }
   }
+  "diagonally up calculation" should {
+    "compute correct threats" in {
+      val board = new TestBoard()
+      board.grid(0)(0) = White
+      board.grid(2)(2) = White
+      board.grid(4)(4) = White
+      val eval = new TestEvaluation(board)
+      "O-O-O-" mustEqual eval.diagonallyUpThreats(0).map(_.format).mkString
+    }
+  }
+  "diagonally down calculation" should {
+    "compute correct threats" in {
+      val board = new TestBoard()
+      board.grid(5)(0) = White
+      board.grid(3)(2) = White
+      board.grid(1)(4) = White
+      val eval = new TestEvaluation(board)
+      "O-O-O-" mustEqual eval.diagonallyDownThreats(5).map(_.format).mkString
+    }
+  }
 }
