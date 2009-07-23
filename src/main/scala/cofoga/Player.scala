@@ -1,6 +1,8 @@
 package cofoga
 
-object Player extends Enumeration {
+import scala.util.logging.Logged
+
+object Player extends Enumeration with Logged {
   type Player = Value
   val Neither, White, Black = Value
 

@@ -1,17 +1,18 @@
 package cofoga.eval
 
+import scala.util.logging.ConsoleLogger
 import org.specs.runner.JUnit4
 import org.specs.Specification
 import cofoga.Player._
 
 class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)
 
-object NaiveEvaluationSpec extends Specification {
-  class TestBoard extends GameBoard {
+object NaiveEvaluationSpec extends Specification with ConsoleLogger {
+  class TestBoard extends GameBoard with ConsoleLogger {
     def grid = matrix
   }
 
-  class TestEvaluation extends NaiveEvaluation
+  class TestEvaluation extends NaiveEvaluation with ConsoleLogger
 
   "horizontals" should {
     "compute correct threats" in {
@@ -49,6 +50,20 @@ object NaiveEvaluationSpec extends Specification {
       board.grid(3)(2) = White
       board.grid(1)(4) = White
       "O-O-O-" mustEqual eval.diagonallyDown(board, 5).map(_.format).mkString
+    }
+  }
+  "utility function" should {
+    "compute correct score" in {
+      val board = new TestBoard()
+      val eval  = new TestEvaluation()
+      board.move(0, 0, 1, 1, 2, 2)
+      eval.utility(board) mustEqual 0
+    }
+    "compute correct score" in {
+      val board = new TestBoard()
+      val eval  = new TestEvaluation()
+      board.move(0, 0, 1, 1, 2)
+      eval.utility(board) mustEqual -3
     }
   }
 }

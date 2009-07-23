@@ -1,5 +1,6 @@
 package cofoga
 
+import scala.util.logging.Logged
 import cofoga.Player._
 import cofoga.Predef._
 

@@ -25,11 +25,13 @@ trait NaiveEvaluation extends EvaluationStrategy {
         val whites  = new Array[Int](board.connections - 1)
         val blacks  = new Array[Int](board.connections - 1)
 
-        def weigh(s: String) = pattern.findAllIn(s).foreach { m =>
-          valueOf(m.toString.charAt(0).toString) match {
-            case Some(White) => whites(m.length) += 1
-            case Some(Black) => blacks(m.length) += 1
-            case _           => ()
+        def weigh(s: String) = {
+            pattern.findAllIn(s).foreach { m =>
+            valueOf(m.toString.charAt(0).toString) match {
+              case Some(White) => whites(m.length) += 1
+              case Some(Black) => blacks(m.length) += 1
+              case _           => ()
+            }
           }
         }
 

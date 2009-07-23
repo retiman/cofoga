@@ -1,10 +1,15 @@
 package cofoga
 
 import scala.collection.mutable.Stack
+import scala.util.logging.Logged
 import cofoga.GameBoard._
 import cofoga.Player._
 
-class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winnable {
+class GameBoard(
+  val rows: Int,
+  val cols: Int,
+  val connections: Int
+) extends Winnable with Logged {
   require(rows > 0 && cols > 0 && connections > 0)
   protected val matrix  = new Array[Array[Player]](rows, cols)
   protected val filled  = new Array[Int](cols)
