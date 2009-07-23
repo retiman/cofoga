@@ -1,4 +1,4 @@
-package scaga
+package cofoga
 
 object Predef {
   implicit def pairWrapper[A, B](a: Pair[A, B]) = new {

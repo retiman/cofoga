@@ -1,8 +1,8 @@
-package scaga
+package cofoga
 
 import scala.collection.mutable.Stack
-import scaga.GameBoard._
-import scaga.Player._
+import cofoga.GameBoard._
+import cofoga.Player._
 
 class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winnable {
   require(rows > 0 && cols > 0 && connections > 0)

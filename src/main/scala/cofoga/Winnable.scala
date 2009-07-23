@@ -1,7 +1,7 @@
-package scaga
+package cofoga
 
-import scaga.Player._
-import scaga.Predef._
+import cofoga.Player._
+import cofoga.Predef._
 
 trait Winnable {
   protected val rows: Int

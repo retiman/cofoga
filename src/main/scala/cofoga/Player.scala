@@ -1,4 +1,4 @@
-package scaga
+package cofoga
 
 object Player extends Enumeration {
   type Player = Value

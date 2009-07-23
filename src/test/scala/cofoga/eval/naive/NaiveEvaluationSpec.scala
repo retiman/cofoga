@@ -1,8 +1,8 @@
-package scaga.eval.naive
+package cofoga.eval.naive
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
-import scaga.Player._
+import cofoga.Player._
 
 class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)
 

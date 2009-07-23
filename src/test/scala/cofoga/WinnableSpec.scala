@@ -1,9 +1,9 @@
-package scaga
+package cofoga
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
-import scaga.Player._
-import scaga.GameBoard._
+import cofoga.Player._
+import cofoga.GameBoard._
 
 class WinnableSpecTest extends JUnit4(WinnableSpec)
 

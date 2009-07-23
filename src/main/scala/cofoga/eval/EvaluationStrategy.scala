@@ -1,4 +1,4 @@
-package scaga.eval
+package cofoga.eval
 
 trait EvaluationStrategy {
   val POSITIVE_INFINITY = java.lang.Double.POSITIVE_INFINITY

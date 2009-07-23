@@ -1,8 +1,8 @@
-package scaga.eval.naive
+package cofoga.eval.naive
 
-import scaga.eval.EvaluationStrategy
-import scaga.Player._
-import scaga.Predef._
+import cofoga.eval.EvaluationStrategy
+import cofoga.Player._
+import cofoga.Predef._
 
 trait NaiveEvaluation extends EvaluationStrategy {
   type Threat = List[Pair[Int, Int]]
