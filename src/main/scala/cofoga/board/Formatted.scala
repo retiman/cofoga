@@ -5,7 +5,7 @@ import cofoga.Player._
 trait Formatted {
   def rows: Int
   def cols: Int
-  val matrix: Array[Array[Player]]
+  protected val matrix: Array[Array[Player]]
 
   override def toString = {
     val s = new StringBuilder

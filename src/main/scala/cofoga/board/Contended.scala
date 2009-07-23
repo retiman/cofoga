@@ -14,8 +14,8 @@ trait Contended extends Vectored with Logged {
   def winner(row: Int, col: Int): Player = {
     List(horizontalWinner _,
          verticalWinner _,
-         diagonallyUp _,
-         diagonallyDown _).foreach { f =>
+         diagonallyUpWinner _,
+         diagonallyDownWinner _).foreach { f =>
       if (f(row, col)) return matrix(row)(col)
     }
     Neither
@@ -26,9 +26,10 @@ trait Contended extends Vectored with Logged {
   def diagonallyUpWinner(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
   def diagonallyDownWinner(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
 
-  protected def check(player: Player, players: Iterable[Player]) = players.filter(_ == player)
-                                                                          .toArray
-                                                                          .size == target
+  protected def check(f: (Int, Int) => Seq.Projection[Player], row: Int, col: Int) = {
+    f(row, col).filter(_ == matrix(row)(col)).length == target
+  }
+
   protected def lr(row: Int, col: Int) = horizontal(row, col + 1)(target)
   protected def rl(row: Int, col: Int) = horizontal(row, col - 1)(-target)
   protected def du(row: Int, col: Int) = vertical(row + 1, col)(target)

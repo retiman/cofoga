@@ -9,10 +9,10 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Cont
                                                                     with Formatted
                                                                     with Logged {
   require(rows > 0 && cols > 0 && connections > 0)
-  protected val matrix  = new Array[Array[Player]](rows, cols)
-  protected val filled  = new Array[Int](cols)
+  override protected val matrix = new Array[Array[Player]](rows, cols)
+  protected val filled = new Array[Int](cols)
   protected val history = new Stack[Int]()
-  protected var player  = White
+  protected var player = White
   protected var cachedw: Option[Player] = Some(Neither)
   for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 
