@@ -5,8 +5,9 @@ import scala.util.logging.Logged
 import cofoga.board.GameBoard._
 import cofoga.Player._
 
-class GameBoard(val rows: Int, val cols: Int, val connections: Int)
-    extends Contended with Logged {
+class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Contended
+                                                                    with Formatted
+                                                                    with Logged {
   require(rows > 0 && cols > 0 && connections > 0)
   protected val matrix  = new Array[Array[Player]](rows, cols)
   protected val filled  = new Array[Int](cols)
@@ -55,25 +56,6 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int)
       cachedw = Some(player)
       player
     }
-  }
-
-  override def toString = {
-    val s = new StringBuilder
-    for (i <- (rows - 1) to 0 by -1) {
-      for (j <- 0 until cols) {
-        if (j == 0) s.append(i + " ")
-        s.append(" " + matrix(i)(j).format)
-        if (j < cols - 1) s.append(" ")
-      }
-      s.append("\n")
-    }
-    s.append("   ")
-    for (j <- 0 until cols) {
-      s.append(j)
-      if (j < cols - 1) s.append("  ")
-    }
-    s.append("\n")
-    s.toString
   }
 }
 
