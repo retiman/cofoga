@@ -2,12 +2,12 @@ package cofoga
 
 object Player extends Enumeration {
   type Player = Value
-  val Empty, White, Black = Value
+  val Neither, White, Black = Value
 
   implicit def valueWrapper(player: Player) = new {
     def occupied = player match {
-      case Empty => false
-      case _     => true
+      case Neither => false
+      case _       => true
     }
 
     def value = player match {

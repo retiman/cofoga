@@ -10,8 +10,8 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
   protected val filled  = new Array[Int](cols)
   protected val history = new Stack[Int]()
   protected var player  = White
-  protected var cachedw: Option[Player] = Some(Empty)
-  for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Empty
+  protected var cachedw: Option[Player] = Some(Neither)
+  for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 
   def this() = this(ROWS, COLS, CXNS)
   def turn = player
@@ -32,7 +32,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
 
   def undo() = {
     val (row, col) = lastMove
-    matrix(row)(col) = Empty
+    matrix(row)(col) = Neither
     filled(col) -= 1
     player = player.switch
     cachedw = None

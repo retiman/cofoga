@@ -21,7 +21,7 @@ trait Winnable {
     List(horizontal _, vertical _, diagonallyUp _, diagonallyDown _).foreach { f =>
       if (f(row, col)) return matrix(row)(col)
     }
-    Empty
+    Neither
   }
 
   protected def check(f: (Int, Int) => Iterable[Player], row: Int, col: Int) = {
