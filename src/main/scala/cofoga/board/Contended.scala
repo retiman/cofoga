@@ -9,93 +9,33 @@ trait Contended extends Vectored with Logged {
   protected val cols: Int
   protected val connections: Int
   protected val matrix: Array[Array[Player]]
-
-  def horizontal(row: Int, col: Int)     = check(lr, row, col) || check(rl, row, col)
-  def vertical(row: Int, col: Int)       = check(du, row, col) || check(ud, row, col)
-  def diagonallyUp(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
-  def diagonallyDown(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
+  protected val target = connections - 1
 
   def winner(row: Int, col: Int): Player = {
-    List(horizontal _, vertical _, diagonallyUp _, diagonallyDown _).foreach { f =>
+    List(horizontalWinner _,
+         verticalWinner _,
+         diagonallyUp _,
+         diagonallyDown _).foreach { f =>
       if (f(row, col)) return matrix(row)(col)
     }
     Neither
   }
 
-  protected def check(f: (Int, Int) => Iterable[Player], row: Int, col: Int) = {
-    f(row, col).filter(_ == matrix(row)(col)).toList.size == connections - 1
-  }
+  def horizontalWinner(row: Int, col: Int)     = check(lr, row, col) || check(rl, row, col)
+  def verticalWinner(row: Int, col: Int)       = check(du, row, col) || check(ud, row, col)
+  def diagonallyUpWinner(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
+  def diagonallyDownWinner(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
 
-  protected def lr(row: Int, col: Int) = {
-    val result = for (k <- 1 until connections;
-                      i <- Some(row);
-                      j <- Some(col + k) if containsCol(j))
-                   yield (i, j)
-    log("Left right scan from " + (row, col) + ": " + result.toString)
-    result.map { t => matrix(t.fst)(t.snd) }
-  }
-
-  protected def rl(row: Int, col: Int) = {
-    val result = for (k <- 1 until connections;
-                      i <- Some(row);
-                      j <- Some(col - k) if containsCol(j))
-                   yield (i, j)
-    log("Right left scan from " + (row, col) + ": " + result.toString)
-    result.map { t => matrix(t.fst)(t.snd) }
-  }
-
-
-  protected def du(row: Int, col: Int) = {
-    val result = for (k <- 1 until connections;
-                      i <- Some(row + k);
-                      j <- Some(col) if containsRow(i))
-                   yield (i, j)
-    log("Down up scan from " + (row, col) + ": " + result.toString)
-    result.map { t => matrix(t.fst)(t.snd) }
-  }
-
-  protected def ud(row: Int, col: Int) = {
-    val result = for (k <- 1 until connections;
-                      i <- Some(row - k);
-                      j <- Some(col) if containsRow(i))
-                   yield matrix(i)(j)
-    log("Up down scan from " + (row, col) + ": " + result.toString)
-    result
-  }
-
-  protected def ur(row: Int, col: Int) = {
-    val result = for (k <- 1 until connections;
-                      i <- Some(row + k);
-                      j <- Some(col + k) if contains(i)(j))
-                   yield (i, j)
-    log("Up right scan from " + (row, col) + ": " + result.toString)
-    result.map { t => matrix(t.fst)(t.snd) }
-  }
-
-  protected def ul(row: Int, col: Int) = {
-    val result = for (k <- 1 until connections;
-                      i <- Some(row + k);
-                      j <- Some(col - k) if contains(i)(j))
-                   yield (i, j)
-    log("Up left scan from " + (row, col) + ": " + result.toString)
-    result.map { t => matrix(t.fst)(t.snd) }
-  }
-
-  protected def dr(row: Int, col: Int) = {
-    val result = for (k <- 1 until connections;
-                      i <- Some(row - k);
-                      j <- Some(col + k) if contains(i)(j))
-                   yield (i, j)
-    log("Down right scan from " + (row, col) + ": " + result.toString)
-    result.map { t => matrix(t.fst)(t.snd) }
-  }
-
-  protected def dl(row: Int, col: Int) = {
-    val result = for (k <- 1 until connections;
-                      i <- Some(row - k);
-                      j <- Some(col - k) if contains(i)(j))
-                   yield (i, j)
-    log("Down left scan from " + (row, col) + ": " + result.toString)
-    result.map { t => matrix(t.fst)(t.snd) }
-  }
+  protected def check(player: Player, players: Iterable[Player]) = players.filter(_ == player)
+                                                                          .init
+                                                                          .toArray
+                                                                          .size == target
+  protected def lr(row: Int, col: Int) = horizontal(row, col)(connections)
+  protected def rl(row: Int, col: Int) = horizontal(row, col)(-connections)
+  protected def du(row: Int, col: Int) = vertical(row, col)(connections)
+  protected def ud(row: Int, col: Int) = vertical(row, col)(-connections)
+  protected def ur(row: Int, col: Int) = diagonalup(row, col)(connections)
+  protected def dl(row: Int, col: Int) = diagonalup(row, col)(-connections)
+  protected def dr(row: Int, col: Int) = diagonaldown(row, col)(connections)
+  protected def ul(row: Int, col: Int) = diagonaldown(row, col)(-connections)
 }
