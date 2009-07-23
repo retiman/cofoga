@@ -1,4 +1,4 @@
-package cofoga
+package cofoga.board
 
 import scala.collection.mutable.Stack
 import scala.util.logging.Logged

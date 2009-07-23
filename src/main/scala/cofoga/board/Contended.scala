@@ -1,17 +1,14 @@
-package cofoga
+package cofoga.board
 
 import scala.util.logging.Logged
 import cofoga.Player._
 import cofoga.Predef._
 
-trait Winnable extends Logged {
+trait Contended extends Vectored with Logged {
   protected val rows: Int
   protected val cols: Int
   protected val connections: Int
   protected val matrix: Array[Array[Player]]
-  def containsRow(row: Int) = 0 until rows contains row
-  def containsCol(col: Int) = 0 until cols contains col
-  def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
 
   def horizontal(row: Int, col: Int)     = check(lr, row, col) || check(rl, row, col)
   def vertical(row: Int, col: Int)       = check(du, row, col) || check(ud, row, col)
