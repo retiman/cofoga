@@ -10,6 +10,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
   protected val filled  = new Array[Int](cols)
   protected val history = new Stack[Int]()
   protected var player  = White
+  protected var cachedw: Option[Player] = Some(Empty)
   for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Empty
 
   def this() = this(ROWS, COLS, CXNS)
@@ -24,6 +25,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
     matrix(row)(col) = player
     filled(col) += 1
     player = player.switch
+    cachedw = None
     history push col
     (row, col)
   }
@@ -33,6 +35,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
     matrix(row)(col) = Empty
     filled(col) -= 1
     player = player.switch
+    cachedw = None
     history pop
   }
 
@@ -42,9 +45,14 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Winn
     (row, col)
   }
 
-  def winner: Option[Player] = {
-    val (row, col) = lastMove
-    winner(row, col)
+  def winner: Player = cachedw match {
+    case Some(player) => player
+    case _            => {
+      val (row, col) = lastMove
+      val player = winner(row, col)
+      cachedw = Some(player)
+      player
+    }
   }
 
   override def toString = {

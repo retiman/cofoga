@@ -17,11 +17,11 @@ trait Winnable {
   def diagonallyUp(row: Int, col: Int)   = check(ur, row, col) || check(dl, row, col)
   def diagonallyDown(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
 
-  def winner(row: Int, col: Int): Option[Player] = {
+  def winner(row: Int, col: Int): Player = {
     List(horizontal _, vertical _, diagonallyUp _, diagonallyDown _).foreach { f =>
-      if (f(row, col)) return Some(matrix(row)(col))
+      if (f(row, col)) return matrix(row)(col)
     }
-    None
+    Empty
   }
 
   protected def check(f: (Int, Int) => Iterable[Player], row: Int, col: Int) = {
