@@ -27,15 +27,14 @@ trait Contended extends Vectored with Logged {
   def diagonallyDownWinner(row: Int, col: Int) = check(ul, row, col) || check(dr, row, col)
 
   protected def check(player: Player, players: Iterable[Player]) = players.filter(_ == player)
-                                                                          .init
                                                                           .toArray
                                                                           .size == target
-  protected def lr(row: Int, col: Int) = horizontal(row, col)(connections)
-  protected def rl(row: Int, col: Int) = horizontal(row, col)(-connections)
-  protected def du(row: Int, col: Int) = vertical(row, col)(connections)
-  protected def ud(row: Int, col: Int) = vertical(row, col)(-connections)
-  protected def ur(row: Int, col: Int) = diagonalup(row, col)(connections)
-  protected def dl(row: Int, col: Int) = diagonalup(row, col)(-connections)
-  protected def dr(row: Int, col: Int) = diagonaldown(row, col)(connections)
-  protected def ul(row: Int, col: Int) = diagonaldown(row, col)(-connections)
+  protected def lr(row: Int, col: Int) = horizontal(row, col + 1)(target)
+  protected def rl(row: Int, col: Int) = horizontal(row, col - 1)(-target)
+  protected def du(row: Int, col: Int) = vertical(row + 1, col)(target)
+  protected def ud(row: Int, col: Int) = vertical(row - 1, col)(-target)
+  protected def ur(row: Int, col: Int) = diagonalup(row + 1, col + 1)(target)
+  protected def dl(row: Int, col: Int) = diagonalup(row - 1, col - 1)(-target)
+  protected def dr(row: Int, col: Int) = diagonaldown(row - 1, col + 1)(target)
+  protected def ul(row: Int, col: Int) = diagonaldown(row + 1, col - 1)(-target)
 }
