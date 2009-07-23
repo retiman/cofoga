@@ -1,9 +1,7 @@
 package cofoga.board
 
-import cofoga.Player._
-
-trait Vectored {
-  def matrix: Array[Array[Player]]
+trait Vectored[A] {
+  def matrix: Array[Array[A]]
   def rows: Int
   def cols: Int
   def containsRow(row: Int) = 0 until rows contains row
