@@ -1,6 +1,6 @@
 package cofoga
 
-object Vectored[A] {
+trait Vectored[A] {
   def matrix: Array[Array[A]]
   def rows: Int
   def cols: Int
