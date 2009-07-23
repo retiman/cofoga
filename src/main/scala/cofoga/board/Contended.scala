@@ -4,7 +4,7 @@ import scala.util.logging.Logged
 import cofoga.Player._
 import cofoga.Predef._
 
-trait Contended extends Vectored with Logged {
+trait Contended extends Vectored[Player] with Logged {
   protected val rows: Int
   protected val cols: Int
   protected val connections: Int

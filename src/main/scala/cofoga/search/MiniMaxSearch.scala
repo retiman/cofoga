@@ -1,5 +1,6 @@
 package cofoga.search
 
+import cofoga.board.GameBoard
 import cofoga.Player._
 import cofoga.Predef._
 
