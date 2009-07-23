@@ -6,7 +6,7 @@ import cofoga.board.GameBoard._
 import cofoga.Player._
 
 class GameBoard(val rows: Int, val cols: Int, val connections: Int)
-    extends Contended with Vectored[Player] with Logged {
+    extends Contended with Logged {
   require(rows > 0 && cols > 0 && connections > 0)
   protected val matrix  = new Array[Array[Player]](rows, cols)
   protected val filled  = new Array[Int](cols)
