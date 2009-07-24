@@ -20,7 +20,7 @@ trait Vectored {
   def vertical(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
     case end if end < 0 => val k = -end
                            vertical(row - k + 1, col)(-end)
-    case _              => for (i <- row until end if containsRow(i))
+    case _              => for (i <- row until row + end if containsRow(i))
                              yield matrix(i)(col)
   }
 
