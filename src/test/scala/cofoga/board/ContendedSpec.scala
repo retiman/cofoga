@@ -83,7 +83,7 @@ object ContendedSpec extends Specification with ConsoleLogger {
       board.verticalWinner(row, col) mustEqual false
     }
   }
-  "diagonally up forward winners" should {
+  "diagonally up winners" should {
     "be detected at the edge of the board" in {
       val reference =
       """5  -  -  -  -  -  -  -
@@ -111,6 +111,36 @@ object ContendedSpec extends Specification with ConsoleLogger {
       val (row, col) = board.move(3, 4, 4, 5, 5, 6, 5, 6, 6, 3)
       reference mustEqual board.toString.trim
       board.diagupWinner(row, col) mustEqual false
+    }
+  }
+  "diagonally down winners" should {
+    "be detected at the edge of the board" in {
+      val reference =
+      """5  -  -  -  -  -  -  -
+        |4  -  -  -  X  -  -  -
+        |3  -  -  -  O  -  -  -
+        |2  -  -  -  O  O  -  -
+        |1  -  -  -  X  X  O  -
+        |0  -  -  -  O  X  X  O
+        |   0  1  2  3  4  5  6""".stripMargin
+      val board = new GameBoard() with ConsoleLogger
+      val (row, col) = board.move(3, 3, 3, 4, 3, 4, 4, 5, 5, 3, 6)
+      reference mustEqual board.toString.trim
+      board.diagdownWinner(row, col) mustEqual true
+    }
+    "not detect a winner" in {
+      val reference =
+      """5  -  -  -  -  -  -  -
+        |4  -  -  -  X  -  -  -
+        |3  -  -  -  O  -  -  -
+        |2  -  -  -  O  O  -  -
+        |1  -  -  -  X  X  O  -
+        |0  -  -  -  O  X  X  -
+        |   0  1  2  3  4  5  6""".stripMargin
+      val board = new GameBoard() with ConsoleLogger
+      val (row, col) = board.move(3, 3, 3, 4, 3, 4, 4, 5, 5, 3)
+      reference mustEqual board.toString.trim
+      board.diagdownWinner(row, col) mustEqual false
     }
   }
 }
