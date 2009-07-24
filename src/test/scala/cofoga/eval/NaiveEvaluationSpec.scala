@@ -9,10 +9,7 @@ import cofoga.Player._
 class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)
 
 object NaiveEvaluationSpec extends Specification with ConsoleLogger {
-  class TestBoard extends GameBoard with ConsoleLogger {
-    def grid = matrix
-  }
-
+  class TestBoard extends GameBoard with ConsoleLogger { def m = matrix }
   class TestEvaluation extends NaiveEvaluation with ConsoleLogger
 /*
   "horizontals" should {
