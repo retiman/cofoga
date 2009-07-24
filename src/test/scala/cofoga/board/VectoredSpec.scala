@@ -106,4 +106,41 @@ object VectoredSpec extends Specification with Vectored
       diagonalup(0, 0)(-4).toList mustEqual List.make(1, White)
     }
   }
+  "diagonally down vectors" should {
+    "resolve 4 players from (3, 0) in the positive direction" in {
+      reset()
+      matrix(3)(0) = White
+      matrix(2)(1) = White
+      matrix(1)(2) = White
+      matrix(0)(3) = White
+      diagonaldown(3, 0)(4).toList mustEqual List.make(4, White)
+    }
+    "resolve 4 players from (3, 3) in the negative direction" in {
+      reset()
+      matrix(0)(3) = White
+      matrix(1)(2) = White
+      matrix(2)(1) = White
+      matrix(3)(0) = White
+      diagonaldown(0, 3)(-4).toList mustEqual List.make(4, White)
+    }
+    "resolve 3 players from (4, 4) in the positive direction" in {
+      reset()
+      matrix(4)(4) = White
+      matrix(3)(5) = White
+      matrix(2)(6) = White
+      diagonaldown(4, 4)(4).toList mustEqual List.make(3, White)
+    }
+    "resolve 2 players from (1, 2) in the negative direction" in {
+      reset()
+      matrix(1)(2) = White
+      matrix(2)(1) = White
+      matrix(3)(0) = White
+      diagonaldown(1, 2)(-4).toList mustEqual List.make(3, White)
+    }
+    "resolve 1 players from (0, 0) in the negative direction" in {
+      reset()
+      matrix(0)(0) = White
+      diagonaldown(0, 0)(-4).toList mustEqual List.make(1, White)
+    }
+  }
 }
