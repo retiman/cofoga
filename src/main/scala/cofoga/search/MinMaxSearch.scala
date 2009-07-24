@@ -4,7 +4,7 @@ import cofoga.board.GameBoard
 import cofoga.Player._
 import cofoga.Predef._
 
-trait MiniMaxSearch extends SearchStrategy {
+trait MinMaxSearch extends SearchStrategy {
   def terminal(board: GameBoard, depth: Int) = board.winner != Neither || depth == plies
 
   def search(board: GameBoard) = board.turn match {
