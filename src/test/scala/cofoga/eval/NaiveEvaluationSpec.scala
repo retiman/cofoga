@@ -12,13 +12,13 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
                                                  with ConsoleLogger {
   class TestBoard extends GameBoard with ConsoleLogger { def m = matrix }
   var board = new TestBoard()
-  var whites = new Array[Int](board.connections)
-  var blacks = new Array[Int](board.connections)
+  var whites = new Array[Int](board.connections - 1)
+  var blacks = new Array[Int](board.connections - 1)
 
   def reset() = {
     board = new TestBoard()
-    whites = new Array[Int](board.connections)
-    blacks = new Array[Int](board.connections)
+    whites = new Array[Int](board.connections - 1)
+    blacks = new Array[Int](board.connections - 1)
   }
 
   "horizontals" should {
@@ -27,8 +27,8 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       for (j <- 0 until board.cols if j % 2 == 0)
         board.m(0)(j) = White
       horizontalEvaluation(board, whites, blacks)
-      List(0, 4, 0, 0) mustEqual whites.toList
-      List(0, 0, 0, 0) mustEqual blacks.toList
+      List(4, 0, 0) mustEqual whites.toList
+      List(0, 0, 0) mustEqual blacks.toList
     }
   }
   "verticals calculation" should {
@@ -37,8 +37,8 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       for (i <- 0 until board.rows if i % 2 == 0)
         board.m(i)(0) = White
       verticalEvaluation(board, whites, blacks)
-      List(0, 3, 0, 0) mustEqual whites.toList
-      List(0, 0, 0, 0) mustEqual blacks.toList
+      List(3, 0, 0) mustEqual whites.toList
+      List(0, 0, 0) mustEqual blacks.toList
     }
   }
   "diagonally up calculation" should {
@@ -48,8 +48,8 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       board.m(2)(2) = White
       board.m(4)(4) = White
       diagupEvaluation(board, whites, blacks)
-      List(0, 3, 0, 0) mustEqual whites.toList
-      List(0, 0, 0, 0) mustEqual blacks.toList
+      List(3, 0, 0) mustEqual whites.toList
+      List(0, 0, 0) mustEqual blacks.toList
     }
   }
   "diagonally down calculation" should {
@@ -59,25 +59,20 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       board.m(3)(2) = White
       board.m(1)(4) = White
       diagdownEvaluation(board, whites, blacks)
-      List(0, 3, 0, 0) mustEqual whites.toList
-      List(0, 0, 0, 0) mustEqual blacks.toList
+      List(3, 0, 0) mustEqual whites.toList
+      List(0, 0, 0) mustEqual blacks.toList
     }
   }
   "utility function" should {
-    /*"compute correct score" in {
-
-      val board = new TestBoard()
-      val eval  = new TestEvaluation()
-      board.move(0, 0, 1, 1, 2, 2)
-      eval.utility(board) mustEqual 0
-    }
-    
     "compute correct score" in {
-      val board = new TestBoard()
-      val eval  = new TestEvaluation()
+      reset()
+      board.move(0, 0, 1, 1, 2, 2)
+      utility(board) mustEqual 0
+    }    
+    "compute correct score" in {
+      reset()
       board.move(0, 0, 1, 1, 2)
-      eval.utility(board) mustEqual -3
+      utility(board) mustEqual -3
     }
-    */
   }
 }

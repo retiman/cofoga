@@ -27,8 +27,8 @@ trait NaiveEvaluation extends EvaluationStrategy {
   def weigh(players: String, whites: Array[Int], blacks: Array[Int]) = {
     pattern.findAllIn(players).foreach { m =>
       valueOf(m(0)) match {
-        case Some(White) => whites(m.size) += 1
-        case Some(Black) => blacks(m.size) += 1
+        case Some(White) => whites(m.size - 1) += 1
+        case Some(Black) => blacks(m.size - 1) += 1
         case _           => ()
       }
     }
