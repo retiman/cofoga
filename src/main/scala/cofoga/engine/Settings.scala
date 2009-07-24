@@ -14,12 +14,6 @@ class Settings {
     "Columns: " + cols + "\n" +
     "Connections: " + connections + "\n" +
     "Plies: " + plies + "\n" +
-    player match {
-      case White => "Human: " + White + "\n" +
-                    "Computer: " + Black + "\n"
-      case Black => "Human: " + Black + "\n" +
-                    "Computer: " + White + "\n"
-      case _     => throw new IllegalStateException("Somebody must play first!")
-    }
+    "Player: " + format(player) + "\n"
   }
 }

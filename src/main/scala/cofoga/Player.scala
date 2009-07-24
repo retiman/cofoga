@@ -32,6 +32,12 @@ object Player extends Enumeration with Logged {
     }
   }
 
+  def format(player: Player) = player match {
+    case White => "White"
+    case Black => "Black"
+    case _     => "Neither"
+  }
+
   override def valueOf(s: String): Option[Player] = s match {
     case "O" => Some(White)
     case "X" => Some(Black)
