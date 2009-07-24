@@ -9,7 +9,6 @@ import cofoga.board.GameBoard._
 class ContendedSpecTest extends JUnit4(ContendedSpec)
 
 object ContendedSpec extends Specification with ConsoleLogger {
-  /*
   "horizontal winners" should {
     "be detected at the edge of the board" in {
       val reference =
@@ -23,7 +22,7 @@ object ContendedSpec extends Specification with ConsoleLogger {
       val board = new GameBoard() with ConsoleLogger
       val (row, col) = board.move(0, 0, 1, 1, 2, 2, 3)
       reference mustEqual board.toString.trim
-      board.horizontal(row, col) mustEqual true
+      board.horizontalWinner(row, col) mustEqual true
     }
     "be detected at the other edge of the board" in {
       val reference =
@@ -37,7 +36,7 @@ object ContendedSpec extends Specification with ConsoleLogger {
       val board = new GameBoard() with ConsoleLogger
       val (row, col) = board.move(3, 3, 4, 4, 5, 5, 6)
       reference mustEqual board.toString.trim
-      board.horizontal(row, col) mustEqual true
+      board.horizontalWinner(row, col) mustEqual true
     }
     "not be detected if nobody wins" in {
       val reference =
@@ -51,7 +50,7 @@ object ContendedSpec extends Specification with ConsoleLogger {
       val board = new GameBoard() with ConsoleLogger
       val (row, col) = board.move(0, 0, 1, 1, 2, 2)
       reference mustEqual board.toString.trim
-      board.horizontal(row, col) mustEqual false
+      board.horizontalWinner(row, col) mustEqual false
     }
   }
   "vertical winners" should {
@@ -67,7 +66,7 @@ object ContendedSpec extends Specification with ConsoleLogger {
       val board = new GameBoard() with ConsoleLogger
       val (row, col) = board.move(0, 0, 0, 1, 0, 1, 0, 1, 0)
       reference mustEqual board.toString.trim
-      board.vertical(row, col) mustEqual true
+      board.verticalWinner(row, col) mustEqual true
     }
     "not be detected if nobody wins" in {
       val reference =
@@ -81,7 +80,7 @@ object ContendedSpec extends Specification with ConsoleLogger {
       val board = new GameBoard() with ConsoleLogger
       val (row, col) = board.move(0, 0, 0, 1, 0, 1, 0)
       reference mustEqual board.toString.trim
-      board.vertical(row, col) mustEqual false
+      board.verticalWinner(row, col) mustEqual false
     }
   }
   "diagonally up forward winners" should {
@@ -97,7 +96,7 @@ object ContendedSpec extends Specification with ConsoleLogger {
       val board = new GameBoard() with ConsoleLogger
       val (row, col) = board.move(3, 4, 4, 5, 5, 6, 5, 6, 6, 3, 6)
       reference mustEqual board.toString.trim
-      board.diagonallyUp(row, col) mustEqual true
+      board.diagupWinner(row, col) mustEqual true
     }
     "not detect a winner" in {
       val reference =
@@ -111,8 +110,7 @@ object ContendedSpec extends Specification with ConsoleLogger {
       val board = new GameBoard() with ConsoleLogger
       val (row, col) = board.move(3, 4, 4, 5, 5, 6, 5, 6, 6, 3)
       reference mustEqual board.toString.trim
-      board.diagonallyUp(row, col) mustEqual false
+      board.diagupWinner(row, col) mustEqual false
     }
   }
-  */
 }
