@@ -10,8 +10,7 @@ trait MiniMaxSearch extends SearchStrategy {
   def search(board: GameBoard) = board.turn match {
     case White => max(board, 0, NEGATIVE_INFINITY, POSITIVE_INFINITY).fst
     case Black => min(board, 0, NEGATIVE_INFINITY, POSITIVE_INFINITY).fst
-    case _     => assert(false, "Board turn is not a player!")
-                  0
+    case _     => throw new IllegalStateException("Current player turn is unknown")
   }
 
   def max(board: GameBoard, depth: Int, alpha: Double, beta: Double): Pair[Int, Double] = {

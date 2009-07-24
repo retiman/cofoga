@@ -7,4 +7,5 @@ import cofoga.eval.EvaluationStrategy
 trait SearchStrategy extends EvaluationStrategy with Logged {
   def plies: Int
   def search(board: GameBoard): Int
+  def terminal(board: GameBoard, depth: Int): Boolean
 }
