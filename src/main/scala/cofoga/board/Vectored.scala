@@ -24,16 +24,16 @@ trait Vectored {
                              yield matrix(i)(col)
   }
 
-  def diagonalup(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
+  def diagup(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
     case end if end < 0 => val k = -end
-                           diagonalup(row - k + 1, col - k + 1)(-end)
+                           diagup(row - k + 1, col - k + 1)(-end)
     case _              => for (k <- 0 until end if contains(row + k)(col + k))
                              yield matrix(row + k)(col + k)
   }
 
-  def diagonaldown(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
+  def diagdown(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
     case end if end < 0 => val k = -end
-                           diagonaldown(row + k - 1, col - k + 1)(-end)
+                           diagdown(row + k - 1, col - k + 1)(-end)
     case _              => for (k <- 0 until end if contains(row - k)(col + k))
                              yield matrix(row - k)(col + k)
   }

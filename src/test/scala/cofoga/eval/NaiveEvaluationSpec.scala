@@ -54,13 +54,14 @@ object NaiveEvaluationSpec extends Specification with ConsoleLogger {
     }
   }
   "utility function" should {
-    "compute correct score" in {
+    /*"compute correct score" in {
+
       val board = new TestBoard()
       val eval  = new TestEvaluation()
       board.move(0, 0, 1, 1, 2, 2)
       eval.utility(board) mustEqual 0
     }
-    /*
+    
     "compute correct score" in {
       val board = new TestBoard()
       val eval  = new TestEvaluation()
