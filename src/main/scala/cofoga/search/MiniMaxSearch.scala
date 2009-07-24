@@ -25,6 +25,7 @@ trait MiniMaxSearch extends SearchStrategy {
       if (v > value) {
         value = v
         best = m
+        log("At depth " + depth + " best move for White is " + m + ", (a, b) = " + (alpha_, beta))
       }
       board.undo()
       if (value >= beta)
@@ -39,13 +40,14 @@ trait MiniMaxSearch extends SearchStrategy {
       return (0, utility(board))
     var value = POSITIVE_INFINITY
     var beta_ = beta
-    var best  = 0
+    var best  = 0    
     board.legalMoves.foreach { m =>
       board.move(m)
       val (b, v) = max(board, depth + 1, alpha, beta_)
       if (v > value) {
         value = v
         best = m
+        log("At depth " + depth + " best move for Black is " + m + ", (a, b) = " + (alpha, beta_))
       }
       board.undo()
       if (value <= alpha)
