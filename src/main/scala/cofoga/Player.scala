@@ -32,9 +32,11 @@ object Player extends Enumeration with Logged {
     }
   }
 
-  override def valueOf(s: String) = s match {
+  override def valueOf(s: String): Option[Player] = s match {
     case "O" => Some(White)
     case "X" => Some(Black)
     case _   => None
   }
+
+  def valueOf(c: Char): Option[Player] = valueOf(c.toString)
 }

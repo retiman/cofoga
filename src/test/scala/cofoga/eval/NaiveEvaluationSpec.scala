@@ -14,7 +14,7 @@ object NaiveEvaluationSpec extends Specification with ConsoleLogger {
   }
 
   class TestEvaluation extends NaiveEvaluation with ConsoleLogger
-
+/*
   "horizontals" should {
     "compute correct threats" in {
       val board = new TestBoard()
@@ -52,7 +52,7 @@ object NaiveEvaluationSpec extends Specification with ConsoleLogger {
       board.grid(1)(4) = White
       "O-O-O-" mustEqual eval.diagonallyDown(board, 5).map(_.format).mkString
     }
-  }
+  }*/
   "utility function" should {
     /*"compute correct score" in {
 
