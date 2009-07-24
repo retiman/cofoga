@@ -3,9 +3,9 @@ package cofoga.board
 import cofoga.Player._
 
 trait Vectored {
-  protected def matrix: Array[Array[Player]]
   protected def rows: Int
   protected def cols: Int
+  protected def matrix: Array[Array[Player]]
   def containsRow(row: Int) = 0 until rows contains row
   def containsCol(col: Int) = 0 until cols contains col
   def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)

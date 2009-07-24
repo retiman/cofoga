@@ -3,9 +3,9 @@ package cofoga.board
 import cofoga.Player._
 
 trait Formatted {
-  def rows: Int
-  def cols: Int
-  protected val matrix: Array[Array[Player]]
+  protected def rows: Int
+  protected def cols: Int
+  protected def matrix: Array[Array[Player]]
 
   override def toString = {
     val s = new StringBuilder
