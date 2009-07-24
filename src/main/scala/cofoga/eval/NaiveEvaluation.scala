@@ -7,10 +7,14 @@ import cofoga.Predef._
 trait NaiveEvaluation extends EvaluationStrategy {
   val pattern = """X+|O+""".r
 
-  def utility(board: GameBoard) = board.winner match {
-    case White => POSITIVE_INFINITY
-    case Black => NEGATIVE_INFINITY
-    case _     => eval(board)
+  def utility(board: GameBoard) = {
+    val score = board.winner match {
+      case White => POSITIVE_INFINITY
+      case Black => NEGATIVE_INFINITY
+      case _     => eval(board)
+    }
+    log("Evaluated a utility of " + score)
+    score
   }
 
   def eval(board: GameBoard) = {
