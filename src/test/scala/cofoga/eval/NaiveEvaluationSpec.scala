@@ -8,19 +8,30 @@ import cofoga.Player._
 
 class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)
 
-object NaiveEvaluationSpec extends Specification with ConsoleLogger {
+object NaiveEvaluationSpec extends Specification with NaiveEvaluation
+                                                 with ConsoleLogger {
   class TestBoard extends GameBoard with ConsoleLogger { def m = matrix }
-  class TestEvaluation extends NaiveEvaluation with ConsoleLogger
-/*
+  var board = new TestBoard()
+  var whites = new Array[Int](board.connections)
+  var blacks = new Array[Int](board.connections)
+
+  def reset() = {
+    board = new TestBoard()
+    whites = new Array[Int](board.connections)
+    blacks = new Array[Int](board.connections)
+  }
+
   "horizontals" should {
     "compute correct threats" in {
-      val board = new TestBoard()
-      val eval  = new TestEvaluation()
+      reset()
       for (j <- 0 until board.cols if j % 2 == 0)
-        board.grid(0)(j) = White
-      "O-O-O-O" mustEqual eval.horizontal(board, 0).map(_.format).mkString
+        board.m(0)(j) = White
+      horizontalEvaluation(board, whites, blacks)
+      List(0, 4, 0, 0) mustEqual whites.toList
+      List(0, 0, 0, 0) mustEqual blacks.toList
     }
   }
+  /*
   "verticals calculation" should {
     "compute correct threats" in {
       val board = new TestBoard()
