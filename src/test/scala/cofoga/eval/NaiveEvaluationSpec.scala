@@ -31,36 +31,38 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       List(0, 0, 0, 0) mustEqual blacks.toList
     }
   }
-  /*
   "verticals calculation" should {
     "compute correct threats" in {
-      val board = new TestBoard()
-      val eval  = new TestEvaluation()
+      reset()
       for (i <- 0 until board.rows if i % 2 == 0)
-        board.grid(i)(0) = White
-      "O-O-O-" mustEqual eval.vertical(board, 0).map(_.format).mkString
+        board.m(i)(0) = White
+      verticalEvaluation(board, whites, blacks)
+      List(0, 3, 0, 0) mustEqual whites.toList
+      List(0, 0, 0, 0) mustEqual blacks.toList
     }
   }
   "diagonally up calculation" should {
     "compute correct threats" in {
-      val board = new TestBoard()
-      val eval  = new TestEvaluation()
-      board.grid(0)(0) = White
-      board.grid(2)(2) = White
-      board.grid(4)(4) = White
-      "O-O-O-" mustEqual eval.diagonallyUp(board, 0).map(_.format).mkString
+      reset()
+      board.m(0)(0) = White
+      board.m(2)(2) = White
+      board.m(4)(4) = White
+      diagupEvaluation(board, whites, blacks)
+      List(0, 3, 0, 0) mustEqual whites.toList
+      List(0, 0, 0, 0) mustEqual blacks.toList
     }
   }
   "diagonally down calculation" should {
     "compute correct threats" in {
-      val board = new TestBoard()
-      val eval  = new TestEvaluation()
-      board.grid(5)(0) = White
-      board.grid(3)(2) = White
-      board.grid(1)(4) = White
-      "O-O-O-" mustEqual eval.diagonallyDown(board, 5).map(_.format).mkString
+      reset()
+      board.m(5)(0) = White
+      board.m(3)(2) = White
+      board.m(1)(4) = White
+      diagdownEvaluation(board, whites, blacks)
+      List(0, 3, 0, 0) mustEqual whites.toList
+      List(0, 0, 0, 0) mustEqual blacks.toList
     }
-  }*/
+  }
   "utility function" should {
     /*"compute correct score" in {
 

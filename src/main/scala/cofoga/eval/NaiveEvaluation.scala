@@ -59,8 +59,8 @@ trait NaiveEvaluation extends EvaluationStrategy {
   }
 
   def diagdownEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
-    for (j <- 0 until 2*board.rows) {
-      val players = board.diagdown(0, j)(board.rows).map(_.format).mkString
+    for (j <- -board.cols until board.cols) {
+      val players = board.diagdown(board.rows - 1, j)(board.rows).map(_.format).mkString
       log("Evaluating diagdown at col " + j + ": " + players)
       weigh(players, whites, blacks)
     }
