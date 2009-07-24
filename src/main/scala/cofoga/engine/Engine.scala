@@ -13,6 +13,8 @@ abstract class Engine(val settings: Settings) extends GameBoard
                                               with Logged {
   protected val board = new GameBoard(settings.rows, settings.cols, settings.connections)
 
+  def plies = settings.plies
+
   def respond() = {
     val m = search(this)
     move(m)

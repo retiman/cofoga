@@ -26,7 +26,9 @@ object Main extends Application {
       }
     }
 
-    
+    val engine = new Engine(settings) with cofoga.eval.NaiveEvaluation
+                                      with cofoga.search.MinMaxSearch
+    println("Initialized new game with: " + settings)
   }
 
   def error = {
