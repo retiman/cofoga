@@ -72,7 +72,7 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
     "compute correct score" in {
       reset()
       board.move(0, 0, 1, 1, 2)
-      utility(board) mustEqual -3
+      utility(board) mustEqual 9
     }
   }
 }
