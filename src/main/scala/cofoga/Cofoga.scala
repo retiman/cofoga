@@ -1,6 +1,6 @@
 package cofoga
 
-object Predef {
+object Cofoga {
   implicit def pairWrapper[A, B](a: Pair[A, B]) = new {
     def fst = a._1
     def snd = a._2

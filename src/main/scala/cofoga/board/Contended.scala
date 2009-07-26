@@ -1,8 +1,8 @@
 package cofoga.board
 
 import scala.util.logging.Logged
+import cofoga.Cofoga._
 import cofoga.Player._
-import cofoga.Predef._
 
 trait Contended extends Vectored with Logged {
   protected val rows: Int

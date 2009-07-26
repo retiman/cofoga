@@ -1,8 +1,8 @@
 package cofoga.eval
 
 import cofoga.board.GameBoard
+import cofoga.Cofoga._
 import cofoga.Player._
-import cofoga.Predef._
 
 trait NaiveEvaluation extends EvaluationStrategy {
   val pattern = """X+|O+""".r

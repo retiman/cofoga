@@ -1,8 +1,8 @@
 package cofoga.search
 
 import cofoga.board.GameBoard
+import cofoga.Cofoga._
 import cofoga.Player._
-import cofoga.Predef._
 
 trait MinMaxSearch extends SearchStrategy {
   def terminal(board: GameBoard, depth: Int) = board.winner != Neither || depth == plies

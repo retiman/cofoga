@@ -3,8 +3,8 @@ package cofoga
 import scala.util.logging.ConsoleLogger
 import cofoga.engine.Settings
 import cofoga.engine.Engine
+import cofoga.Cofoga._
 import cofoga.Player._
-import cofoga.Predef._
 
 object Main extends Application {
   override def main(args: Array[String]): Unit = {
