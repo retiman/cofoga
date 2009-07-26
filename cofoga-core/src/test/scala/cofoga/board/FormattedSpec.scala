@@ -14,11 +14,9 @@ object FormattedSpec extends Specification with Formatted
   val cols = COLS
   val matrix = new Array[Array[Player]](rows, cols)
   def reset() = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
-  reset()
 
-  "printing a matrix " should {
+  "printing a matrix " should { reset().before
     "output an empty board correctly" in {
-      reset()
       """5  -  -  -  -  -  -  -
         |4  -  -  -  -  -  -  -
         |3  -  -  -  -  -  -  -
@@ -28,7 +26,6 @@ object FormattedSpec extends Specification with Formatted
         |   0  1  2  3  4  5  6""".stripMargin mustEqual toString.trim
     }
     "output an board with two pieces correctly" in {
-      reset()
       matrix(0)(3) = White
       matrix(1)(3) = Black
       """5  -  -  -  -  -  -  -
@@ -40,7 +37,6 @@ object FormattedSpec extends Specification with Formatted
         |   0  1  2  3  4  5  6""".stripMargin mustEqual toString.trim
     }
     "output a board with winner correctly" in {
-      reset()
       matrix(0)(0) = White
       matrix(1)(0) = Black
       matrix(0)(1) = White

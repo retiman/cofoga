@@ -21,9 +21,8 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
     blacks = new Array[Int](board.connections - 1)
   }
 
-  "horizontals" should {
+  "horizontals" should { reset().before
     "compute correct threats" in {
-      reset()
       for (j <- 0 until board.cols if j % 2 == 0)
         board.m(0)(j) = White
       horizontalEvaluation(board, whites, blacks)
@@ -31,9 +30,8 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       List(0, 0, 0) mustEqual blacks.toList
     }
   }
-  "verticals calculation" should {
+  "verticals calculation" should { reset().before
     "compute correct threats" in {
-      reset()
       for (i <- 0 until board.rows if i % 2 == 0)
         board.m(i)(0) = White
       verticalEvaluation(board, whites, blacks)
@@ -41,9 +39,8 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       List(0, 0, 0) mustEqual blacks.toList
     }
   }
-  "diagonally up calculation" should {
+  "diagonally up calculation" should { reset().before
     "compute correct threats" in {
-      reset()
       board.m(0)(0) = White
       board.m(2)(2) = White
       board.m(4)(4) = White
@@ -52,9 +49,8 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       List(0, 0, 0) mustEqual blacks.toList
     }
   }
-  "diagonally down calculation" should {
+  "diagonally down calculation" should { reset().before
     "compute correct threats" in {
-      reset()
       board.m(5)(0) = White
       board.m(3)(2) = White
       board.m(1)(4) = White
@@ -63,19 +59,16 @@ object NaiveEvaluationSpec extends Specification with NaiveEvaluation
       List(0, 0, 0) mustEqual blacks.toList
     }
   }
-  "utility function" should {
+  "utility function" should { reset().before
     "compute correct score" in {
-      reset()
       board.move(0, 0, 1, 1, 2, 2)
       utility(board) mustEqual 0
     }    
     "compute correct score" in {
-      reset()
       board.move(0, 0, 1, 1, 2)
       utility(board) mustEqual 9
     }
     "compute correct score" in {
-      reset()
       board.move(0, 0, 2, 0, 4, 0)
       utility(board) mustEqual -6
     }
