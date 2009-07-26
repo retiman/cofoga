@@ -13,7 +13,7 @@ trait NaiveEvaluation extends EvaluationStrategy {
       case Black => NEGATIVE_INFINITY
       case _     => eval(board)
     }
-    log("Evaluated a utility of " + score)
+    //log("Evaluated a utility of " + score)
     score
   }
 

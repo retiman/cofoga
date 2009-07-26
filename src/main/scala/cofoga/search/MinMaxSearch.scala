@@ -27,7 +27,7 @@ trait MinMaxSearch extends SearchStrategy {
       if (v > value) {
         value = v
         best = m
-        log("At depth " + depth + " best move for White is " + m + ", (a, b) = " + (alpha_, beta))
+        //log("At depth " + depth + " best move for White is " + m + ", (v, a, b) = " + (value, alpha_, beta))
       }
       board.undo()
       if (value >= beta)
@@ -51,7 +51,7 @@ trait MinMaxSearch extends SearchStrategy {
       if (v < value) {
         value = v
         best = m
-        log("At depth " + depth + " best move for Black is " + m + ", (a, b) = " + (alpha, beta_))
+        //log("At depth " + depth + " best move for Black is " + m + ", (v, a, b) = " + (value, alpha, beta_))
       }
       board.undo()
       if (value <= alpha)

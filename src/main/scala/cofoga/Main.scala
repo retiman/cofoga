@@ -1,8 +1,10 @@
 package cofoga
 
+import scala.util.logging.ConsoleLogger
 import cofoga.engine.Settings
 import cofoga.engine.Engine
 import cofoga.Player._
+import cofoga.Predef._
 
 object Main extends Application {
   override def main(args: Array[String]): Unit = {
@@ -28,10 +30,39 @@ object Main extends Application {
 
     val engine = new Engine(settings) with cofoga.eval.NaiveEvaluation
                                       with cofoga.search.MinMaxSearch
+                                      with ConsoleLogger
     println("Initialized new game with\n" + settings)
+    println("Type \"quit\" to exit")
+
+    do {
+      println(engine)
+      if (engine.turn == settings.player) {
+        var input = ""
+        var m = -1
+        while (m == -1) {
+          println("Legal moves are: " + engine.legalMoves.mkString(", "))
+          print("Enter a legal move: ")
+          input = readLine
+          input.trim match {
+            case "quit" => exit(1)
+            case input  => rescue {
+                             m = input.toInt
+                             if (!engine.legalMoves.contains(m))
+                               m = -1
+                           } using ()
+          }
+        }
+        engine.move(m)
+      }
+      else {
+        engine.respond()
+      }
+    } while (engine.winner == Neither)
+    println(engine)
+    println("The winner was " + format(engine.winner) + ".")
   }
 
-  def error = {
+  def error() = {
     println(help)
     exit(1)
   }
