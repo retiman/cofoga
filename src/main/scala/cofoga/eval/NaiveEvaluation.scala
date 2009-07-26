@@ -18,8 +18,6 @@ trait NaiveEvaluation extends EvaluationStrategy {
   }
 
   def eval(board: GameBoard) = {
-    println("Winner? " + board.winner)
-    println(board.toString)
     val whites  = new Array[Int](board.connections - 1)
     val blacks  = new Array[Int](board.connections - 1)
     horizontalEvaluation(board, whites, blacks)
@@ -31,9 +29,6 @@ trait NaiveEvaluation extends EvaluationStrategy {
   }
 
   def weigh(players: String, whites: Array[Int], blacks: Array[Int]) = {
-    //log("Weights so far for White: " + whites.toList)
-    //log("Weights so far for Black: " + blacks.toList)
-    //log("Examining vector: " + players)
     pattern.findAllIn(players).foreach { m =>
       valueOf(m(0)) match {
         case Some(White) => whites(m.size - 1) += 1
