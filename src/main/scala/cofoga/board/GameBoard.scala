@@ -2,7 +2,7 @@ package cofoga.board
 
 import scala.collection.mutable.Stack
 import scala.util.logging.Logged
-import cofoga.board.GameBoard._
+import cofoga.Cofoga._
 import cofoga.Player._
 
 class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Contended
@@ -57,10 +57,4 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Cont
       player
     }
   }
-}
-
-object GameBoard {
-  val ROWS = 6
-  val COLS = 7
-  val CXNS = 4
 }

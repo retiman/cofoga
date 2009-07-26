@@ -3,8 +3,8 @@ package cofoga.board
 import scala.util.logging.ConsoleLogger
 import org.specs.runner.JUnit4
 import org.specs.Specification
+import cofoga.Cofoga._
 import cofoga.Player._
-import cofoga.board.GameBoard._
 
 class ContendedSpecTest extends JUnit4(ContendedSpec)
 

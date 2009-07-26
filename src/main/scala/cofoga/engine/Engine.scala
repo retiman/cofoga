@@ -4,8 +4,8 @@ import scala.util.logging.Logged
 import cofoga.board.GameBoard
 import cofoga.search.SearchStrategy
 import cofoga.eval.EvaluationStrategy
+import cofoga.Cofoga._
 import cofoga.Player._
-import cofoga.board.GameBoard._
 
 abstract class Engine(val settings: Settings) extends GameBoard
                                               with SearchStrategy

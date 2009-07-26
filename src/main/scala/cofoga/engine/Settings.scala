@@ -1,7 +1,7 @@
 package cofoga.engine
 
+import cofoga.Cofoga._
 import cofoga.Player._
-import cofoga.board.GameBoard._
 
 class Settings {
   var rows = ROWS
