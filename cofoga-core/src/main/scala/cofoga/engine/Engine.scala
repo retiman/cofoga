@@ -7,12 +7,10 @@ import cofoga.eval.EvaluationStrategy
 import cofoga.Cofoga._
 import cofoga.Player._
 
-abstract class Engine(val settings: Settings) extends GameBoard
-                                              with SearchStrategy
-                                              with EvaluationStrategy
-                                              with Logged {
-  protected val board = new GameBoard(settings.rows, settings.cols, settings.connections)
-
+abstract class Engine(settings: Settings) extends GameBoard(settings.rows, settings.cols, settings.connections)
+                                          with SearchStrategy
+                                          with EvaluationStrategy
+                                          with Logged {
   def plies = settings.plies
 
   def respond() = {
