@@ -30,7 +30,6 @@ object Main extends Application {
 
     val engine = new Engine(settings) with cofoga.eval.NaiveEvaluation
                                       with cofoga.search.MinMaxSearch
-                                      with ConsoleLogger
     println("Initialized new game with\n" + settings)
     println("Type \"quit\" to exit")
 
