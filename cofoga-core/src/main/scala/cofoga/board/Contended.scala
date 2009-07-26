@@ -1,6 +1,6 @@
 package cofoga.board
 
-import scala.util.logging.Logged
+import cofoga.util.Logged
 import cofoga.Cofoga._
 import cofoga.Player._
 

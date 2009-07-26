@@ -1,7 +1,7 @@
 package cofoga.eval
 
-import scala.util.logging.Logged
 import cofoga.board.GameBoard
+import cofoga.util.Logged
 
 trait EvaluationStrategy extends Logged {
   val POSITIVE_INFINITY = java.lang.Double.POSITIVE_INFINITY
