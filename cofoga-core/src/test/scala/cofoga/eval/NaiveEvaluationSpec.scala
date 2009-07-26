@@ -1,16 +1,16 @@
 package cofoga.eval
 
-import scala.util.logging.ConsoleLogger
 import org.specs.runner.JUnit4
 import org.specs.Specification
 import cofoga.board.GameBoard
+import cofoga.util.Logged
 import cofoga.Player._
 
 class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)
 
 object NaiveEvaluationSpec extends Specification with NaiveEvaluation
-                                                 with ConsoleLogger {
-  class TestBoard extends GameBoard with ConsoleLogger { def m = matrix }
+                                                 with Logged {
+  class TestBoard extends GameBoard { def m = matrix }
   var board = new TestBoard()
   var whites = new Array[Int](board.connections - 1)
   var blacks = new Array[Int](board.connections - 1)

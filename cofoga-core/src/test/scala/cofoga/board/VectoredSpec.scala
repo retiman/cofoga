@@ -1,15 +1,15 @@
 package cofoga.board
 
-import scala.util.logging.ConsoleLogger
 import org.specs.runner.JUnit4
 import org.specs.Specification
+import cofoga.util.Logged
 import cofoga.Cofoga._
 import cofoga.Player._
 
 class VectoredSpecTest extends JUnit4(VectoredSpec)
 
 object VectoredSpec extends Specification with Vectored
-                                          with ConsoleLogger {
+                                          with Logged {
   val rows = ROWS
   val cols = COLS
   val matrix = new Array[Array[Player]](rows, cols)

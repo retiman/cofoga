@@ -1,6 +1,5 @@
 package cofoga.board
 
-import scala.util.logging.ConsoleLogger
 import org.specs.runner.JUnit4
 import org.specs.Specification
 import cofoga.util.Logged

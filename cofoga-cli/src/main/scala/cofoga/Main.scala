@@ -1,12 +1,12 @@
 package cofoga
 
-import scala.util.logging.ConsoleLogger
+import cofoga.util.Logged
 import cofoga.engine.Settings
 import cofoga.engine.Engine
 import cofoga.Cofoga._
 import cofoga.Player._
 
-object Main extends Application {
+object Main extends Application with Logged {
   override def main(args: Array[String]): Unit = {
     var settings = new Settings()
     val iter = args.elements

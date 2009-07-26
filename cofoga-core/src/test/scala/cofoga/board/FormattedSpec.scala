@@ -1,15 +1,15 @@
 package cofoga.board
 
-import scala.util.logging.ConsoleLogger
 import org.specs.runner.JUnit4
 import org.specs.Specification
 import cofoga.Cofoga._
+import cofoga.util.Logged
 import cofoga.Player._
 
 class FormattedSpecTest extends JUnit4(FormattedSpec)
 
 object FormattedSpec extends Specification with Formatted
-                                           with ConsoleLogger {
+                                           with Logged {
   val rows = ROWS
   val cols = COLS
   val matrix = new Array[Array[Player]](rows, cols)
