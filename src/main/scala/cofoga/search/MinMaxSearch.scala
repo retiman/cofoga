@@ -19,7 +19,9 @@ trait MinMaxSearch extends SearchStrategy {
     var value  = NEGATIVE_INFINITY
     var alpha_ = alpha
     var best   = 0
-    board.legalMoves.foreach { m =>
+    val legals = board.legalMoves
+    val (r, c) = board.lastMove
+    legals.map(m => (m, Math.abs(m-c))).toList.sort((t1,t2) => t1.snd < t2.snd).map(_.fst).foreach { m =>
       board.move(m)
       val (b, v) = min(board, depth + 1, alpha_, beta)
       if (v > value) {
@@ -41,7 +43,9 @@ trait MinMaxSearch extends SearchStrategy {
     var value = POSITIVE_INFINITY
     var beta_ = beta
     var best  = 0    
-    board.legalMoves.foreach { m =>
+    val legals = board.legalMoves
+    val (r, c) = board.lastMove
+    legals.map(m => (m, Math.abs(m-c))).toList.sort((t1,t2) => t1.snd < t2.snd).map(_.fst).foreach { m =>
       board.move(m)
       val (b, v) = max(board, depth + 1, alpha, beta_)
       if (v > value) {
