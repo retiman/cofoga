@@ -5,7 +5,7 @@ import cofoga.Cofoga._
 import cofoga.Player._
 
 trait MinMaxSearch extends SearchStrategy {
-  def terminal(board: GameBoard, depth: Int) = board.winner != Neither || depth == plies
+  def terminal(board: GameBoard, depth: Int) = board.winner != Neither || depth == halfPlies
 
   def search(board: GameBoard) = board.turn match {
     case White => max(board, 0, NEGATIVE_INFINITY, POSITIVE_INFINITY).fst
