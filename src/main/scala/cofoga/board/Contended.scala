@@ -10,6 +10,7 @@ trait Contended extends Vectored with Logged {
   protected val connections: Int
   protected val matrix: Array[Array[Player]]
   protected val target = connections - 1
+  protected val wpattern = ("X{" + connections + "}|O{" + connections + "}").r
 
   def winner(row: Int, col: Int): Player = {
     List(horizontalWinner _,
@@ -21,21 +22,12 @@ trait Contended extends Vectored with Logged {
     Neither
   }
 
-  def horizontalWinner(row: Int, col: Int) = check(lr, row, col) || check(rl, row, col)
-  def verticalWinner(row: Int, col: Int)   = check(du, row, col) || check(ud, row, col)
-  def diagupWinner(row: Int, col: Int)     = check(ur, row, col) || check(dl, row, col)
-  def diagdownWinner(row: Int, col: Int)   = check(ul, row, col) || check(dr, row, col)
+  def horizontalWinner(row: Int, col: Int) = check(matrix(row)(col), horizontal(row, col - target)(2 * connections))
+  def verticalWinner(row: Int, col: Int)   = check(matrix(row)(col), vertical(row - target, col)(2 * connections))
+  def diagupWinner(row: Int, col: Int)     = check(matrix(row)(col), diagup(row - target, col - target)(2 * connections))
+  def diagdownWinner(row: Int, col: Int)   = check(matrix(row)(col), diagdown(row + target, col - target)(2 * connections))
 
-  protected def check(f: (Int, Int) => Seq.Projection[Player], row: Int, col: Int) = {
-    f(row, col).filter(_ == matrix(row)(col)).length == target
-  }
-
-  protected def lr(row: Int, col: Int) = horizontal(row, col + 1)(target)
-  protected def rl(row: Int, col: Int) = horizontal(row, col - 1)(-target)
-  protected def du(row: Int, col: Int) = vertical(row + 1, col)(target)
-  protected def ud(row: Int, col: Int) = vertical(row - 1, col)(-target)
-  protected def ur(row: Int, col: Int) = diagup(row + 1, col + 1)(target)
-  protected def dl(row: Int, col: Int) = diagup(row - 1, col - 1)(-target)
-  protected def dr(row: Int, col: Int) = diagdown(row - 1, col + 1)(target)
-  protected def ul(row: Int, col: Int) = diagdown(row + 1, col - 1)(-target)
+  protected def check(player: Player, players: Seq.Projection[Player]) = !wpattern.findAllIn(players.map(_.format).mkString)
+                                                                                  .toList
+                                                                                  .isEmpty
 }

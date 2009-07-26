@@ -143,4 +143,21 @@ object ContendedSpec extends Specification with ConsoleLogger {
       board.diagdownWinner(row, col) mustEqual false
     }
   }
+  "winners calculation" should {
+    "detect a winner in this situation" in {
+      println("moose!")
+      val reference =
+      """5  -  -  -  -  -  -  -
+        |4  -  -  -  -  -  -  -
+        |3  -  -  -  -  -  -  -
+        |2  -  -  -  -  X  -  -
+        |1  -  O  O  O  O  -  -
+        |0  -  X  X  O  X  -  -
+        |   0  1  2  3  4  5  6""".stripMargin
+      val board = new GameBoard() with ConsoleLogger
+      board.move(3, 2, 3, 1, 1, 4, 4, 4, 2)
+      reference mustEqual board.toString.trim
+      board.winner mustEqual White
+    }
+  }
 }
