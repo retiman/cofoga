@@ -3,7 +3,7 @@ package cofoga.util
 import org.apache.commons.logging.Log
 import org.apache.commons.logging.LogFactory
 
-trait CommonsLogged {
+trait Logged {
   protected val commonsLog = LogFactory.getLog(this.getClass)
   protected def log = new {
     def debug(msg: => String, t: Throwable) = if (commonsLog.isDebugEnabled) commonsLog.debug(msg, t)
