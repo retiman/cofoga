@@ -5,10 +5,10 @@
       
   <modelVersion>4.0.0</modelVersion>
   <groupId>cofoga</groupId>
-  <artifactId>cofoga</artifactId>
+  <artifactId>cofoga-cli</artifactId>
   <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>Cofoga Connect 4 Game (CLI)</name>
+  <name>Cofoga Connect 4 Interface (CLI)</name>
   <description>
     <![CDATA[
       A command line version of Cofoga.
