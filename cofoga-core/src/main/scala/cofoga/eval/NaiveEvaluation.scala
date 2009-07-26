@@ -13,7 +13,7 @@ trait NaiveEvaluation extends EvaluationStrategy {
       case Black => NEGATIVE_INFINITY
       case _     => eval(board)
     }
-    //log("Evaluated a utility of " + score)
+    log.info("Evaluated a utility of " + score)
     score
   }
 
@@ -41,7 +41,7 @@ trait NaiveEvaluation extends EvaluationStrategy {
   def horizontalEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
     for (i <- 0 until board.rows) {
       val players = board.horizontal(i, 0)(board.cols).map(_.format).mkString
-      //log("Evaluating horizontal at row " + i + ": " + players)
+      log.debug("Evaluating horizontal at row " + i + ": " + players)
       weigh(players, whites, blacks)
     }
   }
@@ -49,7 +49,7 @@ trait NaiveEvaluation extends EvaluationStrategy {
   def verticalEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
     for (j <- 0 until board.cols) {
       val players = board.vertical(0, j)(board.rows).map(_.format).mkString
-      //log("Evaluating vertical at col " + j + ": " + players)
+      log.debug("Evaluating vertical at col " + j + ": " + players)
       weigh(players, whites, blacks)
     }
   }
@@ -57,7 +57,7 @@ trait NaiveEvaluation extends EvaluationStrategy {
   def diagupEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
     for (j <- -board.cols until board.cols) {
       val players = board.diagup(0, j)(board.rows).map(_.format).mkString
-      //log("Evaluating diagup at col " + j + ": " + players)
+      log.debug("Evaluating diagup at col " + j + ": " + players)
       weigh(players, whites, blacks)
     }
   }
@@ -65,7 +65,7 @@ trait NaiveEvaluation extends EvaluationStrategy {
   def diagdownEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
     for (j <- -board.cols until board.cols) {
       val players = board.diagdown(board.rows - 1, j)(board.rows).map(_.format).mkString
-      //log("Evaluating diagdown at col " + j + ": " + players)
+      log.debug("Evaluating diagdown at col " + j + ": " + players)
       weigh(players, whites, blacks)
     }
   }
