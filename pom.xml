@@ -19,18 +19,10 @@
     <url>http://www.lousycoder.com</url>
   </organization>
     
-  <profiles>
-    <profile>
-      <id>cofoga</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <modules>
-        <module>cofoga-cli</module>
-        <module>cofoga-core</module>
-      </modules>
-    </profile>
-  </profiles>  
+  <modules>
+    <module>cofoga-cli</module>
+    <module>cofoga-core</module>
+  </modules>
 
   <repositories>
     <repository>
