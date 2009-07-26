@@ -48,7 +48,7 @@ trait MinMaxSearch extends SearchStrategy {
     legals.map(m => (m, Math.abs(m-c))).toList.sort((t1,t2) => t1.snd < t2.snd).map(_.fst).foreach { m =>
       board.move(m)
       val (b, v) = max(board, depth + 1, alpha, beta_)
-      if (v > value) {
+      if (v < value) {
         value = v
         best = m
         log("At depth " + depth + " best move for Black is " + m + ", (a, b) = " + (alpha, beta_))
