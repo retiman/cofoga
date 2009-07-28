@@ -3,7 +3,6 @@ package cofoga.eval
 import org.specs.runner.JUnit4
 import org.specs.Specification
 import cofoga.board.GameBoard
-import cofoga.util.Logged
 import cofoga.Player._
 
 class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)

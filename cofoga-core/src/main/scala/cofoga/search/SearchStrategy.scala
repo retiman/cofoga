@@ -1,6 +1,5 @@
 package cofoga.search
 
-import scala.util.logging.Logged
 import cofoga.board.GameBoard
 import cofoga.eval.EvaluationStrategy
 

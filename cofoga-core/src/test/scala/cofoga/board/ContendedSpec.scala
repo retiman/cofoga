@@ -2,7 +2,6 @@ package cofoga.board
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
-import cofoga.util.Logged
 import cofoga.Cofoga._
 import cofoga.Player._
 

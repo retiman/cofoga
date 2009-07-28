@@ -3,7 +3,6 @@ package cofoga.board
 import org.specs.runner.JUnit4
 import org.specs.Specification
 import cofoga.Cofoga._
-import cofoga.util.Logged
 import cofoga.Player._
 
 class FormattedSpecTest extends JUnit4(FormattedSpec)

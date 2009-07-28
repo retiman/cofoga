@@ -3,7 +3,6 @@ package cofoga.engine
 import cofoga.board.GameBoard
 import cofoga.search.SearchStrategy
 import cofoga.eval.EvaluationStrategy
-import cofoga.util.Logged
 import cofoga.Cofoga._
 import cofoga.Player._
 

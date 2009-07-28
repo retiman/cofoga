@@ -1,6 +1,5 @@
 package cofoga.board
 
-import cofoga.util.Logged
 import cofoga.Cofoga._
 import cofoga.Player._
 
