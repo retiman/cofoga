@@ -1,6 +1,5 @@
 package cofoga.engine
 
-import cofoga.board.GameBoard
 import cofoga.search.SearchStrategy
 import cofoga.eval.EvaluationStrategy
 import cofoga.Cofoga._

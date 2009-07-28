@@ -1,6 +1,6 @@
-package cofoga.board
+package cofoga
 
-import cofoga.Player._
+import Player._
 
 trait Formatted {
   protected def rows: Int

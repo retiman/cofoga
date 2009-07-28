@@ -1,7 +1,7 @@
-package cofoga.board
+package cofoga
 
-import cofoga.Cofoga._
-import cofoga.Player._
+import Cofoga._
+import Player._
 
 trait Contended extends Vectored with Logged {
   protected val rows: Int

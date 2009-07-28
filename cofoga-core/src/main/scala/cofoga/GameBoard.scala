@@ -1,8 +1,8 @@
-package cofoga.board
+package cofoga
 
 import scala.collection.mutable.Stack
-import cofoga.Cofoga._
-import cofoga.Player._
+import Cofoga._
+import Player._
 
 class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Contended
                                                                     with Formatted

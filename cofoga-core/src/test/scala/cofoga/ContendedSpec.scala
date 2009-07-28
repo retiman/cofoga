@@ -1,4 +1,4 @@
-package cofoga.board
+package cofoga
 
 import org.specs.runner.JUnit4
 import org.specs.Specification

@@ -1,6 +1,5 @@
 package cofoga.eval
 
-import cofoga.board.GameBoard
 import cofoga.Cofoga._
 import cofoga.Player._
 
