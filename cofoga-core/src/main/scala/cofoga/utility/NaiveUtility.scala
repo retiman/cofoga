@@ -1,9 +1,9 @@
-package cofoga.eval
+package cofoga.utility
 
 import Cofoga._
 import Player._
 
-trait NaiveEvaluation extends EvaluationStrategy {
+trait NaiveUtility extends Utility {
   val pattern = """X+|O+""".r
 
   def utility(board: GameBoard) = {

@@ -1,13 +1,13 @@
-package cofoga.eval
+package cofoga.utility
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
 import Player._
 
-class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)
+class NaiveUtilitySpecTest extends JUnit4(NaiveUtilitySpec)
 
-object NaiveEvaluationSpec extends Specification with NaiveEvaluation
-                                                 with Logged {
+object NaiveUtilitySpec extends Specification with NaiveUtility
+                                              with Logged {
   class TestBoard extends GameBoard { def m = matrix }
   var board = new TestBoard()
   var whites = new Array[Int](board.connections - 1)

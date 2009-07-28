@@ -1,8 +1,6 @@
-package cofoga.search
+package cofoga
 
-import cofoga.eval.EvaluationStrategy
-
-trait SearchStrategy extends EvaluationStrategy with Logged {
+trait Search extends Utility with Logged {
   def plies: Int
   def halfPlies: Int = 2 * plies
   def search(board: GameBoard): Int

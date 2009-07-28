@@ -1,13 +1,11 @@
 package cofoga.engine
 
-import cofoga.search.SearchStrategy
-import cofoga.eval.EvaluationStrategy
 import Cofoga._
 import Player._
 
 abstract class Engine(settings: Settings) extends GameBoard(settings.rows, settings.cols, settings.connections)
-                                          with SearchStrategy
-                                          with EvaluationStrategy
+                                          with Search
+                                          with Utility
                                           with Logged {
   def plies = settings.plies
 
