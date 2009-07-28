@@ -9,7 +9,6 @@ trait Contended extends Vectored with Logged {
   protected val connections: Int
   protected val matrix: Array[Array[Player]]
   protected val target = connections - 1
-  protected val wpattern = ("X{" + connections + "}|O{" + connections + "}").r
 
   def winner(row: Int, col: Int): Player = {
     List(horizontalWinner _,
@@ -21,12 +20,59 @@ trait Contended extends Vectored with Logged {
     Neither
   }
 
-  def horizontalWinner(row: Int, col: Int) = check(matrix(row)(col), horizontal(row, col - target)(2 * connections))
-  def verticalWinner(row: Int, col: Int)   = check(matrix(row)(col), vertical(row - target, col)(2 * connections))
-  def diagupWinner(row: Int, col: Int)     = check(matrix(row)(col), diagup(row - target, col - target)(2 * connections))
-  def diagdownWinner(row: Int, col: Int)   = check(matrix(row)(col), diagdown(row + target, col - target)(2 * connections))
+  def horizontalWinner(row: Int, col: Int) = {
+    var count = 0
+    var left = true
+    var right = true
+    val player = matrix(row)(col)
+    for (k <- 1 until connections) {
+      if (right)
+        if (containsCol(col + k) && matrix(row)(col + k) == player) count += 1 else right = false
+      if (left)
+        if (containsCol(col - k) && matrix(row)(col - k) == player) count += 1 else left = false
+    }
+    count == target
+  }
 
-  protected def check(player: Player, players: Seq.Projection[Player]) = !wpattern.findAllIn(players.map(_.format).mkString)
-                                                                                  .toList
-                                                                                  .isEmpty
+  def verticalWinner(row: Int, col: Int) = {
+    var count = 0
+    var left = true
+    var right = true
+    val player = matrix(row)(col)
+    for (k <- 1 until connections) {
+      if (right)
+        if (containsRow(row + k) && matrix(row + k)(col) == player) count += 1 else right = false
+      if (left)
+        if (containsRow(row - k) && matrix(row - k)(col) == player) count += 1 else left = false
+    }
+    count == target
+  }
+
+  def diagupWinner(row: Int, col: Int) = {
+    var count = 0
+    var left = true
+    var right = true
+    val player = matrix(row)(col)
+    for (k <- 1 until connections) {
+      if (right)
+        if (contains(row + k)(col + k) && matrix(row + k)(col + k) == player) count += 1 else right = false
+      if (left)
+        if (contains(row - k)(col - k) && matrix(row - k)(col - k) == player) count += 1 else left = false
+    }
+    count == target
+  }
+
+  def diagdownWinner(row: Int, col: Int) = {
+    var count = 0
+    var left = true
+    var right = true
+    val player = matrix(row)(col)
+    for (k <- 1 until connections) {
+      if (right)
+        if (contains(row - k)(col + k) && matrix(row - k)(col + k) == player) count += 1 else right = false
+      if (left)
+        if (contains(row + k)(col - k) && matrix(row + k)(col - k) == player) count += 1 else left = false
+    }
+    count == target
+  }
 }
