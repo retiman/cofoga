@@ -2,7 +2,7 @@ package cofoga.eval
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
-import cofoga.Player._
+import Player._
 
 class NaiveEvaluationSpecTest extends JUnit4(NaiveEvaluationSpec)
 

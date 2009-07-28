@@ -2,8 +2,8 @@ package cofoga.board
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
-import cofoga.Cofoga._
-import cofoga.Player._
+import Cofoga._
+import Player._
 
 class VectoredSpecTest extends JUnit4(VectoredSpec)
 
