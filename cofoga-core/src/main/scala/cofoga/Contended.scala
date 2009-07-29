@@ -20,35 +20,43 @@ trait Contended extends Vectored with Logged {
     Neither
   }
 
-  def check(player: Player, players: Seq.Projection[Pair[Int, Int]]) = {
-    players.map(t => matrix(t.fst)(t.snd)).takeWhile(_ == player).force.size
+  def horizontalWinner(row: Int)(col: Int): Boolean = {
+    val player = matrix(row)(col)
+    var count = 0
+    for (j <- col + 1 until col + connections if containsCol(j) && matrix(row)(j) == player) count += 1
+    if (count == target) return true
+    for (j <- col - 1 until col - connections by -1 if containsCol(j) && matrix(row)(j) == player) count += 1
+    if (count == target) return true
+    return false
   }
 
-  def horizontalWinner(row: Int)(col: Int) = {
+  def verticalWinner(row: Int)(col: Int): Boolean = {
     val player = matrix(row)(col)
-    lazy val a = check(player, lr(row)(col + 1)(target))
-    lazy val b = check(player, rl(row)(col - 1)(target))
-    a == target || a + b == target
+    var count = 0
+    for (i <- row + 1 until row + connections if containsRow(i) && matrix(i)(col) == player) count += 1
+    if (count == target) return true
+    for (i <- row - 1 until row - connections by - 1 if containsRow(i) && matrix(i)(col) == player) count += 1
+    if (count == target) return true
+    return false
   }
 
-  def verticalWinner(row: Int)(col: Int) = {
+  def diagupWinner(row: Int)(col: Int): Boolean = {
     val player = matrix(row)(col)
-    lazy val a = check(player, du(row + 1)(col)(target))
-    lazy val b = check(player, ud(row - 1)(col)(target))
-    a == target || a + b == target
+    var count = 0
+    for (k <- 1 until connections if contains(row + k)(col + k) && matrix(row + k)(col + k) == player) count += 1
+    if (count == target) return true
+    for (k <- 1 until connections if contains(row - k)(col - k) && matrix(row - k)(col - k) == player) count += 1
+    if (count == target) return true
+    return false
   }
 
-  def diagupWinner(row: Int)(col: Int) = {
+  def diagdownWinner(row: Int)(col: Int): Boolean = {
     val player = matrix(row)(col)
-    lazy val a = check(player, ur(row + 1)(col + 1)(target))
-    lazy val b = check(player, dl(row - 1)(col - 1)(target))
-    a == target || a + b == target
-  }
-
-  def diagdownWinner(row: Int)(col: Int) = {
-    val player = matrix(row)(col)
-    lazy val a = check(player, dr(row - 1)(col + 1)(target))
-    lazy val b = check(player, ul(row + 1)(col - 1)(target))
-    a == target || a + b == target
+    var count = 0
+    for (k <- 1 until connections if contains(row - k)(col + k) && matrix(row - k)(col + k) == player) count += 1
+    if (count == target) return true
+    for (k <- 1 until connections if contains(row + k)(col - k) && matrix(row + k)(col - k) == player) count += 1
+    if (count == target) return true
+    return false
   }
 }

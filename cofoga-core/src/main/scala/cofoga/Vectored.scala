@@ -1,8 +1,13 @@
 package cofoga
 
+import scala.collection.mutable.HashMap
 import Player._
 
 trait Vectored extends Logged {
+  type Point = Pair[Int, Int]
+  type Threat = Array[Point]
+  type Threats = Array[Threat]
+  protected val threats = new HashMap[Point, Threats]()
   protected def rows: Int
   protected def cols: Int
   protected def connections: Int
@@ -10,6 +15,20 @@ trait Vectored extends Logged {
   protected def containsRow(row: Int) = 0 until rows contains row
   protected def containsCol(col: Int) = 0 until cols contains col
   protected def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
+  computeThreats()
+
+  def computeThreats() = {
+    for (i <- 0 until rows; j <- 0 until cols) {
+      val ts = directions.map(f => f(i)(j)(connections))
+                         .filter(_.length == connections)
+                         .map(_.toArray)
+                         .toArray
+      threats((i, j)) = ts
+      //log.info("Found threats at " + (i, j) + ": " + ts.map(_.toList).toList)
+    }
+  }
+
+  def directions = List(lr _, du _, ur _, dr _, rl _, ud _ ,dl _, ul _)
   
   def lr(row: Int)(col: Int)(end: Int) = {
     for (j <- col until col + end if containsCol(j))
