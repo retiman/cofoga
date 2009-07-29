@@ -1,12 +1,52 @@
 package cofoga.utility
 
+import scala.collection.mutable.HashMap
 import Cofoga._
 import Player._
 
 trait NaiveUtility extends Utility {
   val pattern = """X+|O+""".r
+  type Point = Pair[Int, Int]
+  type Threat = Array[Point]
+  type Threats = Array[Threat]
+  protected val threats = new HashMap[Point, Threats]()
+/*
+  computeThreats()
 
-  def utility(board: GameBoard) = {
+  def computeThreats() = {
+    for (i <- 0 until rows; j <- 0 until cols) {
+      val ts = directions.map(f => f(i)(j)(connections))
+                         .filter(_.length == connections)
+                         .map(_.toArray)
+                         .toArray
+      threats((i, j)) = ts
+      log.info("Found threats at " + (i, j) + ": " + ts.map(_.toList).toList)
+    }
+  }
+
+  def directions = List(lr _, du _, ur _, dr _)
+
+  def lr(row: Int)(col: Int)(end: Int) = {
+    for (j <- col until col + end if containsCol(j))
+      yield (row, j)
+  }
+
+  def du(row: Int)(col: Int)(end: Int) = {
+    for (i <- row until row + end if containsRow(i))
+      yield (i, col)
+  }
+
+  def ur(row: Int)(col: Int)(end: Int) = {
+    for (k <- 0 until end if contains(row + k)(col + k))
+      yield (row + k, col + k)
+  }
+
+  def dr(row: Int)(col: Int)(end: Int) = {
+    for (k <- 0 until end if contains(row - k)(col + k))
+      yield (row - k, col + k)
+  }*/
+
+  def utility = {
     val score = board.winner match {
       case White => POSITIVE_INFINITY
       case Black => NEGATIVE_INFINITY

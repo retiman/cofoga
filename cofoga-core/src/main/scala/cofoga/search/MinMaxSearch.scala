@@ -14,7 +14,7 @@ trait MinMaxSearch extends Search {
 
   def max(board: GameBoard, depth: Int, alpha: Double, beta: Double): Pair[Int, Double] = {
     if (terminal(board, depth))
-      return (0, utility(board))
+      return (0, utility)
     var value  = NEGATIVE_INFINITY
     var alpha_ = alpha
     var best   = 0
@@ -38,7 +38,7 @@ trait MinMaxSearch extends Search {
 
   def min(board: GameBoard, depth: Int, alpha: Double, beta: Double): Pair[Int, Double] = {
     if (terminal(board, depth))
-      return (0, utility(board))
+      return (0, utility)
     var value = POSITIVE_INFINITY
     var beta_ = beta
     var best  = 0    

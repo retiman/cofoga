@@ -8,11 +8,11 @@ import Player._
 class ContendedSpecTest extends JUnit4(ContendedSpec)
 
 object ContendedSpec extends Specification with Contended {
-  protected val rows = ROWS
-  protected val cols = COLS
-  protected val connections = CXNS
+  val rows = ROWS
+  val cols = COLS
+  val connections = CXNS
   protected val matrix = new Array[Array[Player]](rows, cols)
-  protected def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
+  def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 
   "horizontal winner" should { reset.before
     "be detected" in {
