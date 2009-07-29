@@ -16,7 +16,9 @@ trait NaiveUtility extends Utility {
     score
   }
 
-  def eval(board: GameBoard) = {
+  def eval(board: GameBoard): Double = {
+    0
+    /*
     val whites  = new Array[Int](board.connections - 1)
     val blacks  = new Array[Int](board.connections - 1)
     horizontalEvaluation(board, whites, blacks)
@@ -25,8 +27,10 @@ trait NaiveUtility extends Utility {
     diagdownEvaluation(board, whites, blacks)
     whites.indices.map(i => Math.pow(3, i) * whites(i)).reduceLeft(_+_) -
     blacks.indices.map(i => Math.pow(3, i) * blacks(i)).reduceLeft(_+_)
+    */
   }
 
+  /*
   def weigh(players: String, whites: Array[Int], blacks: Array[Int]) = {
     pattern.findAllIn(players).foreach { m =>
       valueOf(m(0)) match {
@@ -68,4 +72,5 @@ trait NaiveUtility extends Utility {
       weigh(players, whites, blacks)
     }
   }
+  */
 }

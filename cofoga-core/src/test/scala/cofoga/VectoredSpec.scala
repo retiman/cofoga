@@ -13,16 +13,15 @@ object VectoredSpec extends Specification with Vectored
   val cols = COLS
   val connections = CXNS
   val matrix = new Array[Array[Player]](rows, cols)
-  def reset() = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
+  def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 
-  "horizontal vectors" should { reset().before
-    "resolve 4 players from (0, 3) in the positive direction" in {
-      matrix(0)(3) = White
-      matrix(0)(4) = White
-      matrix(0)(5) = White
-      matrix(0)(6) = White
-      _horizontal(0, 3)(4).toList mustEqual List.make(4, White)
+  "pairs" should {
+    doFirst { reset }
+    "resolve left to right pairs from (0, 0)" in {
+      lr(0)(0).toList mustEqual List((0, 0), (0, 1), (0, 2), (0, 3))
     }
+  }
+  /*
     "resolve 2 players from (0, 5) in the positive direction" in {
       matrix(0)(5) = White
       matrix(0)(6) = White
@@ -126,4 +125,5 @@ object VectoredSpec extends Specification with Vectored
       _diagdown(0, 0)(-4).toList mustEqual List.make(1, White)
     }
   }
+  */
 }
