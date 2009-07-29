@@ -15,12 +15,12 @@ trait Contended extends Vectored with Logged {
          verticalWinner _,
          diagupWinner _,
          diagdownWinner _).foreach { f =>
-      if (f(row, col)) return matrix(row)(col)
+      if (f(row)(col)) return matrix(row)(col)
     }
     Neither
   }
 
-  def horizontalWinner(row: Int, col: Int) = {
+  def horizontalWinner(row: Int)(col: Int) = {
     var count = 0
     var left = true
     var right = true
@@ -34,7 +34,7 @@ trait Contended extends Vectored with Logged {
     count == target
   }
 
-  def verticalWinner(row: Int, col: Int) = {
+  def verticalWinner(row: Int)(col: Int) = {
     var count = 0
     var left = true
     var right = true
@@ -48,7 +48,7 @@ trait Contended extends Vectored with Logged {
     count == target
   }
 
-  def diagupWinner(row: Int, col: Int) = {
+  def diagupWinner(row: Int)(col: Int) = {
     var count = 0
     var left = true
     var right = true
@@ -62,7 +62,7 @@ trait Contended extends Vectored with Logged {
     count == target
   }
 
-  def diagdownWinner(row: Int, col: Int) = {
+  def diagdownWinner(row: Int)(col: Int) = {
     var count = 0
     var left = true
     var right = true
