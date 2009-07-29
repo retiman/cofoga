@@ -2,7 +2,7 @@ package cofoga
 
 import Player._
 
-trait Vectored with Logged {
+trait Vectored extends Logged {
   protected def rows: Int
   protected def cols: Int
   protected def connections: Int
@@ -10,8 +10,7 @@ trait Vectored with Logged {
   protected def containsRow(row: Int) = 0 until rows contains row
   protected def containsCol(col: Int) = 0 until cols contains col
   protected def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
-  implicit val end = connections
-
+  
   def lr(row: Int)(col: Int)(implicit end: Int) = {
     for (j <- col until col + end if containsCol(j))
       yield (row, j)
@@ -32,11 +31,11 @@ trait Vectored with Logged {
       yield (row - k, col + k)
   }
 
-  def rl(row: Int)(col: Int)(implicit end: Int) = lr(row)(col + 1)(-end)
+  def rl(row: Int)(col: Int)(implicit end: Int) = lr(row)(col - end + 1)(end)
 
-  def ud(row: Int)(col: Int)(implicit end: Int) = du(row + 1)(col)(-end)
+  def ud(row: Int)(col: Int)(implicit end: Int) = du(row - end + 1)(col)(end)
 
-  def dl(row: Int)(col: Int)(implicit end: Int) = ur(row + 1)(col + 1)(-end)
+  def dl(row: Int)(col: Int)(implicit end: Int) = ur(row - end + 1)(col - end + 1)(end)
 
-  def ul(row: Int)(col: Int)(implicit end: Int) = dr(row - 1)(col + 1)(-end)
+  def ul(row: Int)(col: Int)(implicit end: Int) = dr(row + end - 1)(col - end + 1)(end)
 }

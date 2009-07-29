@@ -13,117 +13,42 @@ object VectoredSpec extends Specification with Vectored
   val cols = COLS
   val connections = CXNS
   val matrix = new Array[Array[Player]](rows, cols)
+  implicit val vectorLimit = connections
   def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 
   "pairs" should {
     doFirst { reset }
-    "resolve left to right pairs from (0, 0)" in {
+    "be resolved from left to right" in {
       lr(0)(0).toList mustEqual List((0, 0), (0, 1), (0, 2), (0, 3))
+      lr(0)(4).toList mustEqual List((0, 4), (0, 5), (0, 6))
+    }
+    "be resolved from right to left" in {
+      rl(0)(2).toList mustEqual List((0, 0), (0, 1), (0, 2))
+      rl(0)(3).toList mustEqual List((0, 0), (0, 1), (0, 2), (0, 3))
+    }
+    "be resolved from down to up" in {
+      du(2)(0).toList mustEqual List((2, 0), (3, 0), (4, 0), (5, 0))
+      du(4)(0).toList mustEqual List((4, 0), (5, 0))
+    }
+    "be resolved from up to down" in {
+      ud(3)(0).toList mustEqual List((0, 0), (1, 0), (2, 0), (3, 0))
+      ud(2)(0).toList mustEqual List((0, 0), (1, 0), (2, 0))
+    }
+    "be resolved in the up right direction" in {
+      ur(0)(0).toList mustEqual List((0, 0), (1, 1), (2, 2), (3, 3))
+      ur(4)(4).toList mustEqual List((4, 4), (5, 5))
+    }
+    "be resolved in the down left direction" in {
+      dl(2)(2).toList mustEqual List((0, 0), (1, 1), (2, 2))
+      dl(3)(3).toList mustEqual List((0, 0), (1, 1), (2, 2), (3, 3))
+    }
+    "be resolved in the down right direction" in {
+      dr(3)(3).toList mustEqual List((3, 3), (2, 4), (1, 5), (0, 6))
+      dr(4)(4).toList mustEqual List((4, 4), (3, 5), (2, 6))
+    }
+    "be resolved in the up left direction" in {
+      ul(3)(3).toList mustEqual List((5, 1), (4, 2), (3, 3))
+      ul(2)(2).toList mustEqual List((4, 0), (3, 1), (2, 2))
     }
   }
-  /*
-    "resolve 2 players from (0, 5) in the positive direction" in {
-      matrix(0)(5) = White
-      matrix(0)(6) = White
-      _horizontal(0, 5)(4).toList mustEqual List.make(2, White)
-    }
-    "resolve 4 players from (0, 5) in the negative direction" in {
-      matrix(0)(5) = White
-      matrix(0)(4) = White
-      matrix(0)(3) = White
-      matrix(0)(2) = White
-      _horizontal(0, 5)(-4).toList mustEqual List.make(4, White)
-    }
-  }
-  "vertical vectors" should { reset().before
-    "resolve 4 players from (0, 0) in the positive direction" in {
-      matrix(0)(0) = White
-      matrix(1)(0) = White
-      matrix(2)(0) = White
-      matrix(3)(0) = White
-      _vertical(0, 0)(4).toList mustEqual List.make(4, White)
-    }
-    "resolve 3 players from (3, 0) in the positive direction" in {
-      matrix(3)(0) = White
-      matrix(4)(0) = White
-      matrix(5)(0) = White
-      _vertical(3, 0)(4).toList mustEqual List.make(3, White)
-    }
-    "resolve 4 players from (5, 0) in the negative direction" in {
-      matrix(5)(0) = White
-      matrix(4)(0) = White
-      matrix(3)(0) = White
-      matrix(2)(0) = White
-      _vertical(5, 0)(-4).toList mustEqual List.make(4, White)
-    }
-    "resolve 2 players from (1, 0) in the negative direction" in {
-      matrix(1)(0) = White
-      matrix(0)(0) = White
-      _vertical(1, 0)(-4).toList mustEqual List.make(2, White)
-    }
-  }
-  "diagonally up vectors" should {
-    "resolve 4 players from (0, 0) in the positive direction" in {
-      matrix(0)(0) = White
-      matrix(1)(1) = White
-      matrix(2)(2) = White
-      matrix(3)(3) = White
-      _diagup(0, 0)(4).toList mustEqual List.make(4, White)
-    }
-    "resolve 4 players from (3, 3) in the negative direction" in {
-      matrix(3)(3) = White
-      matrix(2)(2) = White
-      matrix(1)(1) = White
-      matrix(0)(0) = White
-      _diagup(3, 3)(-4).toList mustEqual List.make(4, White)
-    }
-    "resolve 2 players from (4, 4) in the positive direction" in {
-      matrix(4)(4) = White
-      matrix(5)(5) = White
-      _diagup(4, 4)(4).toList mustEqual List.make(2, White)
-    }
-    "resolve 2 players from (1, 2) in the negative direction" in {
-      matrix(1)(2) = White
-      matrix(0)(1) = White
-      _diagup(1, 2)(-4).toList mustEqual List.make(2, White)
-    }
-    "resolve 1 players from (0, 0) in the negative direction" in {
-      reset()
-      matrix(0)(0) = White
-      _diagup(0, 0)(-4).toList mustEqual List.make(1, White)
-    }
-  }
-  "diagonally down vectors" should {
-    "resolve 4 players from (3, 0) in the positive direction" in {
-      matrix(3)(0) = White
-      matrix(2)(1) = White
-      matrix(1)(2) = White
-      matrix(0)(3) = White
-      _diagdown(3, 0)(4).toList mustEqual List.make(4, White)
-    }
-    "resolve 4 players from (3, 3) in the negative direction" in {
-      matrix(0)(3) = White
-      matrix(1)(2) = White
-      matrix(2)(1) = White
-      matrix(3)(0) = White
-      _diagdown(0, 3)(-4).toList mustEqual List.make(4, White)
-    }
-    "resolve 3 players from (4, 4) in the positive direction" in {
-      matrix(4)(4) = White
-      matrix(3)(5) = White
-      matrix(2)(6) = White
-      _diagdown(4, 4)(4).toList mustEqual List.make(3, White)
-    }
-    "resolve 2 players from (1, 2) in the negative direction" in {
-      matrix(1)(2) = White
-      matrix(2)(1) = White
-      matrix(3)(0) = White
-      _diagdown(1, 2)(-4).toList mustEqual List.make(3, White)
-    }
-    "resolve 1 players from (0, 0) in the negative direction" in {
-      matrix(0)(0) = White
-      _diagdown(0, 0)(-4).toList mustEqual List.make(1, White)
-    }
-  }
-  */
 }
