@@ -4,8 +4,6 @@ import Cofoga._
 import Player._
 
 trait NaiveUtility extends Threats with Utility {
-
-
   def utility = {
     val score = board.winner match {
       case White => POSITIVE_INFINITY

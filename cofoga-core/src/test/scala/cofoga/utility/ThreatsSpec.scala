@@ -8,7 +8,6 @@ class ThreatsSpecTest extends JUnit4(ThreatsSpec)
 
 object ThreatsSpec extends Specification with Threats with Logged{
   val board = new GameBoard()
-  computeThreats()
   "threats" should {
     "be resolved from left to right" in {
       lr(0)(0).toList mustEqual List((0, 0), (0, 1), (0, 2), (0, 3))

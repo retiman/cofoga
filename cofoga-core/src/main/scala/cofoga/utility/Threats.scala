@@ -7,15 +7,15 @@ trait Threats {
   type Threat = Array[Point]
   type Threats = Array[Threat]
   val board: GameBoard
-  protected val threats = new HashMap[Point, Threats]()
-
-  def computeThreats() = {
+  protected lazy val threats = {
+    val map = new HashMap[Point, Threats]()
     for (i <- 0 until board.rows; j <- 0 until board.cols) {
       val ts = directions.map(f => f(i)(j).toArray)
                          .filter(_.size == board.connections)
                          .toArray
-      threats((i, j)) = ts
+      map += (i, j) -> ts
     }
+    map
   }
 
   def directions = List(lr _, du _, ur _, dr _)
