@@ -11,7 +11,7 @@ trait Vectored {
   protected def containsCol(col: Int) = 0 until cols contains col
   protected def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
 
-  def hvector(row: Int, col: Int) = {
+  def hvectors(row: Int, col: Int) = {
     for (k <- 0 until connections if contains(row)(col + k))
       yield (row, col + k)
   }
@@ -23,12 +23,12 @@ trait Vectored {
 
   def ddvectors(row: Int, col: Int) = {
     for (k <- 0 until connections if contains(row - k)(col + k))
-      yield (row - k)(col + k)
+      yield (row - k, col + k)
   }
 
   def duvectors(row: Int, col: Int) = {
     for (k <- 0 until connections if contains(row + k)(col + k))
-      yield (row + k)(col + k)
+      yield (row + k, col + k)
   }
 
   def horizontal(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
@@ -36,6 +36,16 @@ trait Vectored {
                            horizontal(row, col - k + 1)(-end)
     case _              => for (j <- col until col + end if containsCol(j))
                              yield matrix(row)(j)
+  }
+
+  def computeVectors() = {
+    var vectors = List[Seq.Projection[Pair[Int, Int]]]()
+    for (i <- 0 until rows;
+         j <- 0 until cols) {
+      val threats = Set(hvectors _, vvectors _, ddvectors _, duvectors _).map(f => f(i, j)).filter(_.toList.size == connections)
+      vectors ++= threats
+    }
+    vectors
   }
 
   def vertical(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
