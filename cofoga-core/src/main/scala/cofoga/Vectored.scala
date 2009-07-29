@@ -2,7 +2,7 @@ package cofoga
 
 import Player._
 
-trait Vectored {
+trait Vectored with Logged {
   protected def rows: Int
   protected def cols: Int
   protected def connections: Int
