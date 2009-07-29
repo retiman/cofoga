@@ -23,8 +23,8 @@ object VectoredSpec extends Specification with Vectored
       lr(0)(4).toList mustEqual List((0, 4), (0, 5), (0, 6))
     }
     "be resolved from right to left" in {
-      rl(0)(2).toList mustEqual List((0, 0), (0, 1), (0, 2))
-      rl(0)(3).toList mustEqual List((0, 0), (0, 1), (0, 2), (0, 3))
+      rl(0)(2).toList mustEqual List((0, 2), (0, 1), (0, 0))
+      rl(0)(3).toList mustEqual List((0, 3), (0, 2), (0, 1), (0, 1))
     }
     "be resolved from down to up" in {
       du(2)(0).toList mustEqual List((2, 0), (3, 0), (4, 0), (5, 0))

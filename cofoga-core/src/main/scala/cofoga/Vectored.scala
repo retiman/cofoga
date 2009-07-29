@@ -31,7 +31,10 @@ trait Vectored extends Logged {
       yield (row - k, col + k)
   }
 
-  def rl(row: Int)(col: Int)(implicit end: Int) = lr(row)(col - end + 1)(end)
+  def rl(row: Int)(col: Int)(implicit end: Int) = {
+    for (j <- col until col - end + 1 by -1 if containsCol(j))
+      yield (row, j)
+  }
 
   def ud(row: Int)(col: Int)(implicit end: Int) = du(row - end + 1)(col)(end)
 
