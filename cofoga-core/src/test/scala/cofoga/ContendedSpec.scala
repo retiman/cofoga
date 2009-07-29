@@ -14,8 +14,7 @@ object ContendedSpec extends Specification with Contended {
   protected val matrix = new Array[Array[Player]](rows, cols)
   protected def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 
-  "horizontal winner" should {
-    doFirst { reset }
+  "horizontal winner" should { reset.before
     "be detected" in {
       matrix(0)(0) = White
       matrix(0)(1) = White
@@ -27,6 +26,7 @@ object ContendedSpec extends Specification with Contended {
       horizontalWinner(0)(3) mustBe true
     }
     "not be detected" in {
+      log.info("h o")
       matrix(0)(0) = White
       matrix(0)(1) = White
       matrix(0)(2) = White
@@ -36,8 +36,7 @@ object ContendedSpec extends Specification with Contended {
     }
   }
 
-  "vertical winner" should {
-    doFirst { reset }
+  "vertical winner" should { reset.before
     "be detected" in {
       matrix(0)(0) = White
       matrix(1)(0) = White
@@ -58,8 +57,7 @@ object ContendedSpec extends Specification with Contended {
     }
   }
   
-  "diagonally up winner" should {
-    doFirst { reset }
+  "diagonally up winner" should { reset.before
     "be detected" in {
       matrix(0)(3) = White
       matrix(1)(4) = White
@@ -80,8 +78,7 @@ object ContendedSpec extends Specification with Contended {
     }
   }
 
-  "diagonally down winner" should {
-    doFirst { reset }
+  "diagonally down winner" should { reset.before
     "be detected" in {
       matrix(3)(3) = White
       matrix(2)(4) = White
