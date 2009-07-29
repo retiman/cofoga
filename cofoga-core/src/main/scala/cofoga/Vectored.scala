@@ -11,23 +11,23 @@ trait Vectored {
   protected def containsCol(col: Int) = 0 until cols contains col
   protected def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
 
-  def horizontal(row: Int)(col: Int) = {
+  def horizontalVector(row: Int)(col: Int) = {
     for (k <- 0 until connections if contains(row)(col + k))
       yield (row, col + k)
   }
 
-  def vertical(row: Int)(col: Int) = {
+  def verticalVector(row: Int)(col: Int) = {
     for (k <- 0 until connections if contains(row + k)(col))
       yield (row + k, col)
   }
 
-  def diagup(row: Int)(col: Int) = {
+  def diagonalUpVector(row: Int)(col: Int) = {
     for (k <- 0 until connections if contains(row + k)(col + k))
       yield (row + k, col + k)
   }
 
 
-  def diagdown(row: Int)(col: Int) = {
+  def diagonalDownVector(row: Int)(col: Int) = {
     for (k <- 0 until connections if contains(row - k)(col + k))
       yield (row - k, col + k)
   }
