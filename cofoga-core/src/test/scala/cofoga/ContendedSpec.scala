@@ -115,7 +115,7 @@ object ContendedSpec extends Specification with Contended {
       val end = System.currentTimeMillis
       val time = (end - start) / 1000
       log.info("Winner computation simulation took " + time + " seconds")
-      time <= 5 mustBe true
+      time <= 7 mustBe true
     }
   }
 }

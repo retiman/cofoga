@@ -15,6 +15,8 @@ trait Vectored extends Logged {
   protected def containsRow(row: Int) = 0 until rows contains row
   protected def containsCol(col: Int) = 0 until cols contains col
   protected def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
+  
+  /*
   computeThreats()
 
   def computeThreats() = {
@@ -29,6 +31,7 @@ trait Vectored extends Logged {
   }
 
   def directions = List(lr _, du _, ur _, dr _, rl _, ud _ ,dl _, ul _)
+  */
   
   def lr(row: Int)(col: Int)(end: Int) = {
     for (j <- col until col + end if containsCol(j))
