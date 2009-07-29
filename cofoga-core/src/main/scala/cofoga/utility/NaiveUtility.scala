@@ -39,7 +39,7 @@ trait NaiveUtility extends Utility {
 
   def horizontalEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
     for (i <- 0 until board.rows) {
-      val players = board.horizontal(i, 0)(board.cols).map(_.format).mkString
+      val players = board._horizontal(i, 0)(board.cols).map(_.format).mkString
       log.debug("Evaluating horizontal at row " + i + ": " + players)
       weigh(players, whites, blacks)
     }
@@ -47,7 +47,7 @@ trait NaiveUtility extends Utility {
 
   def verticalEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
     for (j <- 0 until board.cols) {
-      val players = board.vertical(0, j)(board.rows).map(_.format).mkString
+      val players = board._vertical(0, j)(board.rows).map(_.format).mkString
       log.debug("Evaluating vertical at col " + j + ": " + players)
       weigh(players, whites, blacks)
     }
@@ -55,7 +55,7 @@ trait NaiveUtility extends Utility {
 
   def diagupEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
     for (j <- -board.cols until board.cols) {
-      val players = board.diagup(0, j)(board.rows).map(_.format).mkString
+      val players = board._diagup(0, j)(board.rows).map(_.format).mkString
       log.debug("Evaluating diagup at col " + j + ": " + players)
       weigh(players, whites, blacks)
     }
@@ -63,7 +63,7 @@ trait NaiveUtility extends Utility {
 
   def diagdownEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
     for (j <- -board.cols until board.cols) {
-      val players = board.diagdown(board.rows - 1, j)(board.rows).map(_.format).mkString
+      val players = board._diagdown(board.rows - 1, j)(board.rows).map(_.format).mkString
       log.debug("Evaluating diagdown at col " + j + ": " + players)
       weigh(players, whites, blacks)
     }

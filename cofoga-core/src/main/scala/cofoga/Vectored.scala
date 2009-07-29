@@ -31,9 +31,9 @@ trait Vectored {
       yield (row + k, col + k)
   }
 
-  def horizontal(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
+  def _horizontal(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
     case end if end < 0 => val k = -end
-                           horizontal(row, col - k + 1)(-end)
+                           _horizontal(row, col - k + 1)(-end)
     case _              => for (j <- col until col + end if containsCol(j))
                              yield matrix(row)(j)
   }
@@ -48,23 +48,23 @@ trait Vectored {
     vectors
   }
 
-  def vertical(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
+  def _vertical(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
     case end if end < 0 => val k = -end
-                           vertical(row - k + 1, col)(-end)
+                           _vertical(row - k + 1, col)(-end)
     case _              => for (i <- row until row + end if containsRow(i))
                              yield matrix(i)(col)
   }
 
-  def diagup(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
+  def _diagup(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
     case end if end < 0 => val k = -end
-                           diagup(row - k + 1, col - k + 1)(-end)
+                           _diagup(row - k + 1, col - k + 1)(-end)
     case _              => for (k <- 0 until end if contains(row + k)(col + k))
                              yield matrix(row + k)(col + k)
   }
 
-  def diagdown(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
+  def _diagdown(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
     case end if end < 0 => val k = -end
-                           diagdown(row + k - 1, col - k + 1)(-end)
+                           _diagdown(row + k - 1, col - k + 1)(-end)
     case _              => for (k <- 0 until end if contains(row - k)(col + k))
                              yield matrix(row - k)(col + k)
   }
