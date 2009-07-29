@@ -32,13 +32,23 @@ trait Vectored extends Logged {
   }
 
   def rl(row: Int)(col: Int)(implicit end: Int) = {
-    for (j <- col until col - end + 1 by -1 if containsCol(j))
+    for (j <- col until col - end by -1 if containsCol(j))
       yield (row, j)
   }
 
-  def ud(row: Int)(col: Int)(implicit end: Int) = du(row - end + 1)(col)(end)
+  def ud(row: Int)(col: Int)(implicit end: Int) = {
+    log.info((row - end + 1).toString)
+    for (i <- row until row - end by -1 if containsRow(i))
+      yield (i, col)
+  }
 
-  def dl(row: Int)(col: Int)(implicit end: Int) = ur(row - end + 1)(col - end + 1)(end)
+  def dl(row: Int)(col: Int)(implicit end: Int) = {
+    for (k <- 0 until end if contains(row - k)(col - k))
+      yield (row - k, col - k)
+  }
 
-  def ul(row: Int)(col: Int)(implicit end: Int) = dr(row + end - 1)(col - end + 1)(end)
+  def ul(row: Int)(col: Int)(implicit end: Int) = {
+    for (k <- 0 until end if contains(row + k)(col - k))
+      yield (row + k, col - k)
+  }
 }
