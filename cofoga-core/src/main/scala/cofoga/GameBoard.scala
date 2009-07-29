@@ -56,4 +56,11 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Cont
       player
     }
   }
+
+  override def equals(that: Any) = that match {
+    case that: GameBoard => moveHistory == that.moveHistory
+    case _               => false
+  }
+
+  override def hashCode = moveHistory.hashCode
 }
