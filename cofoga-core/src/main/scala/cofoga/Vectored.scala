@@ -5,10 +5,31 @@ import Player._
 trait Vectored {
   protected def rows: Int
   protected def cols: Int
+  protected def connections: Int
   protected def matrix: Array[Array[Player]]
-  def containsRow(row: Int) = 0 until rows contains row
-  def containsCol(col: Int) = 0 until cols contains col
-  def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
+  protected def containsRow(row: Int) = 0 until rows contains row
+  protected def containsCol(col: Int) = 0 until cols contains col
+  protected def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
+
+  def hvector(row: Int, col: Int) = {
+    for (k <- 0 until connections if contains(row)(col + k))
+      yield (row, col + k)
+  }
+
+  def vvectors(row: Int, col: Int) = {
+    for (k <- 0 until connections if contains(row + k)(col))
+      yield (row + k, col)
+  }
+
+  def ddvectors(row: Int, col: Int) = {
+    for (k <- 0 until connections if contains(row - k)(col + k))
+      yield (row - k)(col + k)
+  }
+
+  def duvectors(row: Int, col: Int) = {
+    for (k <- 0 until connections if contains(row + k)(col + k))
+      yield (row + k)(col + k)
+  }
 
   def horizontal(row: Int, col: Int)(end: Int): Seq.Projection[Player] = end match {
     case end if end < 0 => val k = -end
