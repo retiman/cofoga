@@ -14,6 +14,7 @@ trait NaiveUtility extends Utility {
         tgroup.player match {
           case White => whites(tgroup.count - 1) += 1
           case Black => blacks(tgroup.count - 1) += 1
+          case _     => ()
         }
       }
       whites.map(3 * _).reduceLeft(_ + _) - blacks.map(3 * _).reduceLeft(_ + _)
