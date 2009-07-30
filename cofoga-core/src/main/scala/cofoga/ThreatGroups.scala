@@ -36,6 +36,7 @@ trait ThreatGroups extends Matrix {
       }
       case _ => ()
     }
+    override def toString = points.toList.toString
   }
 
   protected lazy val groups = {
