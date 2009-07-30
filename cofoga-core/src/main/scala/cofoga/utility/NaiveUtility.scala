@@ -10,7 +10,7 @@ trait NaiveUtility extends ThreatGroups with Utility {
     case _     => {
       val whites  = new Array[Int](board.connections - 1)
       val blacks  = new Array[Int](board.connections - 1)
-      all.foreach { tgroup =>
+      groups.foreach { tgroup =>
         tgroup.player match {
           case White => whites(tgroup.count - 1) += 1
           case Black => blacks(tgroup.count - 1) += 1
