@@ -4,7 +4,8 @@ import scala.collection.mutable.Stack
 import Cofoga._
 import Player._
 
-class CofogaBoard(val rows: Int, val cols: Int, val connections: Int) extends ThreatGroups
+class CofogaBoard(val rows: Int, val cols: Int, val connections: Int) extends Matrix
+                                                                      with ThreatGroups
                                                                       with Contended
                                                                       with Formatted
                                                                       with Logged {
@@ -57,11 +58,4 @@ class CofogaBoard(val rows: Int, val cols: Int, val connections: Int) extends Th
       player
     }
   }
-
-  override def equals(that: Any) = that match {
-    case that: GameBoard => moveHistory == that.moveHistory
-    case _               => false
-  }
-
-  override def hashCode = moveHistory.hashCode
 }
