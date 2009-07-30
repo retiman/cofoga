@@ -40,21 +40,21 @@ trait ThreatGroups extends Matrix {
   }
 
   protected lazy val groups = {
-    val _groups = new HashMap[Point, HashSet[ThreatGroup]]()
+    val map = new HashMap[Point, HashSet[ThreatGroup]]()
     val directions = List(lr _, du _, ur _, dr _)
     for (i <- 0 until rows; j <- 0 until cols) {
-      val ts = directions.map(d => d(i)(j).toArray)
-                         .filter(_.size == connections)
-                         .map(new ThreatGroup(_))
-      ts.foreach { t =>
-        t.points.foreach { p =>
-          if (!_groups.contains(p))
-            _groups(p) = new HashSet()
-          _groups(p) += t
+      val tgroups = directions.map(d => d(i)(j).toArray)
+                              .filter(_.size == connections)
+                              .map(new ThreatGroup(_))
+      tgroups.foreach { tgroup =>
+        tgroup.points.foreach { point =>
+          if (!map.contains(point))
+            map(point) = new HashSet()
+          map(point) += tgroup
         }
       }
     }
-    Map() ++ _groups
+    Map() ++ map
   }
 
   protected def threatsAfterMove(row: Int)(col: Int) = {
