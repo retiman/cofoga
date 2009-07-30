@@ -12,8 +12,9 @@ object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
   val cols = COLS
   val connections = CXNS
   protected val matrix = new Array[Array[Player]](rows, cols)
-  for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
-  "threats" should {
+  def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
+  
+  "vectors" should { reset.before
     "be resolved from left to right" in {
       lr(0)(0).toList mustEqual List((0, 0), (0, 1), (0, 2), (0, 3))
       lr(0)(4).toList mustEqual List((0, 4), (0, 5), (0, 6))
@@ -29,6 +30,25 @@ object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
     "be resolved in the down right direction" in {
       dr(3)(3).toList mustEqual List((3, 3), (2, 4), (1, 5), (0, 6))
       dr(4)(4).toList mustEqual List((4, 4), (3, 5), (2, 6))
+    }
+  }
+
+  "threat group" should { reset.before
+    "compute correct value" in {
+      matrix(0)(0) = White
+      matrix(0)(1) = White
+      matrix(0)(2) = Black
+      matrix(0)(3) = Black
+      val group = new ThreatGroup(Array((0, 0), (0, 1), (0, 2), (0, 3)))
+      group.value.snd mustEqual 0
+    }
+    "compute correct value" in {
+      matrix(0)(0) = White
+      matrix(0)(1) = White
+      matrix(0)(2) = Neither
+      matrix(0)(3) = White
+      val group = new ThreatGroup(Array((0, 0), (0, 1), (0, 2), (0, 3)))
+      group.value.snd mustEqual 3
     }
   }
 }
