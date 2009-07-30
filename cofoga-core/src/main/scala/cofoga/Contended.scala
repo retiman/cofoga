@@ -75,5 +75,5 @@ trait Contended extends Matrix with Logged {
     return false
   }
 
-  protected def directions = List(horizontalWinner _, verticalWinner _, diagupWinner _, diagdownWinner _)
+  protected def directions = List(horizontalWinner _, diagupWinner _, diagdownWinner _, verticalWinner _)
 }
