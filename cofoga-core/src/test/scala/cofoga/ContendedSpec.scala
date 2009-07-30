@@ -14,8 +14,7 @@ object ContendedSpec extends Specification with Contended {
   protected val matrix = new Array[Array[Player]](rows, cols)
   def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
   def compute() = for (i <- 0 until rows; j <- 0 until cols) {
-    val point = (i, j)
-    groups(point).foreach { g =>
+    groups(i)(j).foreach { g =>
       g.clear()
       g.compute()
     }

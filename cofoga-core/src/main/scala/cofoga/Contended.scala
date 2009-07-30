@@ -8,9 +8,8 @@ trait Contended extends ThreatGroups with Matrix
   protected def target = connections - 1
 
   def winner(row: Int)(col: Int): Player = {
-    val point = (row, col)
     val player = matrix(row)(col)
-    val threats = groups(point)
+    val threats = groups(row)(col)
     if (!threats.filter(_.count == connections).isEmpty)
       player
     else
