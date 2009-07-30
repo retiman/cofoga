@@ -15,7 +15,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Matr
   protected val history = new Stack[Int]()
   protected var player = White
   protected var cachedw: Option[Player] = Some(Neither)
-  for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
+  
 
   def this() = this(ROWS, COLS, CXNS)
   def turn = player
@@ -43,6 +43,14 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Matr
     cachedw = None
     threatsAfterUndo(row)(col)
     history pop
+  }
+
+  def reset() = {
+    for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
+    for (k <- 0 until filled.size) filled(k) = 0
+    history.clear
+    player = White
+    cachedw = None
   }
 
   def lastMove = {
