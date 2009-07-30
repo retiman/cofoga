@@ -54,6 +54,16 @@ object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
       group.player mustEqual White
       group.count mustEqual 3
     }
+    "compute correct value" in {
+      matrix(0)(0) = White
+      matrix(0)(1) = White
+      matrix(0)(2) = White
+      matrix(0)(3) = Neither
+      val group = new ThreatGroup(Array((0, 0), (0, 1), (0, 2), (0, 3)))
+      group.compute()
+      group.player mustEqual White
+      group.count mustEqual 3
+    }
     "be relatively fast" in {
       matrix(0)(0) = White
       matrix(0)(1) = White

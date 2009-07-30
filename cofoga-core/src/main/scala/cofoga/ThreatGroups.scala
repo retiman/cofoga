@@ -5,7 +5,7 @@ import scala.collection.mutable.HashSet
 import Cofoga._
 import Player._
 
-trait ThreatGroups extends Matrix {
+trait ThreatGroups extends Matrix with Logged {
   type Point = Pair[Int, Int]
 
   class ThreatGroup(val points: Array[Point]) {
@@ -36,8 +36,9 @@ trait ThreatGroups extends Matrix {
       }
       case _ => ()
     }
-    override def toString = "Group[points: " + points.toList.toString + ", player: " + player.format + ", count: " +
-                            count + "]"
+    override def toString = "Group[points: " + points.toList.map(p => "" + (p.fst, p.snd, matrix(p.fst)(p.snd).format)) +
+                                ", player: " + player.format +
+                                ", count: " + count + "]"
   }
 
   protected lazy val pointMap = {
@@ -62,13 +63,12 @@ trait ThreatGroups extends Matrix {
 
   def groupsBy(row: Int)(col: Int) = pointMap((row, col))
 
-  protected def threatsAfterMove(row: Int)(col: Int) = {
-    groupsBy(row)(col).foreach { _.compute() }
+  protected def threatsAfterMove(row: Int)(col: Int) = groupsBy(row)(col).foreach { g =>
+    g.clear()
+    g.compute()
   }
 
-  protected def threatsAfterUndo(row: Int)(col: Int) = {
-    groupsBy(row)(col).foreach { _.clear() }
-  }
+  protected def threatsAfterUndo(row: Int)(col: Int) = groupsBy(row)(col).foreach { _.clear() }
   
   protected def lr(row: Int)(col: Int) = {
     for (j <- col until col + connections if containsCol(j))
