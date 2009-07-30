@@ -13,6 +13,13 @@ object ContendedSpec extends Specification with Contended {
   val connections = CXNS
   protected val matrix = new Array[Array[Player]](rows, cols)
   def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
+  def compute() = for (i <- 0 until rows; j <- 0 until cols) {
+    val point = (i, j)
+    groups(point).foreach { g =>
+      g.clear()
+      g.compute()
+    }
+  }
 
   "horizontal winner" should { reset.before
     "be detected" in {
@@ -20,18 +27,20 @@ object ContendedSpec extends Specification with Contended {
       matrix(0)(1) = White
       matrix(0)(2) = White
       matrix(0)(3) = White
-      horizontalWinner(0)(0) mustBe true
-      horizontalWinner(0)(1) mustBe true
-      horizontalWinner(0)(2) mustBe true
-      horizontalWinner(0)(3) mustBe true
+      compute()
+      winner(0)(0) mustEqual White
+      winner(0)(1) mustEqual White
+      winner(0)(2) mustEqual White
+      winner(0)(3) mustEqual White
     }
     "not be detected" in {
       matrix(0)(0) = White
       matrix(0)(1) = White
       matrix(0)(2) = White
-      horizontalWinner(0)(0) mustBe false
-      horizontalWinner(0)(1) mustBe false
-      horizontalWinner(0)(2) mustBe false
+      compute()
+      winner(0)(0) mustEqual Neither
+      winner(0)(1) mustEqual Neither
+      winner(0)(2) mustEqual Neither
     }
   }
 
@@ -41,18 +50,20 @@ object ContendedSpec extends Specification with Contended {
       matrix(1)(0) = White
       matrix(2)(0) = White
       matrix(3)(0) = White
-      verticalWinner(0)(0) mustBe true
-      verticalWinner(1)(0) mustBe true
-      verticalWinner(2)(0) mustBe true
-      verticalWinner(3)(0) mustBe true
+      compute()
+      winner(0)(0) mustEqual White
+      winner(1)(0) mustEqual White
+      winner(2)(0) mustEqual White
+      winner(3)(0) mustEqual White
     }
     "not be detected" in {
       matrix(0)(0) = White
       matrix(1)(0) = White
       matrix(2)(0) = White
-      verticalWinner(0)(0) mustBe false
-      verticalWinner(1)(0) mustBe false
-      verticalWinner(2)(0) mustBe false
+      compute()
+      winner(0)(0) mustEqual Neither
+      winner(1)(0) mustEqual Neither
+      winner(2)(0) mustEqual Neither
     }
   }
   
@@ -62,18 +73,20 @@ object ContendedSpec extends Specification with Contended {
       matrix(1)(4) = White
       matrix(2)(5) = White
       matrix(3)(6) = White
-      diagupWinner(0)(3) mustBe true
-      diagupWinner(1)(4) mustBe true
-      diagupWinner(2)(5) mustBe true
-      diagupWinner(3)(6) mustBe true
+      compute()
+      winner(0)(3) mustEqual White
+      winner(1)(4) mustEqual White
+      winner(2)(5) mustEqual White
+      winner(3)(6) mustEqual White
     }
     "not be detected" in {
       matrix(0)(3) = White
       matrix(1)(4) = White
       matrix(2)(5) = White
-      diagupWinner(0)(3) mustBe false
-      diagupWinner(1)(4) mustBe false
-      diagupWinner(2)(6) mustBe false
+      compute()
+      winner(0)(3) mustEqual Neither
+      winner(1)(4) mustEqual Neither
+      winner(2)(6) mustEqual Neither
     }
   }
 
@@ -83,18 +96,20 @@ object ContendedSpec extends Specification with Contended {
       matrix(2)(4) = White
       matrix(1)(5) = White
       matrix(0)(6) = White
-      diagdownWinner(3)(3) mustBe true
-      diagdownWinner(2)(4) mustBe true
-      diagdownWinner(1)(5) mustBe true
-      diagdownWinner(0)(6) mustBe true
+      compute()
+      winner(3)(3) mustEqual White
+      winner(2)(4) mustEqual White
+      winner(1)(5) mustEqual White
+      winner(0)(6) mustEqual White
     }
     "not be detected" in {
       matrix(3)(3) = White
       matrix(2)(4) = White
       matrix(1)(5) = White
-      diagdownWinner(3)(3) mustBe false
-      diagdownWinner(2)(4) mustBe false
-      diagdownWinner(1)(5) mustBe false
+      compute()
+      winner(3)(3) mustEqual Neither
+      winner(2)(4) mustEqual Neither
+      winner(1)(5) mustEqual Neither
     }
   }
 
@@ -107,15 +122,15 @@ object ContendedSpec extends Specification with Contended {
       log.info("Winner computation simulation for " + pruned + " states")
       val start = System.currentTimeMillis
       for (i <- 0 until pruned) {
-        horizontalWinner(3)(3)
-        verticalWinner(3)(3)
-        diagupWinner(3)(3)
-        diagdownWinner(3)(3)
+        winner(3)(3)
+        winner(3)(3)
+        winner(3)(3)
+        winner(3)(3)
       }
       val end = System.currentTimeMillis
       val time = (end - start) / 1000
       log.info("Winner computation simulation took " + time + " seconds")
-      time <= 7 mustBe true
+      time <= 7 mustEqual true
     }
   }
 }

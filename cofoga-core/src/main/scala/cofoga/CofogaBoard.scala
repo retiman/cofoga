@@ -53,7 +53,7 @@ class CofogaBoard(val rows: Int, val cols: Int, val connections: Int) extends Ma
     case Some(player) => player
     case _            => {
       val (row, col) = lastMove
-      val player = winner(row, col)
+      val player = winner(row)(col)
       cachedw = Some(player)
       player
     }

@@ -58,7 +58,7 @@ trait ThreatGroups extends Matrix {
 
   protected def threatsAfterUndo(row: Int)(col: Int) = {
     val point = (row, col)
-    groups(point).foreach { _.compute() }
+    groups(point).foreach { _.clear() }
   }
   
   protected def lr(row: Int)(col: Int) = {
