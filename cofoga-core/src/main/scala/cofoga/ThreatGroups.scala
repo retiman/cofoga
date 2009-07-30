@@ -10,10 +10,11 @@ trait ThreatGroups extends Matrix {
 
   class ThreatGroup(points: Array[Point]) {
     require(points.size > 0)
-    private var _value: Option[Pair[Player, Int]] = None
-    def value: Pair[Player, Int] = _value match {
-      case Some(pair) => pair
-      case _          => {
+    var player = Neither
+    var count = -1
+    def clear() = count = -1
+    def compute() = count match {
+      case -1 => {
         var whites = 0
         var blacks = 0
         for (k <- 0 until points.size) {
@@ -25,14 +26,16 @@ trait ThreatGroups extends Matrix {
           }
         }
         (whites, blacks) match {
-          case (0, _) => _value = Some((Black, blacks))
-          case (_, 0) => _value = Some((White, whites))
-          case _      => _value = Some((Neither, 0))
+          case (0, _) => player = Black
+                         count  = blacks
+          case (_, 0) => player = White
+                         count  = whites                         
+          case _      => player = Neither
+                         count  = 0
         }
-        _value getOrElse { throw new IllegalStateException("_value set but has None value") }
       }
+      case _ => ()
     }
-    def clear = _value = None
   }
 
   protected lazy val groups = {
@@ -48,18 +51,14 @@ trait ThreatGroups extends Matrix {
     Map() ++ _groups
   }
 
-  protected lazy val unsolvedGroups = {
-    val _groups = new HashMap[Point, Array[ThreatGroup]]()
-    groups.foreach { t => _groups += t }
-    _groups
-  }
-
-  protected lazy val solvedGroups = new HashMap[Point, Array[ThreatGroup]]()
-
   protected def threatsAfterMove(row: Int)(col: Int) = {
+    val point = (row, col)
+    groups(point).foreach { _.compute() }
   }
 
   protected def threatsAfterUndo(row: Int)(col: Int) = {
+    val point = (row, col)
+    groups(point).foreach { _.compute() }
   }
   
   protected def lr(row: Int)(col: Int) = {

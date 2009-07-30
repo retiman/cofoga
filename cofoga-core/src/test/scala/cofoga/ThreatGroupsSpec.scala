@@ -40,7 +40,9 @@ object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
       matrix(0)(2) = Black
       matrix(0)(3) = Black
       val group = new ThreatGroup(Array((0, 0), (0, 1), (0, 2), (0, 3)))
-      group.value.snd mustEqual 0
+      group.compute()
+      group.player mustEqual Neither
+      group.count mustEqual 0
     }
     "compute correct value" in {
       matrix(0)(0) = White
@@ -48,7 +50,29 @@ object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
       matrix(0)(2) = Neither
       matrix(0)(3) = White
       val group = new ThreatGroup(Array((0, 0), (0, 1), (0, 2), (0, 3)))
-      group.value.snd mustEqual 3
+      group.compute()
+      group.player mustEqual White
+      group.count mustEqual 3
+    }
+    "be relatively fast" in {
+      matrix(0)(0) = White
+      matrix(0)(1) = White
+      matrix(0)(2) = Neither
+      matrix(0)(3) = White
+      val group = new ThreatGroup(Array((0, 0), (0, 1), (0, 2), (0, 3)))
+      val branchingFactor = 7
+      val states = Math.pow(7, HALF_PLIES)
+      val pruned = states.toInt / 3
+      log.info("Threats computation simulation for " + pruned + " states")
+      val start = System.currentTimeMillis
+      for (i <- 0 until (4*pruned)) {
+        group.clear()
+        group.compute()
+      }
+      val end = System.currentTimeMillis
+      val time = (end - start) / 1000
+      log.info("Threats computation simulation took " + time + " seconds")
+      time <= 7 mustBe true
     }
   }
 }
