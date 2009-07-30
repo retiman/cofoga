@@ -8,7 +8,7 @@ import Player._
 trait ThreatGroups extends Matrix {
   type Point = Pair[Int, Int]
 
-  class ThreatGroup(points: Array[Point]) {
+  class ThreatGroup(val points: Array[Point]) {
     require(points.size > 0)
     var player = Neither
     var count = -1
@@ -40,14 +40,19 @@ trait ThreatGroups extends Matrix {
   }
 
   protected lazy val groups = {
-    val _groups = new HashMap[Point, Array[ThreatGroup]]()
+    val _groups = new HashMap[Point, HashSet[ThreatGroup]]()
     val directions = List(lr _, du _, ur _, dr _)
     for (i <- 0 until rows; j <- 0 until cols) {
-      val tgroups = directions.map(d => d(i)(j).toArray)
-                              .filter(_.size == connections)
-                              .map(new ThreatGroup(_))
-                              .toArray
-      _groups += (i, j) -> tgroups
+      val ts = directions.map(d => d(i)(j).toArray)
+                         .filter(_.size == connections)
+                         .map(new ThreatGroup(_))
+      ts.foreach { t =>
+        t.points.foreach { p =>
+          if (!_groups.contains(p))
+            _groups(p) = new HashSet()
+          _groups(p) += t
+        }
+      }
     }
     Map() ++ _groups
   }
