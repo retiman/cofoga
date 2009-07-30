@@ -19,7 +19,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Matr
   def this() = this(ROWS, COLS, CXNS)
   def turn = player
   def apply(row: Int)(col: Int) = matrix(row)(col)
-  def legalMoves = filled.indices.filter(i => filled(i) < rows - 1)
+  def legalMoves = filled.indices.filter(i => filled(i) < rows)
   def moveHistory = history.toList
   def move(args: Int*): Pair[Int, Int] = args.map(move _).last
 
