@@ -1,10 +1,9 @@
 package cofoga
 
-import cofoga.util.Logged
-import cofoga.engine.Settings
-import cofoga.engine.Engine
-import cofoga.Cofoga._
-import cofoga.Player._
+import engine.Settings
+import engine.Engine
+import Cofoga._
+import Player._
 
 object Main extends Application with Logged {
   override def main(args: Array[String]): Unit = {
@@ -28,8 +27,8 @@ object Main extends Application with Logged {
       }
     }
 
-    val engine = new Engine(settings) with cofoga.eval.NaiveEvaluation
-                                      with cofoga.search.MinMaxSearch
+    val engine = new Engine(settings) with cofoga.utility.NaiveUtility
+                                      with cofoga.search.MinMaxSearch { val board = this }
     println("Initialized new game with\n" + settings)
     println("Type \"quit\" to exit")
 
