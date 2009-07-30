@@ -4,6 +4,8 @@ object Cofoga {
   val ROWS = 6
   val COLS = 7
   val CXNS = 4
+  val PLIES = 4
+  val HALF_PLIES = PLIES * 2
 
   implicit def pairWrapper[A, B](a: Pair[A, B]) = new {
     def fst = a._1

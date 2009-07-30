@@ -11,6 +11,7 @@ object FormattedSpec extends Specification with Formatted
                                            with Logged {
   val rows = ROWS
   val cols = COLS
+  val connections = CXNS
   val matrix = new Array[Array[Player]](rows, cols)
   def reset() = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 

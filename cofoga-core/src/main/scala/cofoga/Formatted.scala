@@ -2,11 +2,7 @@ package cofoga
 
 import Player._
 
-trait Formatted {
-  protected def rows: Int
-  protected def cols: Int
-  protected def matrix: Array[Array[Player]]
-
+trait Formatted extends Matrix {
   override def toString = {
     val s = new StringBuilder
     for (i <- (rows - 1) to 0 by -1) {
