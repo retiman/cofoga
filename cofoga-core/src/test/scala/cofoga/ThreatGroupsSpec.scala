@@ -2,12 +2,17 @@ package cofoga
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
+import Cofoga._
 import Player._
 
 class ThreatGroupsSpecTest extends JUnit4(ThreatGroupsSpec)
 
-object ThreatGroupsSpec extends Specification with ThreatGroups with Logged{
-  val board = new GameBoard()
+object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
+  val rows = ROWS
+  val cols = COLS
+  val connections = CXNS
+  protected val matrix = new Array[Array[Player]](rows, cols)
+  for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
   "threats" should {
     "be resolved from left to right" in {
       lr(0)(0).toList mustEqual List((0, 0), (0, 1), (0, 2), (0, 3))

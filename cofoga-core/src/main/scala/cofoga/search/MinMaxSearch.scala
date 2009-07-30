@@ -3,7 +3,8 @@ package cofoga.search
 import Cofoga._
 import Player._
 
-trait MinMaxSearch extends Search {
+trait MinMaxSearch { //extends Search {
+  /*
   def terminal(board: GameBoard, depth: Int) = board.winner != Neither || depth == halfPlies
 
   def search(board: GameBoard) = board.turn match {
@@ -59,4 +60,5 @@ trait MinMaxSearch extends Search {
     }
     (best, value)
   }
+  */
 }

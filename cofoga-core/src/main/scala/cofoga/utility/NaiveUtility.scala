@@ -14,7 +14,7 @@ trait NaiveUtility extends ThreatGroups with Utility {
     score
   }
 
-  def eval(board: GameBoard): Double = {
+  def eval(board: CofogaBoard): Double = {
     0
     /*
     val whites  = new Array[Int](board.connections - 1)
