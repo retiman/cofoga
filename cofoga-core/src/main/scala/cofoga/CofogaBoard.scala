@@ -4,9 +4,10 @@ import scala.collection.mutable.Stack
 import Cofoga._
 import Player._
 
-class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Contended
-                                                                    with Formatted
-                                                                    with Logged {
+class CofogaBoard(val rows: Int, val cols: Int, val connections: Int) extends ThreatGroups
+                                                                      with Contended
+                                                                      with Formatted
+                                                                      with Logged {
   require(rows > 0 && cols > 0 && connections > 0)
   override protected val matrix = new Array[Array[Player]](rows, cols)
   protected val filled = new Array[Int](cols)
