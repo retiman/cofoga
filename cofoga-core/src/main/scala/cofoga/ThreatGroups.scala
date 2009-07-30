@@ -39,7 +39,7 @@ trait ThreatGroups extends Matrix {
     override def toString = points.toList.toString
   }
 
-  protected lazy val _groups = {
+  protected lazy val pointMap = {
     val map = new HashMap[Point, HashSet[ThreatGroup]]()
     val directions = List(lr _, du _, ur _, dr _)
     for (i <- 0 until rows; j <- 0 until cols) {
@@ -57,16 +57,16 @@ trait ThreatGroups extends Matrix {
     Map() ++ map
   }
 
-  protected lazy val all = _groups.values.map(Set() ++ _.elements).reduceLeft(_ ++ _)
+  protected lazy val all = pointMap.values.map(Set() ++ _.elements).reduceLeft(_ ++ _)
 
-  protected def groups(row: Int)(col: Int) = _groups((row, col))
+  protected def groupsBy(row: Int)(col: Int) = pointMap((row, col))
 
   protected def threatsAfterMove(row: Int)(col: Int) = {
-    groups(row)(col).foreach { _.compute() }
+    groupsBy(row)(col).foreach { _.compute() }
   }
 
   protected def threatsAfterUndo(row: Int)(col: Int) = {
-    groups(row)(col).foreach { _.clear() }
+    groupsBy(row)(col).foreach { _.clear() }
   }
   
   protected def lr(row: Int)(col: Int) = {
