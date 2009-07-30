@@ -11,10 +11,12 @@ trait NaiveUtility extends Utility with Logged {
       val whites  = new Array[Int](board.connections - 1)
       val blacks  = new Array[Int](board.connections - 1)
       board.groups.foreach { tgroup =>
-        tgroup.player match {
-          case White => whites(tgroup.count - 1) += 1
-          case Black => blacks(tgroup.count - 1) += 1
-          case _     => ()
+        tgroup.compute()
+        (tgroup.player, tgroup.count) match {
+          case (_, 0)         => ()
+          case (White, count) => whites(count - 1) += 1
+          case (Black, count) => blacks(scount - 1) += 1
+          case _              => ()
         }
       }
       log.debug("Whites: " + whites.toList)
