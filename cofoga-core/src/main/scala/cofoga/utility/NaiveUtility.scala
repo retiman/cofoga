@@ -17,8 +17,8 @@ trait NaiveUtility extends Utility with Logged {
           case _     => ()
         }
       }
-      log.info("Whites: " + whites.toList)
-      log.info("Blacks: " + blacks.toList)
+      log.debug("Whites: " + whites.toList)
+      log.debug("Blacks: " + blacks.toList)
       whites.indices.map(k => Math.pow(3, k) * whites(k)).reduceLeft(_ + _) -
       blacks.indices.map(k => Math.pow(3, k) * blacks(k)).reduceLeft(_ + _)
     }
