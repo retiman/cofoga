@@ -5,11 +5,12 @@ import scala.collection.mutable.HashMap
 trait ThreatGroups extends Matrix {
   type Point = Pair[Int, Int]
   type ThreatGroup = Array[Point]
-  protected lazy val threats = {
-    val map = new HashMap[Point, Threats]()
+
+  protected lazy val groups = {
+    val map = new HashMap[Point, ThreatGroup]()
     for (i <- 0 until rows; j <- 0 until cols) {
       val ts = directions.map(f => f(i)(j).toArray)
-                         .filter(_.size == board.connections)
+                         .filter(_.size == connections)
                          .toArray
       map += (i, j) -> ts
     }
