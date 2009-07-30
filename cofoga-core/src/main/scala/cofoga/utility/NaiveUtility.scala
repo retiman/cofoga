@@ -4,76 +4,19 @@ import Cofoga._
 import Player._
 
 trait NaiveUtility extends ThreatGroups with Utility {
-  def utility = {
-    val score = board.winner match {
-      case White => POSITIVE_INFINITY
-      case Black => NEGATIVE_INFINITY
-      case _     => computeUtility(board)
-    }
-    log.info("Evaluated a utility of " + score)
-    score
-  }
-
-  protected def computeUtility(board: CofogaBoard): Double = {
-    0
-    /*
-    val whites  = new Array[Int](board.connections - 1)
-    val blacks  = new Array[Int](board.connections - 1)
-    for (i <- 0 until rows; j <- 0 until cols) {
-      val point = (i, j)
-      val ts = groups(point)
-
-
-    horizontalEvaluation(board, whites, blacks)
-    verticalEvaluation(board, whites, blacks)
-    diagupEvaluation(board, whites, blacks)
-    diagdownEvaluation(board, whites, blacks)
-    whites.indices.map(i => Math.pow(3, i) * whites(i)).reduceLeft(_+_) -
-    blacks.indices.map(i => Math.pow(3, i) * blacks(i)).reduceLeft(_+_)
-    */
-  }
-
-  /*
-  def weigh(players: String, whites: Array[Int], blacks: Array[Int]) = {
-    pattern.findAllIn(players).foreach { m =>
-      valueOf(m(0)) match {
-        case Some(White) => whites(m.size - 1) += 1
-        case Some(Black) => blacks(m.size - 1) += 1
-        case _           => ()
+  def utility = board.winner match {
+    case White => POSITIVE_INFINITY
+    case Black => NEGATIVE_INFINITY
+    case _     => {
+      val whites  = new Array[Int](board.connections - 1)
+      val blacks  = new Array[Int](board.connections - 1)
+      all.foreach { tgroup =>
+        tgroup.player match {
+          case White => whites(tgroup.count - 1) += 1
+          case Black => blacks(tgroup.count - 1) += 1
+        }
       }
+      whites.map(3 * _).reduceLeft(_ + _) - blacks.map(3 * _).reduceLeft(_ + _)
     }
   }
-
-  def horizontalEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
-    for (i <- 0 until board.rows) {
-      val players = board._horizontal(i, 0)(board.cols).map(_.format).mkString
-      log.debug("Evaluating horizontal at row " + i + ": " + players)
-      weigh(players, whites, blacks)
-    }
-  }
-
-  def verticalEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
-    for (j <- 0 until board.cols) {
-      val players = board._vertical(0, j)(board.rows).map(_.format).mkString
-      log.debug("Evaluating vertical at col " + j + ": " + players)
-      weigh(players, whites, blacks)
-    }
-  }
-
-  def diagupEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
-    for (j <- -board.cols until board.cols) {
-      val players = board._diagup(0, j)(board.rows).map(_.format).mkString
-      log.debug("Evaluating diagup at col " + j + ": " + players)
-      weigh(players, whites, blacks)
-    }
-  }
-
-  def diagdownEvaluation(board: GameBoard, whites: Array[Int], blacks: Array[Int]) = {
-    for (j <- -board.cols until board.cols) {
-      val players = board._diagdown(board.rows - 1, j)(board.rows).map(_.format).mkString
-      log.debug("Evaluating diagdown at col " + j + ": " + players)
-      weigh(players, whites, blacks)
-    }
-  }
-  */
 }
