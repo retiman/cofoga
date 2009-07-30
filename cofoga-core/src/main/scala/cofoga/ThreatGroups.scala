@@ -36,7 +36,8 @@ trait ThreatGroups extends Matrix {
       }
       case _ => ()
     }
-    override def toString = "Group[points: " + points.toList.toString + ", player: " + player + ", count: " + count + "]"
+    override def toString = "Group[points: " + points.toList.toString + ", player: " + player.format + ", count: " +
+                            count + "]"
   }
 
   protected lazy val pointMap = {
