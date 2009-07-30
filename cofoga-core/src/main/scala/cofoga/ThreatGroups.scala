@@ -10,26 +10,29 @@ trait ThreatGroups extends Matrix {
 
   class ThreatGroup(points: Array[Point]) {
     require(points.size > 0)
-    private var count = -1
-    def value: Int = {
-      if (count != -1)
-        return count
-      val (i, j) = points.first
-      val player = matrix(i)(j)
-      val opponent = player.switch
-      count = 0
-      for (k <- 1 until points.size) {
-        val (i, j) = points(k)
-        matrix(i)(j) match {
-          case `player`   => count += 1
-          case `opponent` => count = 0
-                             return count
-          case _          => ()
+    private var _value: Option[Pair[Player, Int]] = None
+    def value: Pair[Player, Int] = _value match {
+      case Some(pair) => pair
+      case _          => {
+        var whites = 0
+        var blacks = 0
+        for (k <- 0 until points.size) {
+          val (i, j) = points(k)
+          matrix(i)(j) match {
+            case White => whites += 1
+            case Black => blacks += 1
+            case _     => ()
+          }
         }
+        (whites, blacks) match {
+          case (0, _) => _value = Some((Black, blacks))
+          case (_, 0) => _value = Some((White, whites))
+          case _      => _value = Some((Neither, 0))
+        }
+        _value getOrElse { throw new IllegalStateException("_value set but has None value") }
       }
-      count
     }
-    def clear = count = -1
+    def clear = _value = None
   }
 
   protected lazy val groups = {
