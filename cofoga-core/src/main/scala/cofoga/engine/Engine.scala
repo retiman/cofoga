@@ -3,7 +3,7 @@ package cofoga.engine
 import Cofoga._
 import Player._
 
-abstract class Engine(settings: Settings)/* extends CofogaBoard(settings.rows, settings.cols, settings.connections)
+abstract class Engine(settings: Settings) extends GameBoard(settings.rows, settings.cols, settings.connections)
                                           with Search
                                           with Utility
                                           with Logged {
@@ -13,4 +13,4 @@ abstract class Engine(settings: Settings)/* extends CofogaBoard(settings.rows, s
     val m = search(this)
     move(m)
   }
-}*/
+}
