@@ -3,16 +3,8 @@ package cofoga
 import Cofoga._
 import Player._
 
-trait Contended extends Logged {
-  val rows: Int
-  val cols: Int
-  val connections: Int
-  protected val matrix: Array[Array[Player]]
+trait Contended extends Matrix with Logged {
   def target = connections - 1
-  def containsRow(row: Int) = 0 until rows contains row
-  def containsCol(col: Int) = 0 until cols contains col
-  def contains(row: Int)(col: Int) = containsRow(row) && containsCol(col)
-
 
   def winner(row: Int, col: Int): Player = {
     List(horizontalWinner _,

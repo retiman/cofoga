@@ -2,7 +2,7 @@ package cofoga
 
 import scala.collection.mutable.HashMap
 
-trait ThreatGroups {
+trait ThreatGroups extends Matrix {
   type Point = Pair[Int, Int]
   type ThreatGroup = Array[Point]
   protected lazy val threats = {
