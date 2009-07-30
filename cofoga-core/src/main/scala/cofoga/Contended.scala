@@ -4,14 +4,14 @@ import Cofoga._
 import Player._
 
 trait Contended extends Matrix with Logged {
-  def target = connections - 1
+  protected def target = connections - 1
 
   def winner(row: Int, col: Int): Player = {
     directions.foreach { f => if (f(row)(col)) return matrix(row)(col) }
     Neither
   }
   
-  def horizontalWinner(row: Int)(col: Int): Boolean = {
+  protected def horizontalWinner(row: Int)(col: Int): Boolean = {
     val player = matrix(row)(col)
     var count = 0
     for (j <- col + 1 until col + connections) 
@@ -27,7 +27,7 @@ trait Contended extends Matrix with Logged {
     return false
   }
 
-  def verticalWinner(row: Int)(col: Int): Boolean = {
+  protected def verticalWinner(row: Int)(col: Int): Boolean = {
     val player = matrix(row)(col)
     var count = 0
     for (i <- row + 1 until row + connections) 
@@ -43,7 +43,7 @@ trait Contended extends Matrix with Logged {
     return false
   }
 
-  def diagupWinner(row: Int)(col: Int): Boolean = {
+  protected def diagupWinner(row: Int)(col: Int): Boolean = {
     val player = matrix(row)(col)
     var count = 0
     for (k <- 1 until connections) 
@@ -59,7 +59,7 @@ trait Contended extends Matrix with Logged {
     return false
   }
 
-  def diagdownWinner(row: Int)(col: Int): Boolean = {
+  protected def diagdownWinner(row: Int)(col: Int): Boolean = {
     val player = matrix(row)(col)
     var count = 0
     for (k <- 1 until connections) 
@@ -75,5 +75,5 @@ trait Contended extends Matrix with Logged {
     return false
   }
 
-  private def directions = List(horizontalWinner _, verticalWinner _, diagupWinner _, diagdownWinner _)
+  protected def directions = List(horizontalWinner _, verticalWinner _, diagupWinner _, diagdownWinner _)
 }
