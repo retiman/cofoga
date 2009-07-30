@@ -12,7 +12,7 @@ object ContendedSpec extends Specification with Contended {
   val cols = COLS
   val connections = CXNS
   protected val matrix = new Array[Array[Player]](rows, cols)
-  def reset = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
+  def reset() = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
   def compute() = for (i <- 0 until rows; j <- 0 until cols) {
     groupsBy(i)(j).foreach { g =>
       g.clear()
@@ -20,7 +20,7 @@ object ContendedSpec extends Specification with Contended {
     }
   }
 
-  "horizontal winner" should { reset.before
+  "horizontal winner" should { reset().before
     "be detected" in {
       matrix(0)(0) = White
       matrix(0)(1) = White
@@ -43,7 +43,7 @@ object ContendedSpec extends Specification with Contended {
     }
   }
 
-  "vertical winner" should { reset.before
+  "vertical winner" should { reset().before
     "be detected" in {
       matrix(0)(0) = White
       matrix(1)(0) = White
@@ -66,7 +66,7 @@ object ContendedSpec extends Specification with Contended {
     }
   }
   
-  "diagonally up winner" should { reset.before
+  "diagonally up winner" should { reset().before
     "be detected" in {
       matrix(0)(3) = White
       matrix(1)(4) = White
@@ -89,7 +89,7 @@ object ContendedSpec extends Specification with Contended {
     }
   }
 
-  "diagonally down winner" should { reset.before
+  "diagonally down winner" should { reset().before
     "be detected" in {
       matrix(3)(3) = White
       matrix(2)(4) = White
@@ -112,7 +112,7 @@ object ContendedSpec extends Specification with Contended {
     }
   }
 
-  "winner computation" should { reset.before
+  "winner computation" should { reset().before
     "be relatively fast" in {
       for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = White
       val branchingFactor = 7
