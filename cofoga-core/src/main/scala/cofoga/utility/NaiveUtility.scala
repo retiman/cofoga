@@ -15,7 +15,7 @@ trait NaiveUtility extends Utility with Logged {
         (tgroup.player, tgroup.count) match {
           case (_, 0)         => ()
           case (White, count) => whites(count - 1) += 1
-          case (Black, count) => blacks(scount - 1) += 1
+          case (Black, count) => blacks(count - 1) += 1
           case _              => ()
         }
       }
