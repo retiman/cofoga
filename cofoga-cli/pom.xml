@@ -7,7 +7,7 @@
   <groupId>cofoga</groupId>
   <artifactId>cofoga-cli</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0RC1</version>
   <name>Cofoga Connect 4 Interface (CLI)</name>
   <description>
     <![CDATA[
@@ -19,7 +19,7 @@
     <dependency>
       <groupId>cofoga</groupId>
       <artifactId>cofoga-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.0RC1</version>
     </dependency>
     <dependency>
       <groupId>org.scala-lang</groupId>

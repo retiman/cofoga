@@ -7,7 +7,7 @@
   <groupId>cofoga</groupId>
   <artifactId>cofoga</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0RC1</version>
   <name>Cofoga Connect 4 Game</name>
   <description>
     <![CDATA[
