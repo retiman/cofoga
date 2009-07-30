@@ -6,15 +6,15 @@ import org.apache.commons.logging.LogFactory
 trait Logged {
   protected val _log = LogFactory.getLog(this.getClass)
   protected def log = new {
-    def debug(msg: => String, t: Throwable) = if (_log.isDebugEnabled) _log.debug(msg, t)
-    def debug(msg: => String) = if (_log.isDebugEnabled) _log.debug(msg)
-    def error(msg: => String, t: Throwable) = if (_log.isErrorEnabled) _log.error(msg, t)
-    def error(msg: => String) = if (_log.isErrorEnabled) _log.error(msg)
-    def info(msg: => String, t: Throwable) = if (_log.isInfoEnabled) _log.info(msg, t)
-    def info(msg: => String) = if (_log.isInfoEnabled) _log.info(msg)
-    def trace(msg: => String, t: Throwable) = if (_log.isTraceEnabled) _log.trace(msg, t)
-    def trace(msg: => String) = if (_log.isTraceEnabled) _log.trace(msg)
-    def warn (msg: => String, t: Throwable) = if (_log.isWarnEnabled)  _log.warn(msg, t)
-    def warn (msg: => String) = if (_log.isWarnEnabled)  _log.warn(msg)
+    def debug(any: => Any, t: Throwable) = if (_log.isDebugEnabled) _log.debug(any.toString, t)
+    def debug(any: => Any) = if (_log.isDebugEnabled) _log.debug(any.toString)
+    def error(any: => Any, t: Throwable) = if (_log.isErrorEnabled) _log.error(any.toString, t)
+    def error(any: => Any) = if (_log.isErrorEnabled) _log.error(any.toString)
+    def info(any: => Any, t: Throwable) = if (_log.isInfoEnabled) _log.info(any.toString, t)
+    def info(any: => Any) = if (_log.isInfoEnabled) _log.info(any.toString)
+    def trace(any: => Any, t: Throwable) = if (_log.isTraceEnabled) _log.trace(any.toString, t)
+    def trace(any: => Any) = if (_log.isTraceEnabled) _log.trace(any.toString)
+    def warn (any: => Any, t: Throwable) = if (_log.isWarnEnabled)  _log.warn(any.toString, t)
+    def warn (any: => Any) = if (_log.isWarnEnabled)  _log.warn(any.toString)
   }
 }
