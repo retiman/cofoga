@@ -14,19 +14,19 @@ object NaiveUtilitySpec extends Specification with NaiveUtility
     "compute a slight edge for black" in {
       // Black has 6 threats in unsolved groups vertically and diagonally up
       board.move(0, 0, 1, 1, 2, 2)
-      log.info("The actual utility was: " + utility)
+      log.info("The actual utility for " + board.moveHistory + " was: " + utility)
       utility < 0 mustBe true
     }
     "compute an advantage for white" in {
       // Black has 4 threats in unsolved groups vertically and diagonally up
       // White has a 3-threat though
       board.move(0, 0, 1, 1, 2)
-      log.info("The actual utility was: " + utility)
+      log.info("The actual utility for " + board.moveHistory + " was: " + utility)
       utility > 0 mustBe true
     }
     "compute an advantage for black" in {      
       board.move(0, 0, 2, 0, 4, 0)
-      log.info("The actual utility was: " + utility)
+      log.info("The actual utility for " + board.moveHistory + " was: " + utility)
       utility < 0 mustBe true
     }
   }
