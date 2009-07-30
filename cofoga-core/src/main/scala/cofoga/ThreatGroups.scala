@@ -17,7 +17,7 @@ trait ThreatGroups extends Matrix {
     map
   }
 
-  def directions = List(lr _, du _, ur _, dr _)
+  private def directions = List(lr _, du _, ur _, dr _)
 
   private def lr(row: Int)(col: Int) = {
     for (j <- col until col + connections if containsCol(j))

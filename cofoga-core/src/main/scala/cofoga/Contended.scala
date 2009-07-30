@@ -7,15 +7,10 @@ trait Contended extends Matrix with Logged {
   def target = connections - 1
 
   def winner(row: Int, col: Int): Player = {
-    List(horizontalWinner _,
-         verticalWinner _,
-         diagupWinner _,
-         diagdownWinner _).foreach { f =>
-      if (f(row)(col)) return matrix(row)(col)
-    }
+    directions.foreach { f => if (f(row)(col)) return matrix(row)(col) }
     Neither
   }
-
+  
   def horizontalWinner(row: Int)(col: Int): Boolean = {
     val player = matrix(row)(col)
     var count = 0
@@ -79,4 +74,6 @@ trait Contended extends Matrix with Logged {
       return true
     return false
   }
+
+  private def directions = List(horizontalWinner _, verticalWinner _, diagupWinner _, diagdownWinner _)
 }
