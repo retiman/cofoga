@@ -12,7 +12,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Cont
   protected val filled = new Array[Int](cols)
   protected val history = new Stack[Int]()
   protected var player = White
-  protected var cachedw: Option[Player] = Some(Neither)
+  protected var _winner: Option[Player] = Some(Neither)
   for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 
   def this() = this(ROWS, COLS, CXNS)
@@ -27,7 +27,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Cont
     matrix(row)(col) = player
     filled(col) += 1
     player = player.switch
-    cachedw = None
+    _winner = None
     history push col
     (row, col)
   }
@@ -37,7 +37,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Cont
     matrix(row)(col) = Neither
     filled(col) -= 1
     player = player.switch
-    cachedw = None
+    _winner = None
     history pop
   }
 
@@ -47,12 +47,12 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Cont
     (row, col)
   }
 
-  def winner: Player = cachedw match {
+  def winner: Player = _winner match {
     case Some(player) => player
     case _            => {
       val (row, col) = lastMove
       val player = winner(row, col)
-      cachedw = Some(player)
+      _winner = Some(player)
       player
     }
   }
