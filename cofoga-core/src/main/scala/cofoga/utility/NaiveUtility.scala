@@ -8,17 +8,22 @@ trait NaiveUtility extends ThreatGroups with Utility {
     val score = board.winner match {
       case White => POSITIVE_INFINITY
       case Black => NEGATIVE_INFINITY
-      case _     => eval(board)
+      case _     => computeUtility(board)
     }
     log.info("Evaluated a utility of " + score)
     score
   }
 
-  def eval(board: CofogaBoard): Double = {
+  protected def computeUtility(board: CofogaBoard): Double = {
     0
     /*
     val whites  = new Array[Int](board.connections - 1)
     val blacks  = new Array[Int](board.connections - 1)
+    for (i <- 0 until rows; j <- 0 until cols) {
+      val point = (i, j)
+      val ts = groups(point)
+
+
     horizontalEvaluation(board, whites, blacks)
     verticalEvaluation(board, whites, blacks)
     diagupEvaluation(board, whites, blacks)

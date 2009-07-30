@@ -30,6 +30,7 @@ class CofogaBoard(val rows: Int, val cols: Int, val connections: Int) extends Ma
     filled(col) += 1
     player = player.switch
     cachedw = None
+    threatsAfterMove(row)(col)
     history push col
     (row, col)
   }
@@ -40,6 +41,7 @@ class CofogaBoard(val rows: Int, val cols: Int, val connections: Int) extends Ma
     filled(col) -= 1
     player = player.switch
     cachedw = None
+    threatsAfterUndo(row)(col)
     history pop
   }
 
