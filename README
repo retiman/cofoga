@@ -6,11 +6,11 @@ moves first.  You may set the parameters of the game, and the AI will play a mat
 against you.
 
 HOW TO BUILD
-Download Maven2 (http://maven.apache.org) and type mvn package.  Maven will
+Download Maven2 (http://maven.apache.org) and type `mvn package`.  Maven will
 download the rest of the dependencies for you.
 
 HOW TO RUN
-java -jar cofoga-cli/target/cofoga-*-with-dependencies.jar
+`java -jar cofoga-cli/target/cofoga-*-with-dependencies.jar`
 
 SEARCH
 Cofoga uses min-max algorithm with alpha beta pruning for searching.
