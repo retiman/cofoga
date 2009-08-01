@@ -26,11 +26,13 @@ game.
 
 - Unsolved
 A group that is either completely empty, or has 1, 2, or 3 pieces of the same color
-in it.  This is a group that can be used to win the game.
+in it.  This is a group that can be used to win the game, and a group with more
+pieces of the same color is worth more points.
 
 - Solved
 A group that has a mix of pieces in it.  That is, a group with at least one White
-piece, and one Black piece.
+piece, and one Black piece.  Such a group cannot be used to win the game, and is
+worth zero points in the evaluation.
 
 - Threat
 A group containing 1, 2, or 3 pieces of the same color.
