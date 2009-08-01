@@ -8,7 +8,7 @@ class Settings {
   var cols = COLS
   var connections = CXNS
   var player = White
-  var plies = 2
+  var plies = 8
   override def toString = {
     "Rows: " + rows + "\n" +
     "Columns: " + cols + "\n" +
