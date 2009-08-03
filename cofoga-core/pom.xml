@@ -7,7 +7,7 @@
   <groupId>cofoga</groupId>
   <artifactId>cofoga-core</artifactId>
   <packaging>jar</packaging>
-  <version>1.0RC1</version>
+  <version>1.0RC2-SNAPSHOT</version>
   <name>Cofoga Connect 4 Core Libraries</name>
   <description>
     <![CDATA[
