@@ -1,30 +1,38 @@
 package cofoga
 
+import org.apache.commons.cli.HelpFormatter
+import org.apache.commons.cli.Options
+import org.apache.commons.cli.ParseException
+import org.apache.commons.cli.PosixParser
 import engine.Settings
 import engine.Engine
 import Cofoga._
 import Player._
 
 object Main extends Application with Logged {
+  val settings = new Settings()
+  val help = new HelpFormatter()
+  val options = new Options()
+  val parser = new PosixParser()
+
   override def main(args: Array[String]): Unit = {
-    var settings = new Settings()
-    val iter = args.elements
-    while (iter.hasNext) {
-      iter.next match {
-        case "--rows"  => try { settings.rows = iter.next.toInt } catch { case _: Exception => error }
-        case "--cols"  => try { settings.cols = iter.next.toInt } catch { case _: Exception => error }
-        case "--cxns"  => try { settings.connections = iter.next.toInt } catch { case _: Exception => error }
-        case "--plies" => try { settings.plies = iter.next.toInt } catch { case _: Exception => error }
-        case "--start" => try {
-                            iter.next.toString match {
-                              case "W" => settings.player = White
-                              case "B" => settings.player = Black
-                              case _   => error
-                            }
-                          }
-                          catch { case _: Exception => error }
-        case _         => error
-      }
+    options.addOption("r", "rows", true, "set the number of rows in the game board")
+    options.addOption("c", "cols", true, "set the number of columns in the game board")
+    options.addOption("x", "connections", true, "set the number of pieces that must be connected for a win")
+    options.addOption("p", "plies", true, "set the number of plies (depth) to search")
+    options.addOption("s", "start", true, "set the player you want to play as")
+
+    try {
+      val cmd = parser.parse(options, args)
+      if (cmd hasOption "r") settings.rows        = cmd.getOptionValue("r").toInt
+      if (cmd hasOption "c") settings.cols        = cmd.getOptionValue("c").toInt
+      if (cmd hasOption "x") settings.connections = cmd.getOptionValue("x").toInt
+      if (cmd hasOption "p") settings.plies       = cmd.getOptionValue("p").toInt
+      if (cmd hasOption "s") settings.player      = Player.valueOf(cmd.getOptionValue("s")).getOrElse(White)
+    }
+    catch {
+      case e: NumberFormatException => error()
+      case e: ParseException        => error()
     }
 
     val engine = new Engine(settings) with cofoga.utility.NaiveUtility
@@ -61,19 +69,7 @@ object Main extends Application with Logged {
   }
 
   def error() = {
-    println(help)
-    exit(1)
+    help.printHelp("cofoga", options)
+    System.exit(1)
   }
-  
-  def help = """DESCRIPTION
-               |Cofoga plays a game of Connect 4 with variable sized rows,
-               |columns, and connections (you could play Connect 5 if you
-               |wanted to).
-               |
-               |OPTIONS
-               |--rows NUM   Sets the number of rows (default: 6)
-               |--cols NUM   Sets the number of columns (default: 7)
-               |--cxns NUM   Sets the number of connections (default: 4)
-               |--start W|B  Start as White or Black (default: White)
-               |--plies NUM  Sets the number of plies for the AI (default: 8)""".stripMargin
 }
