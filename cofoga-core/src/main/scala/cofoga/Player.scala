@@ -37,7 +37,9 @@ object Player extends Enumeration {
   }
 
   override def valueOf(s: String): Option[Player] = s match {
+    case "W" => Some(White)
     case "O" => Some(White)
+    case "B" => Some(Black)
     case "X" => Some(Black)
     case _   => None
   }
