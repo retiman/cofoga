@@ -9,6 +9,7 @@
   <packaging>pom</packaging>
   <version>1.0RC2-SNAPSHOT</version>
   <name>Cofoga Connect 4 Game</name>
+  <url>http://github.com/retiman/cofoga/tree/master</url>
   <description>
     A simple Connect 4 game that can be scaled to larger board sizes.
   </description>
@@ -16,13 +17,18 @@
     <name>LousyCoder</name>
     <url>http://www.lousycoder.com</url>
   </organization>
-
   <licenses>
     <license>
       <name>Apache 2</name>
       <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
     </license>
   </licenses>  
+  <scm>
+    <connection>scm:git://github.com/retiman/cofoga.git</connection>
+    <developerConnection>git@github.com:retiman/cofoga.git</developerConnection>
+    <tag>HEAD</tag>
+    <url>http://github.com/retiman/cofoga/tree/master</url>
+  </scm>
 
   <modules>
     <module>cofoga-cli</module>
