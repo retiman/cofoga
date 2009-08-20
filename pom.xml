@@ -10,9 +10,7 @@
   <version>1.0RC2-SNAPSHOT</version>
   <name>Cofoga Connect 4 Game</name>
   <description>
-    <![CDATA[
-      A simple Connect 4 game that can be scaled to larger board sizes.
-    ]]>
+    A simple Connect 4 game that can be scaled to larger board sizes.
   </description>
   <organization>
     <name>LousyCoder</name>
