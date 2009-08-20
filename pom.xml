@@ -51,6 +51,23 @@
     </pluginRepository>
   </pluginRepositories>
 
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>maven.lousycoder.com</id>
+      <name>LousyCoder Maven Repository</name>
+      <url>ftp://lousycoder.com</url>
+      <layout>default</layout>
+    </repository>
+    <snapshotRepository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>maven.lousycoder.com</id>
+      <name>LousyCoder Maven Repository</name>
+      <url>ftp://lousycoder.com</url>
+      <layout>default</layout>
+    </snapshotRepository>
+  </distributionManagement>
+
   <build>
     <pluginManagement>
       <plugins>
@@ -83,6 +100,13 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ftp</artifactId>
+        <version>1.0-alpha-6</version>
+      </extension>
+    </extensions>
   </build>
 
 </project>
