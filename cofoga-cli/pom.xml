@@ -14,6 +14,12 @@
       A command line version of Cofoga.
     ]]>
   </description>
+
+  <parent>
+    <groupId>cofoga</groupId>
+    <artifactId>cofoga</artifactId>
+    <version>1.0RC2-SNAPSHOT</version>
+  </parent>
     
   <dependencies>
     <dependency>
