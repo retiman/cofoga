@@ -1,21 +1,24 @@
 DESCRIPTION
+===========
 Cofoga is a Scalable Connect 4 Game.  You may expand the board to any number
 of rows and columns; you may even choose to play Connect 5, 6, or whatever
 number you wish.  The players are named White and Black, and traditionally, White
 moves first.  You may set the parameters of the game, and the AI will play a match
 against you.
 
-HOW TO BUILD
+INSTALLATION
+============
 Download Maven2 (http://maven.apache.org) and type `mvn package`.  Maven will
 download the rest of the dependencies for you.
 
-HOW TO RUN
-`java -jar cofoga-cli/target/cofoga-*-with-dependencies.jar`
+    java -jar cofoga-cli/target/cofoga-*-with-dependencies.jar
 
 SEARCH
+======
 Cofoga uses min-max algorithm with alpha beta pruning for searching.
 
 DEFINITIONS
+===========
 Assuming a 6x7 and 4 pieces that must be connected for a victory, here are some
 definitions, and then an explanation of the evaluation algorithm.
 
@@ -41,6 +44,7 @@ Groups are calculated when the game is initalized, and threats are calculated
 on each move and undo.
 
 UTILITY
+=======
 White's 1, 2, and 3 threats are worth 3, 9, and 27 points respectively.  Black's
 1, 2, and 3 threats are worth -3, -9, -27 points respectively.  The overall utility
 is the value of White's threats minus the value of Black's threats.  My opinion
