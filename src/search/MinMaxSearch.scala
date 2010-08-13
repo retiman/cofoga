@@ -43,7 +43,7 @@ trait MinMaxSearch extends Search with Logged {
       return (0, utility)
     var value = POSITIVE_INFINITY
     var beta_ = beta
-    var best  = 0    
+    var best  = 0
     val legals = board.legalMoves
     val (r, c) = board.lastMove
     legals.map(m => (m, abs(m-c))).toList.sortWith((t1,t2) => t1.snd < t2.snd).map(_.fst).foreach { m =>
