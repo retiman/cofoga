@@ -1,7 +1,8 @@
 package cofoga.utility
 
-import Cofoga._
-import Player._
+import cofoga._
+import cofoga.Cofoga._
+import cofoga.Player._
 
 trait NaiveUtility extends Utility with Logged {
   def utility = board.winner match {

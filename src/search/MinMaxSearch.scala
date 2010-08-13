@@ -1,7 +1,8 @@
 package cofoga.search
 
-import Cofoga._
-import Player._
+import cofoga._
+import cofoga.Cofoga._
+import cofoga.Player._
 
 trait MinMaxSearch extends Search with Logged {
   def terminal(board: GameBoard, depth: Int) = board.winner != Neither || depth == halfPlies
