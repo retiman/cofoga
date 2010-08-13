@@ -10,7 +10,7 @@ class GameBoard(val rows: Int, val cols: Int, val connections: Int) extends Matr
                                                                     with Formatted
                                                                     with Logged {
   require(rows > 0 && cols > 0 && connections > 0)
-  override protected val matrix = new Array[Array[Player]](rows, cols)
+  override protected val matrix = Array.ofDim[Player](rows, cols)
   protected val filled = new Array[Int](cols)
   protected val history = new Stack[Int]()
   protected var player = White
