@@ -1,5 +1,6 @@
 package cofoga.search
 
+import scala.math._
 import cofoga._
 import cofoga.Cofoga._
 import cofoga.Player._
@@ -21,7 +22,7 @@ trait MinMaxSearch extends Search with Logged {
     var best   = 0
     val legals = board.legalMoves
     val (r, c) = board.lastMove
-    legals.map(m => (m, Math.abs(m-c))).toList.sort((t1,t2) => t1.snd < t2.snd).map(_.fst).foreach { m =>
+    legals.map(m => (m, abs(m-c))).toList.sortWith((t1,t2) => t1.snd < t2.snd).map(_.fst).foreach { m =>
       board.move(m)
       val (b, v) = min(board, depth + 1, alpha_, beta)
       if (v > value) {
@@ -45,7 +46,7 @@ trait MinMaxSearch extends Search with Logged {
     var best  = 0    
     val legals = board.legalMoves
     val (r, c) = board.lastMove
-    legals.map(m => (m, Math.abs(m-c))).toList.sort((t1,t2) => t1.snd < t2.snd).map(_.fst).foreach { m =>
+    legals.map(m => (m, abs(m-c))).toList.sortWith((t1,t2) => t1.snd < t2.snd).map(_.fst).foreach { m =>
       board.move(m)
       val (b, v) = max(board, depth + 1, alpha, beta_)
       if (v < value) {
