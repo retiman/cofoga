@@ -1,11 +1,8 @@
 package cofoga
 
-import org.specs.runner.JUnit4
 import org.specs.Specification
 import Cofoga._
 import Player._
-
-class ContendedSpecTest extends JUnit4(ContendedSpec)
 
 object ContendedSpec extends Specification with Contended {
   val rows = ROWS

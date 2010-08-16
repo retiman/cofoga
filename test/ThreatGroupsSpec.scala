@@ -5,8 +5,6 @@ import org.specs.Specification
 import Cofoga._
 import Player._
 
-class ThreatGroupsSpecTest extends JUnit4(ThreatGroupsSpec)
-
 object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
   val rows = ROWS
   val cols = COLS

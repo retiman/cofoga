@@ -4,8 +4,6 @@ import org.specs.runner.JUnit4
 import org.specs.Specification
 import Player._
 
-class NaiveUtilitySpecTest extends JUnit4(NaiveUtilitySpec)
-
 object NaiveUtilitySpec extends Specification with NaiveUtility
                                               with Logged {
   val board = new GameBoard() { def m = matrix }

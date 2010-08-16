@@ -5,8 +5,6 @@ import org.specs.Specification
 import Cofoga._
 import Player._
 
-class FormattedSpecTest extends JUnit4(FormattedSpec)
-
 object FormattedSpec extends Specification with Formatted
                                            with Logged {
   val rows = ROWS

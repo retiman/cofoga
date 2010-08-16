@@ -16,7 +16,6 @@ class SimpolProject(info: ProjectInfo) extends DefaultProject(info) {
   override def libraryDependencies = Set(
     "commons-logging" % "commons-logging" % "1.1.1",
     "commons-cli" % "commons-cli" % "1.1",
-    "junit" % "junit" % "4.4" % "test",
     "org.specs" % "specs" % "1.4.1",
     "log4j" % "log4j" % "1.2.13"
   )
