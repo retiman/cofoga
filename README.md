@@ -8,8 +8,12 @@ against you.
 
 INSTALLATION
 ============
-Download Maven2 (http://maven.apache.org) and type `mvn package`.  Maven will
-download the rest of the dependencies for you.
+Cofoga is built using SBT.  Download it from here:
+
+    http://code.google.com/p/simple-build-tool
+
+Run the build script and type `package` to build.  You can run Cofoga with this
+command:
 
     java -jar cofoga-cli/target/cofoga-*-with-dependencies.jar
 
