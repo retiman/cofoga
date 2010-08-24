@@ -2,7 +2,9 @@ package cofoga.utility
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
-import Player._
+import cofoga.Logged
+import cofoga.GameBoard
+import cofoga.Player._
 
 object NaiveUtilitySpec extends Specification with NaiveUtility
                                               with Logged {

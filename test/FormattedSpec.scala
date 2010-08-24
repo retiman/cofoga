@@ -2,8 +2,10 @@ package cofoga.board
 
 import org.specs.runner.JUnit4
 import org.specs.Specification
-import Cofoga._
-import Player._
+import cofoga.Logged
+import cofoga.Formatted
+import cofoga.Cofoga._
+import cofoga.Player._
 
 object FormattedSpec extends Specification with Formatted
                                            with Logged {
