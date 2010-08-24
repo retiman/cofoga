@@ -1,6 +1,6 @@
 import sbt._
 
-class SimpolProject(info: ProjectInfo) extends DefaultProject(info) {
+class Project(info: ProjectInfo) extends DefaultProject(info) {
   override def artifactID            = "cofoga"
   override def dependencyPath        = "project" / "lib"
   override def managedDependencyPath = "project" / "lib_managed"
