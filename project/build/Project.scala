@@ -12,11 +12,13 @@ class SimpolProject(info: ProjectInfo) extends DefaultProject(info) {
 
   val scalaToolsRepository           = "Scala-tools Maven2 Repository" at
                                        "http://scala-tools.org/repo-releases"
+  val lousycoderRepository           = "Lousycoder Maven2 Repository" at
+                                       "http://maven.lousycoder.com"
 
   override def libraryDependencies = Set(
     "commons-logging" % "commons-logging" % "1.1.1",
     "commons-cli" % "commons-cli" % "1.1",
-    "org.specs" % "specs" % "1.4.1",
-    "log4j" % "log4j" % "1.2.13"
+    "log4j" % "log4j" % "1.2.13",
+    "org.specs" %% "specs" % "1.6.5"
   )
 }
