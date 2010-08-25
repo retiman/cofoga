@@ -19,6 +19,6 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
     "commons-logging" % "commons-logging" % "1.1.1",
     "commons-cli" % "commons-cli" % "1.1",
     "log4j" % "log4j" % "1.2.13",
-    "org.specs" %% "specs" % "1.6.5"
+    "org.specs" %% "specs" % "1.6.5" % "test"
   )
 }
