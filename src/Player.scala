@@ -22,7 +22,7 @@ object Player extends Enumeration {
       case _     => require(false, "Can only switch White to Black or vice versa")
                     player
     }
-  
+
     def format = player match {
       case White => "O"
       case Black => "X"

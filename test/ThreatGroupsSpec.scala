@@ -11,7 +11,7 @@ object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
   val connections = CXNS
   protected val matrix = new Array[Array[Player]](rows, cols)
   def reset() = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
-  
+
   "vectors" should { reset().before
     "be resolved from left to right" in {
       lr(0)(0).toList mustEqual List((0, 0), (0, 1), (0, 2), (0, 3))

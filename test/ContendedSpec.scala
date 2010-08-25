@@ -62,7 +62,7 @@ object ContendedSpec extends Specification with Contended {
       winner(2)(0) mustEqual Neither
     }
   }
-  
+
   "diagonally up winner" should { reset().before
     "be detected" in {
       matrix(0)(3) = White

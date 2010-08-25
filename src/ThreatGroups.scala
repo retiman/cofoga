@@ -29,7 +29,7 @@ trait ThreatGroups extends Matrix with Logged {
           case (0, _) => player = Black
                          count  = blacks
           case (_, 0) => player = White
-                         count  = whites                         
+                         count  = whites
           case _      => player = Neither
                          count  = 0
         }
@@ -69,7 +69,7 @@ trait ThreatGroups extends Matrix with Logged {
   }
 
   protected def threatsAfterUndo(row: Int)(col: Int) = groupsBy(row)(col).foreach { _.clear() }
-  
+
   protected def lr(row: Int)(col: Int) = {
     for (j <- col until col + connections if containsCol(j))
       yield (row, j)

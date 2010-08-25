@@ -24,7 +24,7 @@ object NaiveUtilitySpec extends Specification with NaiveUtility
       log.info("The actual utility for " + board.moveHistory + " was: " + utility)
       utility > 0 mustBe true
     }
-    "compute an advantage for black" in {      
+    "compute an advantage for black" in {
       board.move(0, 0, 2, 0, 4, 0)
       log.info("The actual utility for " + board.moveHistory + " was: " + utility)
       utility < 0 mustBe true
