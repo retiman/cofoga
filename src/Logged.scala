@@ -1,10 +1,9 @@
 package cofoga
 
-import org.apache.commons.logging.Log
-import org.apache.commons.logging.LogFactory
+import org.slf4j.LoggerFactory
 
 trait Logged {
-  protected val _log = LogFactory.getLog(this.getClass)
+  protected val _log = LoggerFactory.getLogger(this.getClass)
   protected def log = new {
     def debug(any: => Any, t: Throwable) = if (_log.isDebugEnabled) _log.debug(any.toString, t)
     def debug(any: => Any) = if (_log.isDebugEnabled) _log.debug(any.toString)

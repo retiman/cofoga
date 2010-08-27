@@ -16,9 +16,9 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
                                        "http://maven.lousycoder.com"
 
   override def libraryDependencies = Set(
-    "commons-logging" % "commons-logging" % "1.1.1",
+    "org.slf4j" % "slf4j-api" % "1.6.1",
+    "ch.qos.logback" % "logback-classic" % "0.9.9",
     "commons-cli" % "commons-cli" % "1.1",
-    "log4j" % "log4j" % "1.2.13",
     "org.specs" %% "specs" % "1.6.5" % "test"
   )
 }
