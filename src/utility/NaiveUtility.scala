@@ -3,6 +3,7 @@ package cofoga.utility
 import cofoga._
 import cofoga.Cofoga._
 import cofoga.Player._
+import scala.math._
 
 trait NaiveUtility extends Utility with Logged {
   def utility = board.winner match {
@@ -22,8 +23,8 @@ trait NaiveUtility extends Utility with Logged {
       }
       log.debug("Whites: " + whites.toList)
       log.debug("Blacks: " + blacks.toList)
-      whites.indices.map(k => Math.pow(3, k) * whites(k)).reduceLeft(_ + _) -
-      blacks.indices.map(k => Math.pow(3, k) * blacks(k)).reduceLeft(_ + _)
+      whites.indices.map(k => pow(3, k) * whites(k)).reduceLeft(_ + _) -
+      blacks.indices.map(k => pow(3, k) * blacks(k)).reduceLeft(_ + _)
     }
   }
 }

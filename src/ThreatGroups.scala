@@ -59,7 +59,7 @@ trait ThreatGroups extends Matrix with Logged {
     Map() ++ map
   }
 
-  lazy val groups = pointMap.values.map(Set() ++ _.elements).reduceLeft(_ ++ _)
+  lazy val groups = pointMap.values.map(Set() ++ _.iterator).reduceLeft(_ ++ _)
 
   def groupsBy(row: Int)(col: Int) = pointMap((row, col))
 

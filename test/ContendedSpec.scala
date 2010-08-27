@@ -3,12 +3,13 @@ package cofoga
 import org.specs.Specification
 import Cofoga._
 import Player._
+import scala.math._
 
 object ContendedSpec extends Specification with Contended {
   val rows = ROWS
   val cols = COLS
   val connections = CXNS
-  protected val matrix = new Array[Array[Player]](rows, cols)
+  protected val matrix = Array.ofDim[Player](rows, cols)
   def reset() = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
   def compute() = for (i <- 0 until rows; j <- 0 until cols) {
     groupsBy(i)(j).foreach { g =>
@@ -113,7 +114,7 @@ object ContendedSpec extends Specification with Contended {
     "be relatively fast" in {
       for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = White
       val branchingFactor = 7
-      val states = Math.pow(7, HALF_PLIES)
+      val states = pow(7, HALF_PLIES)
       val pruned = states.toInt / 3
       log.info("Winner computation simulation for " + pruned + " states")
       val start = System.currentTimeMillis

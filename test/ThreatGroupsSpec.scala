@@ -4,12 +4,13 @@ import org.specs.runner.JUnit4
 import org.specs.Specification
 import Cofoga._
 import Player._
+import scala.math._
 
 object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
   val rows = ROWS
   val cols = COLS
   val connections = CXNS
-  protected val matrix = new Array[Array[Player]](rows, cols)
+  protected val matrix = Array.ofDim[Player](rows, cols)
   def reset() = for (i <- 0 until rows; j <- 0 until cols) matrix(i)(j) = Neither
 
   "vectors" should { reset().before
@@ -69,7 +70,7 @@ object ThreatGroupsSpec extends Specification with ThreatGroups with Logged {
       matrix(0)(3) = White
       val group = new ThreatGroup(Array((0, 0), (0, 1), (0, 2), (0, 3)))
       val branchingFactor = 7
-      val states = Math.pow(7, HALF_PLIES)
+      val states = pow(7, HALF_PLIES)
       val pruned = states.toInt / 3
       log.info("Threats computation simulation for " + pruned + " states")
       val start = System.currentTimeMillis
