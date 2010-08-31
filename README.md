@@ -12,11 +12,6 @@ Cofoga is built using SBT.  Download it from here:
 
     http://code.google.com/p/simple-build-tool
 
-Run the build script and type `package` to build.  You can run Cofoga with this
-command:
-
-    java -jar cofoga-cli/target/cofoga-*-with-dependencies.jar
-
 SEARCH
 ======
 Cofoga uses min-max algorithm with alpha beta pruning for searching.
