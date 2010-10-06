@@ -18,7 +18,7 @@ class Project(info: ProjectInfo) extends DefaultProject(info) {
   override def libraryDependencies = Set(
     "org.slf4j" % "slf4j-api" % "1.6.1",
     "ch.qos.logback" % "logback-classic" % "0.9.24",
-    "commons-cli" % "commons-cli" % "1.1",
+    "commons-cli" % "commons-cli" % "1.2",
     "org.specs" %% "specs" % "1.6.5" % "test"
   )
 }
