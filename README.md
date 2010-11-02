@@ -12,6 +12,10 @@ Cofoga is built using SBT.  Download it from here:
 
     http://code.google.com/p/simple-build-tool
 
+Create a script that launches sbt.  Here is an example:
+
+    http://github.com/retiman/homekeeper/blob/master/bin/sbt
+
 SEARCH
 ======
 Cofoga uses min-max algorithm with alpha beta pruning for searching.
